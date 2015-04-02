@@ -12,6 +12,8 @@ gem 'pg'
 gem 'simple_form'
 gem 'slim-rails'
 gem 'thin'
+gem 'paper_trail'
+gem 'cloudinary'
 
 group :development do
   gem 'better_errors'
