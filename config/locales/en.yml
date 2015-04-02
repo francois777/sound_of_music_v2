@@ -21,6 +21,10 @@
 
 en:
   hello: "Hello world"
+  site:
+    site_name: "The Sound of Music"
+    by: "by"
+    author: "Francois van der Hoven"
 
   failure:
     access_denied: Access denied.

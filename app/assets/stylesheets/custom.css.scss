@@ -1,0 +1,21 @@
+p.logo {
+  padding-top: 12px;
+  padding-left: 5px;
+  display: inline-block;
+
+  a {
+    float: left;
+    margin-left: 10px;
+    margin-right: 5px;
+    font-size: 2em;
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: -1px;
+    font-weight: bold;
+    line-height: 1;
+    &:hover {
+      color: white;
+      text-decoration: none;
+    }
+  }
+}
