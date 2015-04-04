@@ -1,0 +1,12 @@
+tr.users
+  td
+    = gravatar_for user, size: 52
+  td
+    = link_to user.name, user_path(user)
+  td
+    = user.email
+  td
+    - if user.admin? 
+      | Admin
+    - else
+      = user.role.titleize  

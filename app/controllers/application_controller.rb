@@ -10,4 +10,18 @@ class ApplicationController < ActionController::Base
   #   devise_parameter_sanitizer.for(:sign_up) << :first_name << :last_name
   #   devise_parameter_sanitizer.for(:account_update) << :first_name << :last_name
   # end
+
+  protect_from_forgery with: :exception
+  # include SessionsHelper  
+
+  private
+
+    def authorize_admin!
+      authenticate_user!
+      unless current_user.admin?
+        flash[:alert] = "You must be an admin to do that."
+        redirect_to root_path
+      end
+    end  
+
 end

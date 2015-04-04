@@ -11,10 +11,26 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150402080802) do
+ActiveRecord::Schema.define(version: 20150403043718) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "instruments", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "category",         default: 0
+    t.integer  "subcategory",      default: 0
+    t.boolean  "tuned",            default: false
+    t.string   "other_names",      default: ""
+    t.string   "performer_title",  default: ""
+    t.string   "origin_period",    default: ""
+    t.integer  "created_by_id",                    null: false
+    t.integer  "last_image_id",    default: 0
+    t.integer  "approval_status",  default: 0
+    t.integer  "rejection_reason", default: 0
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
+  end
 
   create_table "users", force: :cascade do |t|
     t.string   "first_name",             default: "",    null: false

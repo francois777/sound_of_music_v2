@@ -1,5 +1,22 @@
-h3 User
--if @user.name
-  p = "Name: #{@user.name}" 
--if @user.email
-  p = "Email: #{@user.email}"
+h2 Profile
+.row
+  .col-xs-10.col-md-6.col-xs-offset-1.col-md-offset-3
+    = form_for(@user, html: {class: "form-horizontal", role: "form"}) do |f|
+      .form-group
+        = f.label :name, 'Name', class: "col-xs-4 col-md-3 col-lg-3 control-label"
+        .col-lg-5.col-md-6.col-sm-6.col-xs-8
+          = f.text_field :name, class: "form-control", readonly: ""
+      .form-group
+        = f.label :name, 'Email', class: "col-xs-4 col-md-3 col-lg-3 control-label"
+        .col-lg-5.col-md-6.col-sm-6.col-xs-8
+          = f.text_field :email, class: "form-control", readonly: ""
+      .form-group
+        = f.label :name, 'Role', class: "col-xs-4 col-md-3 col-lg-3 control-label"
+        .col-lg-5.col-md-6.col-sm-6.col-xs-8
+          = f.text_field :role, class: "form-control", readonly: "", value: @user.role.titleize
+      .form-group
+        = f.label :created_at, 'Member since', class: "col-xs-4 col-md-3 col-lg-3 control-label"
+        .col-lg-5.col-md-6.col-sm-6.col-xs-8
+          = f.text_field :created_at, class: "form-control", readonly: "", value: @user.created_at.strftime("%d %B %Y")
+
+
