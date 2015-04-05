@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150405011848) do
+ActiveRecord::Schema.define(version: 20150405081021) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,8 +22,8 @@ ActiveRecord::Schema.define(version: 20150405011848) do
 
   create_table "instruments", force: :cascade do |t|
     t.string   "name"
-    t.integer  "category",         default: 0
-    t.integer  "subcategory",      default: 0
+    t.integer  "category_id",      default: 0
+    t.integer  "subcategory_id",   default: 0
     t.boolean  "tuned",            default: false
     t.string   "other_names",      default: ""
     t.string   "performer_title",  default: ""

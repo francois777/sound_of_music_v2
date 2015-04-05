@@ -1,10 +1,6 @@
 $ ->
-  console.log("page has loaded")
-
   show_subcategories = (evt) ->
-    console.log("Executing show_subcategories")
     category = $("#category_select").val()
-    console.log("category = " + category)
     switch category
       when "7", "8", "9"
         $("#subCategory").hide()
@@ -21,6 +17,6 @@ $ ->
       error: (jqXHR, textStatus, errorThrown) ->
         console.log("AJAX Error: #{textStatus}")
       success: (data, textStatus, jqXHR) ->
-        console.log("Dynamic category select OK!")
+        # console.log("Dynamic category select OK!")
 
   show_subcategories()

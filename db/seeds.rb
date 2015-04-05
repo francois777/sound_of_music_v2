@@ -23,8 +23,8 @@ Subcategory.create(name: 'Plucked', category_id: strings_cat.id )
 Subcategory.create(name: 'Hit', category_id: strings_cat.id )
 Subcategory.create(name: 'Other string', category_id: strings_cat.id )
 
-Subcategory.create(name: 'Membrabophones', category_id: percussion_cat.id )
-Subcategory.create(name: 'Idiophones', category_id: percussion_cat.id )
+Subcategory.create(name: 'Membrabophone', category_id: percussion_cat.id )
+Subcategory.create(name: 'Idiophone', category_id: percussion_cat.id )
 
 Subcategory.create(name: 'Edge blown', category_id: woodwind_cat.id )
 Subcategory.create(name: 'Single reed', category_id: woodwind_cat.id )

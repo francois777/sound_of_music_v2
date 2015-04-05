@@ -1,6 +1,8 @@
 class Instrument < ActiveRecord::Base
 
   belongs_to :created_by, class_name: 'User'
+  belongs_to :category
+  belongs_to :subcategory
 
   enum approval_status: [:submitted, :approved, :to_be_revised]
   enum rejection_reason: [:not_applicable, :incorrect_facts]

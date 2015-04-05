@@ -8,14 +8,14 @@ describe Instrument do
 
     before do
       @user = create(:user)
-      category = create(:strings)
-      subcategory = create(:bowed)
+      @category = create(:strings)
+      @subcategory = create(:bowed)
       @instrument = Instrument.new(
         name: 'Alto saxophone', 
         other_names: 'Alto Sax', 
         performer_title: 'Saxist', 
-        category: category,
-        subcategory: subcategory,
+        category: @category,
+        subcategory: @subcategory,
         origin_period: '1600',
         approval_status: 0,
         rejection_reason: 0,
@@ -42,6 +42,18 @@ describe Instrument do
     it "must have a valid factory" do
       instrument_fact = FactoryGirl.build(:instrument, name: 'Nice instrument', created_by: @user)
       expect(instrument_fact).to be_valid
+    end
+
+    it "must find the user who created the instrument" do
+      expect(@instrument.created_by).to eq(@user)
+    end
+
+    it "must find the instrument's category" do
+      expect(@instrument.category).to eq(@category)
+    end
+
+    it "must find the instrument's subcategory" do
+      expect(@instrument.subcategory).to eq(@subcategory)
     end
 
   end
