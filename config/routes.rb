@@ -4,6 +4,7 @@ Rails.application.routes.draw do
 
   resources :users, only: :show 
 
+  get 'instruments/update_subcategories', as: 'update_subcategories'
   resources :instruments do
     member do
       post :submit
