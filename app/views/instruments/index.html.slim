@@ -1,0 +1,27 @@
+- provide(:title, 'Instruments')
+
+h1 Musical Instruments
+.row
+  .col-md-8.col-xs-10.col-md-offset-2.col-xs-offset-1
+    .table-responsive
+      table.table.instruments
+        thead
+          tr
+            td
+              b Instrument name
+            td
+              b Performer
+            td
+              b Type of instrument
+        tbody
+          - if @instruments.any?
+            = will_paginate @instruments
+    
+.row
+  .actions
+    - if @instruments.none?
+      p No instruments exist
+    - if signed_in?      
+      .button.btn
+        = link_to 'New instrument', new_instrument_path
+        
