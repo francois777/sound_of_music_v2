@@ -50,6 +50,11 @@ html {
     text-align: center;
   }
 
+  form.form-horizontal {
+    margin-top: 2em;
+    margin-bottom: 2em;
+  }
+
   .actions {
     text-align: center;
     margin-bottom: 1em;
@@ -63,6 +68,10 @@ html {
       border-radius: 4px;
       padding: 6px 12px;
       vertical-align: middle;
+      &:hover {
+        font-size: 1.1em;
+        color: #9DF;
+      }
     }
   }
 
@@ -75,14 +84,14 @@ html {
 
   table.instruments {
     tbody tr {
-      background-color: #6BE8D6;
+      // background-color: #6BE8D6;
       font-size: 1.1em;
       > td {
         vertical-align: middle;
       }
     }
     thead {
-      background-color: #54B5A7; 
+      // background-color: #54B5A7; 
       font-size: 1.2em;
     }
   }

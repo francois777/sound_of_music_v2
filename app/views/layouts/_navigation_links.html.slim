@@ -3,9 +3,9 @@
 = link_to root_path, class: 'navbar-brand' do
   i.glyphicon.glyphicon-home
 - if user_signed_in?
-  - if current_user.admin? || (['approver', 'owner'].include? current_user.role)
+  - if policy(User).index?
     li = link_to 'Users', admin_users_path
-  li = link_to 'Profile', user_path(@user)
+  li = link_to 'Profile', user_path(current_user)
   li = link_to 'Edit account', edit_user_registration_path
   li = link_to 'Sign out', destroy_user_session_path, :method=>'delete'
 - else

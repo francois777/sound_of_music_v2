@@ -2,6 +2,7 @@
 
 h1 Musical Instruments
 .row
+  = will_paginate @instruments
   .col-md-8.col-xs-10.col-md-offset-2.col-xs-offset-1
     .table-responsive
       table.table.instruments
@@ -12,10 +13,12 @@ h1 Musical Instruments
             td
               b Performer
             td
-              b Type of instrument
+              b Category
         tbody
           - if @instruments.any?
-            = will_paginate @instruments
+            = render @instruments
+.row
+  = will_paginate @instruments
     
 .row
   .actions

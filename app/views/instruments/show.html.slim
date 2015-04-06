@@ -1,0 +1,47 @@
+- provide(:title, @instrument.name)
+h1 
+  = @instrument.name
+h2 
+  = "Classification: #{@instrument.category.name}"
+  em = " / #{@instrument.subcategory.name}"
+
+.row
+  = form_for(@instrument, :html => {class: "form-horizontal", :role => "form"}) do |f|
+    - if !@instrument.other_names.empty?
+      .form-group
+        = f.label :other_names, 'Other names', class: 'col-sm-3 col-sm-offset-1 control-label'
+        .col-sm-4
+          = f.text_field :other_names, :readonly => "", :value => @instrument.other_names, class: 'form-control'
+    .form-group
+      = f.label :performer, 'Performer title', class: 'col-sm-3 col-sm-offset-1 control-label'
+      .col-sm-4
+        = f.text_field :performer, :readonly => "", :value => @instrument.performer_title, class: 'form-control'
+    - unless @instrument.origin_period.empty?
+      .form-group
+        = f.label :origin_period, 'Origin period', class: 'col-sm-3 col-sm-offset-1 control-label'
+        .col-sm-4
+          = f.text_field :origin_period, :readonly => "", :value => @instrument.origin_period, class: 'form-control'
+    - if policy(@instrument).approve?
+      .form-group
+        = f.label :created_by_id, 'Created by', class: 'col-sm-3 col-sm-offset-1 control-label'
+        .col-sm-4
+          = f.text_field :created_by_id, readonly: "", value: @instrument.created_by.name, class: 'form-control'
+    .form-group
+      = f.label :approval_status, 'Approval status', class: 'col-sm-3 col-sm-offset-1 control-label'
+      .col-sm-2
+        = f.text_field :approval_status, readonly: "", value: @instrument.approval_status_display, class: 'form-control'
+    - unless @instrument.not_rejected?
+      .form-group
+        = f.label :rejection_reason, 'Rejection reason', class: 'col-sm-3 col-sm-offset-1 control-label'
+        .col-sm-2
+          = f.text_field :rejection_reason, readonly: "", value: @instrument.rejection_reason_display, class: 'form-control'  
+.row
+  .actions
+    - if current_user
+      - if policy(@instrument).edit?    
+        .button.btn
+          = link_to 'Edit', edit_instrument_path(@instrument) 
+      - if policy(@instrument).submit?   
+        = render 'submit'  
+      - if policy(@instrument).approve?        
+        = render 'approve'

@@ -1,0 +1,5 @@
+= render 'shared/error_messages', object: f.object
+  .form-group
+    = f.label :rejection_reason, 'Rejection reason', class: 'col-sm-2 col-sm-offset-1 control-label'
+    .col-sm-6
+      = f.select :rejection_reason, options_for_rejection, { include_blank: t(:select_rejection_reason, scope: [:prompts]) }, class: "form-control"

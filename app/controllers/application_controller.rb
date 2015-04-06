@@ -11,15 +11,17 @@ class ApplicationController < ActionController::Base
   #   devise_parameter_sanitizer.for(:account_update) << :first_name << :last_name
   # end
 
+  include Pundit
+
   protect_from_forgery with: :exception
   # include SessionsHelper  
 
   private
 
-    def authorize_admin!
+    def allowed_to_approve!
       authenticate_user!
-      unless current_user.admin?
-        flash[:alert] = "You must be an admin to do that."
+      unless current_user.admin? || (['approver', 'owner'].include? current_user.role)
+        flash[:alert] = "You must be an approver to do that."
         redirect_to root_path
       end
     end  

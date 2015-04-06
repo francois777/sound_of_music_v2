@@ -1,5 +1,5 @@
 class Admin::BaseController < ApplicationController
-  before_action :authorize_admin!
+  before_action :allowed_to_approve!
 
 
 end

@@ -1,0 +1,9 @@
+- provide(:title, 'Update instrument')
+
+h1 Update Instrument
+#instrument-form
+  = form_for(@instrument, html: {class: "form-horizontal", role: "form"}) do |f|
+    = render 'fields', f: f
+    .col-sm-3.col-sm-offset-4.button
+      = f.submit 'Save changes', class: "btn btn-large btn-primary"
+    

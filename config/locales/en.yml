@@ -26,5 +26,16 @@ en:
     by: "by"
     author: "Francois van der Hoven"
 
+  success:
+    instrument_created: Musical instrument has been created.
+    instrument_to_be_revised: The author is requested to revise this instrument.
+    instrument_updated: Musical instrument has been updated.
+  
   failure:
     access_denied: Access denied.
+    instrument_create_failed: The musical instrument could not be created.
+    instrument_not_found: The instrument you were looking for could not be found.
+    instrument_not_saved: Instrument could not be saved.
+    instrument_submission_not_allowed: Submission of instrument not allowed.
+    instrument_update_failed: The musical instrument could not be updated.
+
