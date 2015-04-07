@@ -31,8 +31,6 @@ class InstrumentPolicy < ApplicationPolicy
   end
 
   def submit?
-    puts "Inside InstrumentPolicy#submit?"
-    puts @instrument.inspect
     return true if @instrument.new_record?
     @author == @current_user and @instrument.to_be_revised?
   end

@@ -2,6 +2,7 @@
 
 = link_to root_path, class: 'navbar-brand' do
   i.glyphicon.glyphicon-home
+  li = link_to 'Instruments', instruments_path  
 - if user_signed_in?
   - if policy(User).index?
     li = link_to 'Users', admin_users_path

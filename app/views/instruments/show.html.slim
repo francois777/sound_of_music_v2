@@ -3,7 +3,7 @@ h1
   = @instrument.name
 h2 
   = "Classification: #{@instrument.category.name}"
-  em = " / #{@instrument.subcategory.name}"
+  em = " / #{@instrument.subcategory.name}" if @instrument.subcategory
 
 .row
   = form_for(@instrument, :html => {class: "form-horizontal", :role => "form"}) do |f|

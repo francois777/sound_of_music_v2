@@ -22,11 +22,9 @@ RSpec.describe 'instruments/index' do
     end
 
     it "displays both instruments" do
-      # allow(devise.sessions).to receive(:signed_in).and_return true
-      # @request.env["devise.mapping"] = Devise.mappings[:user]
-      skip "undefined method `env' for nil:NilClass"
-      # sign_in nil
+      allow(view).to receive_messages(:will_paginate => nil)
       render
+      page = Capybara::Node::Simple.new(rendered)
 
       expect(rendered).to match /Instruments/
       expect(rendered).to match /Guitar/

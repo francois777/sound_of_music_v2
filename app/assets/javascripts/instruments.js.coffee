@@ -1,7 +1,7 @@
 $ ->
   show_subcategories = (evt) ->
-    category = $("#category_select").val()
-    switch category
+    category_id = $("#category_select").val()
+    switch category_id
       when "7", "8", "9"
         $("#subCategory").hide()
       when "10", "11", "12"
@@ -12,7 +12,7 @@ $ ->
       type: 'GET'
       dataType: 'script'
       data: {
-        category: $("#category_select option:selected").val()
+        category_id: $("#category_select option:selected").val()
       }
       error: (jqXHR, textStatus, errorThrown) ->
         console.log("AJAX Error: #{textStatus}")
