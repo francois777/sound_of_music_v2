@@ -55,10 +55,9 @@ describe Article do
   end
 
   it "cannot have a rejection_reason when not requesting a review" do
-    skip "Unexpected behaviour in model validation"
-    @article.approval_status = 0
-    @article.rejection_reason = 1
-    expect(@article).not_to be_valid
+    @article.approval_status = :incomplete
+    @article.rejection_reason = :grammar_and_spelling
+    expect { @article.save! }.to raise_error
   end
 
 
