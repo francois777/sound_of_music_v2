@@ -37,11 +37,12 @@ h2
           = f.text_field :rejection_reason, readonly: "", value: @instrument.rejection_reason_display, class: 'form-control'  
 .row
   .actions
-    - if current_user
-      - if policy(@instrument).edit?    
-        .button.btn
-          = link_to 'Edit', edit_instrument_path(@instrument) 
-      - if policy(@instrument).submit?   
-        = render 'submit'  
-      - if policy(@instrument).approve?        
-        = render 'approve'
+    .col-xs-offset-1.col-sm-offset-3.col-md-offset-4.col-xs-10.col-sm-6.col-md-4
+      - if current_user
+        - if policy(@instrument).edit?    
+          .button.btn
+            = link_to 'Edit', edit_instrument_path(@instrument) 
+        - if policy(@instrument).submit?   
+          = render 'submit'  
+        - if policy(@instrument).approve?        
+          = render 'approve'

@@ -1,5 +1,5 @@
-= form_for ([@instrument]), html: {class: "form-horizontal secondary", role: "form"}, method: :post, url: { action: "submit" } do |f|
-  .col-sm-2.col-sm-offset-4.button
+= form_for ([@instrument]), html: {class: "form-horizontal buttons", role: "form"}, method: :post, url: { action: "submit" } do |f|
+  .button
     = f.submit 'Submit', class: "btn btn-large btn-success"
-  .col-sm-2.button
+  .button
     = f.submit 'Delete', class: "btn btn-large btn-danger"

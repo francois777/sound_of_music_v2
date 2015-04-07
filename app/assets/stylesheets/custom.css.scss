@@ -16,9 +16,6 @@ h1, h2, h3, h4 {
   text-align: center;
 }
 
-section.footer {
-}
-
 body, html {
   height: 100%;
   padding: 0;
@@ -57,6 +54,8 @@ html {
 
   .actions {
     text-align: center;
+    // margin-left: 20%;
+    // margin-right: 20%;
     margin-bottom: 1em;
     a {
       color: white;
@@ -66,7 +65,7 @@ html {
       background-color: #337AB7;
       border: 1px solid #2E6DA4;
       border-radius: 4px;
-      padding: 6px 12px;
+      padding: 8px 12px;
       vertical-align: middle;
       &:hover {
         font-size: 1.1em;
@@ -95,6 +94,35 @@ html {
       font-size: 1.2em;
     }
   }
+
+  /*   Miscelleneous   */
+  div.pagination {
+    margin: 5px 0;
+  }
+
+  div.button {
+    float: left;
+    margin-left: 10px;
+    margin-right: 0;
+    .btn {
+      padding-left: 5px;
+      padding-right: 5px;
+    }
+  }
+
+  form.buttons {
+    height: 40px;
+    text-align: center;
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+
+  // .btn {
+  //   // padding-top: 4px;
+  //   // padding-bottom: 4px;
+  //   margin-right: 0;
+  // }
+
 
   /*   Error-handling   */
   #error_explanation {

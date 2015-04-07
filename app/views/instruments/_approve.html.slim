@@ -1,6 +1,6 @@
-= form_for ([@instrument]), html: {class: "form-horizontal secondary", role: "form"}, method: :post, url: { controller: "admin/instruments", action: "approve" }   do |f|
+= form_for ([@instrument]), html: {class: "form-horizontal buttons", role: "form"}, method: :post, url: { controller: "admin/instruments", action: "approve" }   do |f|
   = render 'rejection_reason', f: f
-  .col-sm-2.col-sm-offset-4.button
+  .button
     = f.submit 'Approve', class: "btn btn-large btn-success"
-  .col-sm-2.button
+  .button
     = f.submit 'Request revision', class: "btn btn-large btn-warning"
