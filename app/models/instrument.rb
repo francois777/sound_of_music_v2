@@ -3,7 +3,9 @@ class Instrument < ActiveRecord::Base
   belongs_to :created_by, class_name: 'User'
   belongs_to :category
   belongs_to :subcategory
-
+  has_many :articles, as: :publishable, dependent: :destroy
+  has_many :themes, dependent: :destroy
+  
   before_save :assign_defaults
 
   enum approval_status: [:submitted, :approved, :to_be_revised]

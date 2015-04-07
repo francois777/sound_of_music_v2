@@ -4,10 +4,10 @@ FactoryGirl.define do
     sequence(:title) { |n| "A historical perspective - version #{n}" }
     publishable { Instrument.first || create(:string_instrument) }
     body "Lorem ipsum..."
-    author { create(:user)  }
-    theme  { create(:theme) }
+    author { User.first || create(:user)  }
+    theme  { Theme.first || create(:instrument_theme) }
     approval_status :submitted
-    rejection_status :not_rejected
+    rejection_reason :not_rejected
   end
 
 end  
