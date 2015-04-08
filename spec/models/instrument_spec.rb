@@ -33,6 +33,7 @@ describe Instrument do
     it { should respond_to(:approval_status) }
     it { should respond_to(:rejection_reason) }
     it { should respond_to(:created_by_id) }
+    it { should respond_to(:approver_id) }
 
     it "must be valid" do
       expect(@user).to be_valid
@@ -56,5 +57,30 @@ describe Instrument do
       expect(@instrument.subcategory).to eq(@subcategory)
     end
 
+    it "must require an approver when instrument is being approved" do
+      @instrument.approval_status = :approved
+      expect { @instrument.save! }.to raise_error
+    end
+
+    it "must require an approver when instrument is being rejected" do
+      @instrument.approval_status = :to_be_revised
+      @instrument.rejection_reason = :incorrect_facts
+      expect { @instrument.save! }.to raise_error
+    end
+
+    it "must permit an approver when instrument is being approved" do
+      approver = create(:approver)
+      @instrument.approver = approver
+      @instrument.approval_status = :approved
+      expect { @instrument.save! }.not_to raise_error
+    end
+
+    it "must permit an approver when instrument is being rejected" do
+      approver = create(:approver)
+      @instrument.approver = approver
+      @instrument.approval_status = :to_be_revised
+      @instrument.rejection_reason = :incorrect_facts
+      expect { @instrument.save! }.not_to raise_error
+    end
   end
 end

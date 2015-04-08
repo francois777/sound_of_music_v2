@@ -3,6 +3,7 @@ class Article < ActiveRecord::Base
   has_paper_trail on: [:update, :destroy]
 
   belongs_to :author, class_name: 'User'
+  belongs_to :approver, class_name: 'User'
   belongs_to :theme
   belongs_to :publishable, polymorphic: true
 

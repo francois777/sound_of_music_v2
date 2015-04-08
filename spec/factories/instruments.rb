@@ -8,6 +8,7 @@ FactoryGirl.define do
     other_names "Some other name"
     origin_period ""
     created_by nil
+    approver nil
     last_image_id 1
     approval_status :submitted
     rejection_reason :not_rejected

@@ -18,6 +18,10 @@ class InstrumentPolicy < ApplicationPolicy
     true
   end
 
+  def index?
+    true
+  end
+
   def edit?
     return true if @author == @current_user or @current_user.admin?
   end
@@ -48,5 +52,17 @@ class InstrumentPolicy < ApplicationPolicy
     flash[:alert] = "No way! This operation is not allowed on musical instruments."
     redirect_to (request.referrer or root_path)
   end
+
+  class Scope < Struct.new(:current_user, :model)
+    def resolve
+      if current_user.user?
+        puts "Evaluating the scope for #{current_user.name}"
+        model.approved || model.where(created_by: current_user)
+      else
+        model.all
+      end
+    end
+  end
+
 
 end

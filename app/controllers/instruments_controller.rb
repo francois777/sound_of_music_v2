@@ -55,8 +55,8 @@ class InstrumentsController < ApplicationController
   end
 
   def index
-    @instruments = Instrument.paginate(page: params[:page])
-    puts "Instrument count = #{Instrument.count}"
+    @instruments = policy_scope(Instrument).paginate(page: params[:page])
+    puts "Returned records = #{@instruments.count}"
   end
 
   def destroy

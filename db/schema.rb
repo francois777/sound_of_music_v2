@@ -21,6 +21,7 @@ ActiveRecord::Schema.define(version: 20150407061154) do
     t.integer  "publishable_id"
     t.string   "publishable_type"
     t.integer  "author_id",                    null: false
+    t.integer  "approver_id"
     t.integer  "theme_id",                     null: false
     t.integer  "approval_status",  default: 0
     t.integer  "rejection_reason", default: 0
@@ -29,6 +30,7 @@ ActiveRecord::Schema.define(version: 20150407061154) do
     t.datetime "updated_at",                   null: false
   end
 
+  add_index "articles", ["approver_id"], name: "index_article_approver", using: :btree
   add_index "articles", ["author_id"], name: "index_article_author", using: :btree
   add_index "articles", ["publishable_id", "publishable_type"], name: "index_articles_on_publishable_id_and_publishable_type", using: :btree
 
@@ -50,6 +52,7 @@ ActiveRecord::Schema.define(version: 20150407061154) do
     t.integer  "rejection_reason", default: 0
     t.datetime "created_at",                       null: false
     t.datetime "updated_at",                       null: false
+    t.integer  "approver_id"
   end
 
   create_table "subcategories", force: :cascade do |t|

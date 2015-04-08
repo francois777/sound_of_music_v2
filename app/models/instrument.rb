@@ -1,6 +1,7 @@
 class Instrument < ActiveRecord::Base
-
+  
   belongs_to :created_by, class_name: 'User'
+  belongs_to :approver,   class_name: 'User'
   belongs_to :category
   belongs_to :subcategory
   has_many :articles, as: :publishable, dependent: :destroy
@@ -22,6 +23,7 @@ class Instrument < ActiveRecord::Base
   validates :performer_title, presence: true, 
                               length: { maximum: 40 }
   validates :origin_period,   length: { maximum: 40 }
+  validate :validate_approver_required, if: "approval_status != 'submitted'"
 
   self.per_page = 10
 
@@ -34,6 +36,12 @@ class Instrument < ActiveRecord::Base
   end
 
   private
+
+    def validate_approver_required
+      if approver_id == nil
+        errors.add(:approval_status, "An approver is required for this action")
+      end
+    end
 
     def assign_defaults
       rejection_reason = :not_rejected
