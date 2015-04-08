@@ -1,6 +1,11 @@
-= form_for ([@instrument]), html: {class: "form-horizontal buttons", role: "form"}, method: :post, url: { controller: "admin/instruments", action: "approve" }   do |f|
-  = render 'rejection_reason', f: f
-  .button
-    = f.submit 'Approve', class: "btn btn-large btn-success"
-  .button
-    = f.submit 'Request revision', class: "btn btn-large btn-warning"
+= form_for ([@instrument]), html: {class: "form-horizontal buttons", role: "form"}, method: :post, url: { controller: "admin/instruments", action: "approve" } do |f|
+  .form-group
+    = f.label :rejection_reason, 'Rejection reason', class: 'col-xs-4 col-sm-4 col-md-4 control-label'
+    .col-xs-7.col-sm-6.col-md-6
+      = f.select :rejection_reason, options_for_instrument_rejection, { include_blank: t(:select_rejection_reason, scope: [:prompts]) }, class: "form-control"
+  .row    
+    .col-xs-8.col-sm-6.col-md-6.col-xs-offset-3.col-sm-offset-4.col-md-offset-4
+      .button
+        = f.submit 'Approve', class: "btn btn-large btn-success"
+      .button
+        = f.submit 'Request revision', class: "btn btn-large btn-warning"

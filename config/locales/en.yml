@@ -27,15 +27,36 @@ en:
     author: "Francois van der Hoven"
 
   success:
+    article_approved: Article has been approved.
+    article_created: Article has been created.
+    article_deleted: Article has been deleted.
+    article_submitted: Article has been submitted.
+    article_to_be_revised: The author is requested to revise this article.
+    article_updated: Article has been updated.
+    instrument_approved: Instrument has been approved.
     instrument_created: Musical instrument has been created.
     instrument_to_be_revised: The author is requested to revise this instrument.
     instrument_updated: Musical instrument has been updated.
+    theme_created: Theme has been created.
+    theme_updated: Theme has been updated.
   
   failure:
     access_denied: Access denied.
+    article_create_failed: Article could not be created.
+    article_not_saved: An error occurred and the article could not be saved.
+    article_not_approved: Article could not be approved.
+    article_not_found: Article could not be found.
+    article_not_saved: Article could not be saved.
+    article_not_submitted: An error occurred and the article could not be submitted.
+    article_request_revision_not_allowed: Requesting revision of article not allowed
+    article_update_failed: Article could not be updated.
+    article_submission_not_allowed: Submission of article not allowed.
+    approval_not_allowed: Approval of article not allowed.
     instrument_create_failed: The musical instrument could not be created.
     instrument_not_found: The instrument you were looking for could not be found.
     instrument_not_saved: Instrument could not be saved.
     instrument_submission_not_allowed: Submission of instrument not allowed.
     instrument_update_failed: The musical instrument could not be updated.
+    rejection_reason_missing: Rejection reason must be selected.
+    rejection_reason_does_not_apply: Rejection reason does not apply when approving.
 
