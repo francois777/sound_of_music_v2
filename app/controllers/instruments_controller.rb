@@ -55,8 +55,17 @@ class InstrumentsController < ApplicationController
   end
 
   def index
-    @instruments = policy_scope(Instrument).paginate(page: params[:page])
-    puts "Returned records = #{@instruments.count}"
+    puts "Index params = #{params}"
+    @context = "Instruments"
+    case params['filter'] 
+    when 'submitted'
+      @instruments = policy_scope(Instrument).submitted.paginate(page: params[:page])
+    when 'under-revision'
+      @instruments = policy_scope(Instrument).to_be_revised.paginate(page: params[:page])  
+    else
+      @instruments = policy_scope(Instrument).paginate(page: params[:page])
+    end
+    
   end
 
   def destroy

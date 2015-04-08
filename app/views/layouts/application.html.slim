@@ -13,6 +13,8 @@ html
       header
         == render 'layouts/navigation'
       .mainpage
+        - if current_user
+          == render 'layouts/role_menu'
         main[role="main"]
           == render 'layouts/messages'
           == yield

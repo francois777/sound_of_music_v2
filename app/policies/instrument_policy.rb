@@ -23,11 +23,15 @@ class InstrumentPolicy < ApplicationPolicy
   end
 
   def edit?
-    return true if @author == @current_user or @current_user.admin?
+    @author == @current_user or @current_user.admin?
+  end
+
+  def submitted?
+    true
   end
 
   def update?
-    return true if @author == current_user or current_user.admin?
+    @author == current_user or current_user.admin?
   end
 
   def destroy?
@@ -55,7 +59,7 @@ class InstrumentPolicy < ApplicationPolicy
 
   class Scope < Struct.new(:current_user, :model)
     def resolve
-      if current_user.user?
+      if current_user and current_user.user?
         puts "Evaluating the scope for #{current_user.name}"
         model.approved || model.where(created_by: current_user)
       else

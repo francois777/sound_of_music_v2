@@ -17,4 +17,9 @@ class UserPolicy < ApplicationPolicy
     ['owner', 'approver'].include? current_user.role
   end
 
+  def approver?
+    return false unless current_user
+    current_user.approver? || current_user.owner?
+  end  
+
 end

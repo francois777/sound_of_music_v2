@@ -1,0 +1,11 @@
+section#role-menu.clearfix
+  - if policy(User).approver?
+    - if @context == 'Instruments'
+      .btn.btn-info.navbar-btn
+        = link_to 'All instruments', instruments_path
+      .btn.btn-info.navbar-btn
+       = link_to 'Submitted', "#{instruments_path}?filter=submitted"
+      .btn.btn-info.navbar-btn
+       = link_to 'Under revision', "#{instruments_path}?filter=under-revision"
+  p
+    = "#{current_user.name}  (#{current_user.role.titleize})"

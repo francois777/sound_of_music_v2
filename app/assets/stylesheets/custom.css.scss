@@ -43,6 +43,10 @@ html {
     margin: 0px 0px -50px 0px;
   }
 
+  nav.navbar-fixed-top .container {
+    width: 100%;
+  }
+
   .center {
     text-align: center;
   }
@@ -52,10 +56,70 @@ html {
     margin-bottom: 2em;
   }
 
+  /*   Menus   */
+  section#role-menu {
+    height: 100px;
+    width: 100%;
+    float: left;
+    background-color: #252525;
+    margin: 0 auto;
+    padding: 1px 30px;
+    
+    font-size: 1.1em;
+    border-top: 1px solid #5a5a5a;
+    .navbar-btn a {
+      color: white;
+    }
+    p {
+      margin-top: 10px;
+      color: #25c9c9;
+      display: block;
+    }
+    ul {
+      display: inline-block;
+      padding: 0;
+      li {
+        float: left;
+        list-style: none;
+        a {
+          color: #25a9a9;
+          &:hover {
+            color: #25d9d9; 
+          }
+        }
+      }
+    }
+  }
+
+  /*   Instruments   */
+  #instrument-form select {
+    border: 1px solid #BBB;
+    margin-top: 2px;
+    height: 34px;
+  }
+
+  table.instruments {
+    tbody tr {
+      // background-color: #6BE8D6;
+      font-size: 1.0em;
+      > td {
+        vertical-align: middle;
+      }
+    }
+    thead {
+      // background-color: #54B5A7; 
+      font-size: 1.0em;
+    }
+  }
+
+  /*   Miscelleneous   */
+  div.pagination {
+    margin: 5px 0;
+  }
+
+  /*   Buttons   */
   .actions {
     text-align: center;
-    // margin-left: 20%;
-    // margin-right: 20%;
     margin-bottom: 1em;
     a {
       color: white;
@@ -74,32 +138,6 @@ html {
     }
   }
 
-  /*   Instruments   */
-  #instrument-form select {
-    border: 1px solid #BBB;
-    margin-top: 2px;
-    height: 34px;
-  }
-
-  table.instruments {
-    tbody tr {
-      // background-color: #6BE8D6;
-      font-size: 1.1em;
-      > td {
-        vertical-align: middle;
-      }
-    }
-    thead {
-      // background-color: #54B5A7; 
-      font-size: 1.2em;
-    }
-  }
-
-  /*   Miscelleneous   */
-  div.pagination {
-    margin: 5px 0;
-  }
-
   div.button {
     float: left;
     margin-left: 10px;
@@ -116,13 +154,6 @@ html {
     margin-top: 0;
     margin-bottom: 0;
   }
-
-  // .btn {
-  //   // padding-top: 4px;
-  //   // padding-bottom: 4px;
-  //   margin-right: 0;
-  // }
-
 
   /*   Error-handling   */
   #error_explanation {
@@ -173,13 +204,19 @@ html {
 
 /* Extra small devices, Phones */
 @media only screen and (min-width : 480px) {  
-
 }
 
 /* Small devices, Tablets */
 @media only screen and (min-width : 768px) {
+  section#role-menu {
+    height: 52px;
+    p {
+      float: right;
+    }
+  }
 }
 
 /* Media Devices, Desktops */
 @media only screen and (min-width : 992px) {
+
 }

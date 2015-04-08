@@ -27,7 +27,7 @@ Rails.application.routes.draw do
     end
   end  
 
-  root to: 'static_pages#home'
+  root to: 'instruments#index'
   match '/home',  to: 'static_pages#home',  via: 'get'
 
 end

@@ -5,3 +5,6 @@ tr
     = instrument.performer_title
   td
     = instrument.category.name
+  - if policy(User).approver?
+    td
+      = instrument.approval_status.titleize  
