@@ -55,7 +55,6 @@ class InstrumentsController < ApplicationController
   end
 
   def index
-    puts "Index params = #{params}"
     @context = "Instruments"
     case params['filter'] 
     when 'submitted'

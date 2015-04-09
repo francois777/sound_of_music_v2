@@ -15,7 +15,7 @@ h1 Musical Instruments
               b Performer
             td
               b Category
-            - if policy(User).approver?
+            - if current_user and policy(User).approver?
               td
                 b Status  
         tbody
@@ -26,11 +26,11 @@ h1 Musical Instruments
     = will_paginate @instruments
     
 .row
-  .actions
-    .col-xs-offset-4.col-sm-offset-5.col-md-offset-5.col-xs-3.col-sm-3.col-md-2
-      - if @instruments.none?
-        p No instruments exist
+  .col-xs-offset-4.col-sm-offset-5.col-md-offset-5.col-xs-3.col-sm-3.col-md-2
+    - if @instruments.none?
+      p No instruments exist
       - if signed_in?      
-        .button.btn
-          = link_to 'New instrument', new_instrument_path
+        .actions
+          .button.btn
+            = link_to 'New instrument', new_instrument_path
         

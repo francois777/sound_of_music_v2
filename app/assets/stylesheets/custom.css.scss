@@ -112,8 +112,19 @@ html {
     }
   }
 
-  #instrument_rejection_reason {
-    margin-top: 10px;
+  #approval-decision form {
+    background-color: #e2e2e2;
+    height: 105px;
+    padding-top: 10px;
+    margin: 0 auto;
+    width: 88%;
+  }
+
+  #submit-decision {
+    margin-top: 0;
+    form {
+      margin: 0 auto;
+    }
   }
 
   /*   Miscelleneous   */
@@ -122,9 +133,16 @@ html {
   }
 
   /*   Buttons   */
+  .buttons {
+    width: 100px;
+  }
   .actions {
     text-align: center;
-    margin-bottom: 1em;
+    // margin: 0 auto 16px auto;
+    display: inline-block;
+    .btn {
+      display: block;
+    }
     a {
       color: white;
       font-size: 1em;
@@ -144,8 +162,7 @@ html {
 
   div.button {
     float: left;
-    margin-left: 10px;
-    margin-right: 0;
+    margin-right: 10px;
     .btn {
       padding-left: 5px;
       padding-right: 5px;
@@ -208,6 +225,11 @@ html {
 
 /* Extra small devices, Phones */
 @media only screen and (min-width : 480px) {  
+
+  #approval-decision form {
+    width: 70%;
+  }
+
 }
 
 /* Small devices, Tablets */
@@ -218,9 +240,17 @@ html {
       float: right;
     }
   }
+
+  #approval-decision form {
+    width: 60%;
+  }
 }
 
 /* Media Devices, Desktops */
 @media only screen and (min-width : 992px) {
+
+  #approval-decision form {
+    width: 50%;
+  }
 
 }

@@ -53,6 +53,7 @@ en:
     article_submission_not_allowed: Submission of article not allowed.
     approval_not_allowed: Approval of article not allowed.
     instrument_create_failed: The musical instrument could not be created.
+    instrument_not_approved: Instrument not approved
     instrument_not_found: The instrument you were looking for could not be found.
     instrument_not_saved: Instrument could not be saved.
     instrument_submission_not_allowed: Submission of instrument not allowed.

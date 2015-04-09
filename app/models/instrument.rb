@@ -13,6 +13,9 @@ class Instrument < ActiveRecord::Base
   enum rejection_reason: [:not_rejected, :incorrect_facts]
 
   default_scope -> { order('name ASC') }
+  scope :own_and_other_instruments, -> (current_user_id) { 
+    where("created_by_id = ? OR approval_status = ?", current_user_id, Instrument.approval_statuses[:approved])
+  } 
 
   validates :name, presence: true,
                    uniqueness: { case_sensitive: false },

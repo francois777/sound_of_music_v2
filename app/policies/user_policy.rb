@@ -19,7 +19,7 @@ class UserPolicy < ApplicationPolicy
 
   def approver?
     return false unless current_user
-    current_user.approver? || current_user.owner?
+    current_user.approver? ? true : false
   end  
 
 end

@@ -19,6 +19,7 @@ class InstrumentPolicy < ApplicationPolicy
   end
 
   def index?
+    puts "Applying index scope for instruments"
     true
   end
 
@@ -43,8 +44,14 @@ class InstrumentPolicy < ApplicationPolicy
     @author == @current_user and @instrument.to_be_revised?
   end
 
-  def approve?
-    !@current_user.user?
+  def approve_info?
+    return false unless @current_user
+    @author == @current_user or @instrument.to_be_revised? or @instrument.submitted?
+  end
+
+  def for_approver?
+    return false unless @current_user and @current_user.approver?
+    @instrument.to_be_revised? or @instrument.submitted?
   end
 
   def update_subcategories?
@@ -59,11 +66,14 @@ class InstrumentPolicy < ApplicationPolicy
 
   class Scope < Struct.new(:current_user, :model)
     def resolve
-      if current_user and current_user.user?
-        puts "Evaluating the scope for #{current_user.name}"
-        model.approved || model.where(created_by: current_user)
+      if current_user 
+        if current_user.user?
+          model.own_and_other_instruments(current_user.id)
+        else
+          model.all
+        end
       else
-        model.all
+        model.approved
       end
     end
   end
