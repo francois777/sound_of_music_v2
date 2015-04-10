@@ -21,7 +21,7 @@ class InstrumentPolicy < ApplicationPolicy
   end
 
   def edit?
-    @author == @current_user or @current_user.admin?
+    (@author == @current_user) or @current_user.admin? or @current_user.approver? or @current_user.owner?
   end
 
   def submitted?
@@ -29,7 +29,11 @@ class InstrumentPolicy < ApplicationPolicy
   end
 
   def update?
-    @author == current_user or current_user.admin?
+    (@author == @current_user) or @current_user.admin? or @current_user.approver? or @current_user.owner?
+  end
+
+  def approve?
+    @instrument.submitted? and @current_user and @current_user.approver?
   end
 
   def destroy?

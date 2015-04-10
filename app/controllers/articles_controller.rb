@@ -36,6 +36,7 @@ class ArticlesController < ApplicationController
   end
 
   def edit
+    authorize @article
   end
 
   def update
@@ -72,7 +73,7 @@ class ArticlesController < ApplicationController
   end
 
   def user_not_authorized
-    flash[:alert] = "You are not allowed to view this article."
+    flash[:alert] = "This article is protected. You may not perform this action.."
     redirect_to (request.referrer || root_path)
   end
 

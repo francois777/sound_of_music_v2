@@ -29,7 +29,7 @@ class Article < ActiveRecord::Base
   end
 
   def not_yet_approved?
-    !(approval_status == :approved)
+    (approval_status == 'incomplete') or (approval_status == 'submitted')
   end
 
   def reason_given_for_rejection?
@@ -46,7 +46,9 @@ class Article < ActiveRecord::Base
     end
 
     def rejected_article_requires_rejection_reason
-      errors.add(:approval_status, 'Must specify rejection reason when requesting a revision') if :not_rejected
+      if rejection_reason == 'not_rejected'
+        errors.add(:approval_status, 'Must specify rejection reason when requesting a revision')
+      end
     end
 
     def rejection_reason_only_applies_when_requesting_revision

@@ -39,164 +39,215 @@ if Subcategory.count == 0
 end
 
 # user = FactoryGirl.create(:user, first_name: 'Nana', last_name: 'Mouskouri')
+if Instrument.count == 0
+  accordion = Instrument.create( name: 'Accordion',
+                                 performer_title: 'Accordionist',
+                                 category: keyboard,
+                                 subcategory: nil,
+                                 origin_period: '1822',
+                                 approval_status: :submitted,
+                                 rejection_reason: :not_rejected,
+                                 created_by: user,
+                                 approver: nil )
+  aeolian_harp = Instrument.create( name: 'Accordion',
+                                 other_names: 'wind harp',
+                                 performer_title: 'Harpist',
+                                 category: strings,
+                                 subcategory: other_string,
+                                 origin_period: '1600',
+                                 approval_status: :submitted,
+                                 rejection_reason: :not_rejected,
+                                 created_by: user,
+                                 approver: nil )
+  alto_sax = Instrument.create( name: 'Alto saxophone',
+                                 other_names: '',
+                                 performer_title: 'Saxist',
+                                 category: woodwind,
+                                 subcategory: single_reed,
+                                 origin_period: '1600',
+                                 approval_status: :submitted,
+                                 rejection_reason: :not_rejected,
+                                 created_by: user,
+                                 approver: nil )
+  dulcimer = Instrument.create( name: 'Appalachian dulcimer',
+                                 other_names: 'Mountain dulcimer',
+                                 performer_title: 'Dulcimer player',
+                                 category: strings,
+                                 subcategory: plucked,
+                                 origin_period: 'unknown',
+                                 approval_status: :submitted,
+                                 rejection_reason: :not_rejected,
+                                 created_by: user,
+                                 approver: nil )
+  bagpipes = Instrument.create( name: 'Bagpipes',
+                                 other_names: '',
+                                 performer_title: 'Piper',
+                                 category: woodwind,
+                                 subcategory: single_reed,
+                                 origin_period: '14th century',
+                                 approval_status: :submitted,
+                                 rejection_reason: :not_rejected,
+                                 created_by: user,
+                                 approver: nil )
+  balalaika = Instrument.create( name: 'Balalaika',
+                                 other_names: '',
+                                 performer_title: 'Balalaika player',
+                                 category: strings,
+                                 subcategory: plucked,
+                                 origin_period: '18th century',
+                                 approval_status: :submitted,
+                                 rejection_reason: :not_rejected,
+                                 created_by: user,
+                                 approver: nil )
+  banjo = Instrument.create( name: 'Banjo',
+                                 other_names: '',
+                                 performer_title: 'Banjoist',
+                                 category: strings,
+                                 subcategory: plucked,
+                                 origin_period: '17th century',
+                                 approval_status: :submitted,
+                                 rejection_reason: :not_rejected,
+                                 created_by: user,
+                                 approver: nil )
+  baritone_sax = Instrument.create( name: 'Baritone saxophone',
+                                 other_names: '',
+                                 performer_title: 'Saxist',
+                                 category: woodwind,
+                                 subcategory: single_reed,
+                                 origin_period: '',
+                                 approval_status: :submitted,
+                                 rejection_reason: :not_rejected,
+                                 created_by: user,
+                                 approver: nil )
+  baryton = Instrument.create( name: 'Baryton',
+                                 other_names: '',
+                                 performer_title: 'Baryton player',
+                                 category: strings,
+                                 subcategory: bowed,
+                                 origin_period: '',
+                                 approval_status: :submitted,
+                                 rejection_reason: :not_rejected,
+                                 created_by: user,
+                                 approver: nil )
+  bass_clarinet = Instrument.create( name: 'Bass clarinet',
+                                 other_names: '',
+                                 performer_title: 'Clarinetist',
+                                 category: woodwind,
+                                 subcategory: double_reed,
+                                 origin_period: '',
+                                 approval_status: :submitted,
+                                 rejection_reason: :not_rejected,
+                                 created_by: user,
+                                 approver: nil )
+  bass_drum = Instrument.create( name: 'Bass drum',
+                                 other_names: '',
+                                 performer_title: 'Drummer',
+                                 category: percussion,
+                                 subcategory: membrabophone,
+                                 origin_period: '',
+                                 approval_status: :submitted,
+                                 rejection_reason: :not_rejected,
+                                 created_by: user,
+                                 approver: nil )
+  basoon = Instrument.create( name: 'Bassoon',
+                                 other_names: '',
+                                 performer_title: 'Bassoonist',
+                                 category: woodwind,
+                                 subcategory: double_reed,
+                                 origin_period: '1712',
+                                 approval_status: :submitted,
+                                 rejection_reason: :not_rejected,
+                                 created_by: user,
+                                 approver: nil )
+  berimbau = Instrument.create( name: 'Berimbau',
+                                 other_names: '',
+                                 performer_title: 'Berimbau player',
+                                 category: strings,
+                                 subcategory: hit,
+                                 origin_period: '1712',
+                                 approval_status: :submitted,
+                                 rejection_reason: :not_rejected,
+                                 created_by: user,
+                                 approver: nil )
+  bodhran = Instrument.create( name: 'Bodrán',
+                                 other_names: '',
+                                 performer_title: 'Bodran player',
+                                 category: percussion,
+                                 subcategory: membrabophone,
+                                 origin_period: '',
+                                 approval_status: :submitted,
+                                 rejection_reason: :not_rejected,
+                                 created_by: user,
+                                 approver: nil )
+end
 
-accordion = Instrument.create( name: 'Accordion',
-                               performer_title: 'Accordionist',
-                               category: keyboard,
-                               subcategory: nil,
-                               origin_period: '1822',
-                               approval_status: :submitted,
-                               rejection_reason: :not_rejected,
-                               created_by: user,
-                               approver: nil )
-aeolian_harp = Instrument.create( name: 'Accordion',
-                               other_names: 'wind harp',
-                               performer_title: 'Harpist',
-                               category: strings,
-                               subcategory: other_string,
-                               origin_period: '1600',
-                               approval_status: :submitted,
-                               rejection_reason: :not_rejected,
-                               created_by: user,
-                               approver: nil )
-alto_sax = Instrument.create( name: 'Alto saxophone',
-                               other_names: '',
-                               performer_title: 'Saxist',
-                               category: woodwind,
-                               subcategory: single_reed,
-                               origin_period: '1600',
-                               approval_status: :submitted,
-                               rejection_reason: :not_rejected,
-                               created_by: user,
-                               approver: nil )
-dulcimer = Instrument.create( name: 'Appalachian dulcimer',
-                               other_names: 'Mountain dulcimer',
-                               performer_title: 'Dulcimer player',
-                               category: strings,
-                               subcategory: plucked,
-                               origin_period: 'unknown',
-                               approval_status: :submitted,
-                               rejection_reason: :not_rejected,
-                               created_by: user,
-                               approver: nil )
-bagpipes = Instrument.create( name: 'Bagpipes',
-                               other_names: '',
-                               performer_title: 'Piper',
-                               category: woodwind,
-                               subcategory: single_reed,
-                               origin_period: '14th century',
-                               approval_status: :submitted,
-                               rejection_reason: :not_rejected,
-                               created_by: user,
-                               approver: nil )
-balalaika = Instrument.create( name: 'Balalaika',
-                               other_names: '',
-                               performer_title: 'Balalaika player',
-                               category: strings,
-                               subcategory: plucked,
-                               origin_period: '18th century',
-                               approval_status: :submitted,
-                               rejection_reason: :not_rejected,
-                               created_by: user,
-                               approver: nil )
-banjo = Instrument.create( name: 'Banjo',
-                               other_names: '',
-                               performer_title: 'Banjoist',
-                               category: strings,
-                               subcategory: plucked,
-                               origin_period: '17th century',
-                               approval_status: :submitted,
-                               rejection_reason: :not_rejected,
-                               created_by: user,
-                               approver: nil )
-baritone_sax = Instrument.create( name: 'Baritone saxophone',
-                               other_names: '',
-                               performer_title: 'Saxist',
-                               category: woodwind,
-                               subcategory: single_reed,
-                               origin_period: '',
-                               approval_status: :submitted,
-                               rejection_reason: :not_rejected,
-                               created_by: user,
-                               approver: nil )
-baryton = Instrument.create( name: 'Baryton',
-                               other_names: '',
-                               performer_title: 'Baryton player',
-                               category: strings,
-                               subcategory: bowed,
-                               origin_period: '',
-                               approval_status: :submitted,
-                               rejection_reason: :not_rejected,
-                               created_by: user,
-                               approver: nil )
-bass_clarinet = Instrument.create( name: 'Bass clarinet',
-                               other_names: '',
-                               performer_title: 'Clarinetist',
-                               category: woodwind,
-                               subcategory: double_reed,
-                               origin_period: '',
-                               approval_status: :submitted,
-                               rejection_reason: :not_rejected,
-                               created_by: user,
-                               approver: nil )
-bass_drum = Instrument.create( name: 'Bass drum',
-                               other_names: '',
-                               performer_title: 'Drummer',
-                               category: percussion,
-                               subcategory: membrabophone,
-                               origin_period: '',
-                               approval_status: :submitted,
-                               rejection_reason: :not_rejected,
-                               created_by: user,
-                               approver: nil )
-basoon = Instrument.create( name: 'Bassoon',
-                               other_names: '',
-                               performer_title: 'Bassoonist',
-                               category: woodwind,
-                               subcategory: double_reed,
-                               origin_period: '1712',
-                               approval_status: :submitted,
-                               rejection_reason: :not_rejected,
-                               created_by: user,
-                               approver: nil )
-berimbau = Instrument.create( name: 'Berimbau',
-                               other_names: '',
-                               performer_title: 'Berimbau player',
-                               category: strings,
-                               subcategory: hit,
-                               origin_period: '1712',
-                               approval_status: :submitted,
-                               rejection_reason: :not_rejected,
-                               created_by: user,
-                               approver: nil )
-bodhran = Instrument.create( name: 'Bodrán',
-                               other_names: '',
-                               performer_title: 'Bodran player',
-                               category: percussion,
-                               subcategory: membrabophone,
-                               origin_period: '',
-                               approval_status: :submitted,
-                               rejection_reason: :not_rejected,
-                               created_by: user,
-                               approver: nil )
 puts "Number of instruments loaded: #{Instrument.count}"
 
-characteristics = Theme.create( subject: :instruments,
-                                name: 'Characteristics')
-construction    = Theme.create( subject: :instruments,
-                                name: 'Construction')
-description     = Theme.create( subject: :instruments,
-                                name: 'Description')
-etymology       = Theme.create( subject: :instruments,
-                                name: 'Etymology')
-history         = Theme.create( subject: :instruments,
-                                name: 'History')
-operation       = Theme.create( subject: :instruments,
-                                name: 'Operation')
-range           = Theme.create( subject: :instruments,
-                                name: 'Range')
-relevance       = Theme.create( subject: :instruments,
-                                name: 'Relevance today')
-technique       = Theme.create( subject: :instruments,
-                                name: 'Technique')
+if Theme.count == 0
+  characteristics = Theme.create( subject: :instruments,
+                                  name: 'Characteristics')
+  construction    = Theme.create( subject: :instruments,
+                                  name: 'Construction')
+  description     = Theme.create( subject: :instruments,
+                                  name: 'Description')
+  etymology       = Theme.create( subject: :instruments,
+                                  name: 'Etymology')
+  history         = Theme.create( subject: :instruments,
+                                  name: 'History')
+  operation       = Theme.create( subject: :instruments,
+                                  name: 'Operation')
+  range           = Theme.create( subject: :instruments,
+                                  name: 'Range')
+  relevance       = Theme.create( subject: :instruments,
+                                  name: 'Relevance today')
+  technique       = Theme.create( subject: :instruments,
+                                  name: 'Technique')
+end
+
+characteristics = Theme.where("name = ?", 'Characteristics').first
+construction = Theme.where("name = ?", 'Construction').first
+description = Theme.where("name = ?", 'Description').first
+etymology = Theme.where("name = ?", 'Etymology').first
+history = Theme.where("name = ?", 'History').first
+operation = Theme.where("name = ?", 'Operation').first
+range = Theme.where("name = ?", 'Range').first
+relevance = Theme.where("name = ?", 'Relevance').first
+technique = Theme.where("name = ?", 'Technique').first
+
 puts "Number of themes loaded: #{Theme.count}"
+
+normal_user_1 = User.users.first
+normal_user_2 = User.users.last
+approver = User.approvers.last
+
+Article.delete_all
+Instrument.all.each do |ins|
+  art1 = Article.create!(title: "The early history of #{ins.name}", publishable: ins, approver: nil,
+    body: Faker::Lorem.paragraph(2, false, 3), author: normal_user_1, theme: description,
+    approval_status: :incomplete, rejection_reason: :not_rejected)
+  puts "Article name: #{art1.title}"
+  puts art1.inspect
+  if art1.valid?
+    puts art1.errors.inspect
+  end  
+  art2 = Article.create!(title: "The meaning of #{ins.name}", publishable: ins, approver: nil,
+    body: Faker::Lorem.paragraph(2, false, 3), author: normal_user_1, theme: etymology,
+    approval_status: :submitted, rejection_reason: :not_rejected)
+  puts "Article name: #{art2.title}"
+  art3 = Article.create!(title: "The construction of #{ins.name}", publishable: ins, approver: approver,
+    body: Faker::Lorem.paragraph(2, false, 2), author: normal_user_2, theme: construction,
+    approval_status: :submitted, rejection_reason: :not_rejected)
+  puts "Article name: #{art3.title}"
+  art4 = Article.create!(title: "The history of #{ins.name}", publishable: ins, approver: approver,
+    body: Faker::Lorem.paragraph(2, false, 3), author: normal_user_2, theme: history,
+    approval_status: :approved, rejection_reason: :not_rejected)
+  puts "Article name: #{art4.title}"
+  art5 = Article.create!(title: "The operation of #{ins.name}", publishable: ins, approver: approver,
+    body: Faker::Lorem.paragraph(2, false, 3), author: normal_user_2, theme: operation,
+    approval_status: :approved, rejection_reason: :not_rejected)
+  puts "Article name: #{art5.title}"
+  art6 = Article.create!(title: "Techniques to play the #{ins.name}", publishable: ins, approver: approver,
+    body: Faker::Lorem.paragraph(2, false, 4), author: normal_user_1, theme: technique,
+    approval_status: :to_be_revised, rejection_reason: :grammar_and_spelling)
+  puts "Article name: #{art6.title}"
+end

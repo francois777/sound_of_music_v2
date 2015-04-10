@@ -22,7 +22,10 @@ class ArticlePolicy < ApplicationPolicy
   end
 
   def edit?
-    @author == @current_user or @current_user.admin?
+    return false unless @current_user 
+    return true if @author == @current_user
+    return false if @article.incomplete? or @article.submitted?
+    @current_user.admin? or @current_user.approver? or @current_user.owner?
   end
 
   def submitted?
@@ -30,7 +33,10 @@ class ArticlePolicy < ApplicationPolicy
   end
 
   def update?
-    @author == @current_user or @current_user.admin?
+    return false unless @current_user 
+    return true if @author == @current_user
+    return false if @article.incomplete? or @article.submitted?
+    @current_user.admin? or @current_user.approver? or @current_user.owner?
   end
 
   def destroy?

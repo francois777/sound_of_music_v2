@@ -25,7 +25,7 @@ feature 'Show Article page' do
   scenario 'web site visitor may view submitted article' do
     visit instrument_article_path(@instrument, @submitted_article)
     expect(page).to have_title('Instruments')
-    expect(page).to have_content('You are not allowed to view this article.')
+    expect(page).to have_content('This article is protected. You may not perform this action..')
   end
 
   scenario 'web site visitor may view approved article' do
@@ -53,7 +53,7 @@ feature 'Show Article page' do
     visit instrument_article_path(@instrument, @submitted_article)
 
     expect(page).to have_title('Instruments')
-    expect(page).to have_content('You are not allowed to view this article.')
+    expect(page).to have_content('This article is protected. You may not perform this action..')
   end
 
   scenario "signed-in approver may view all articles" do    

@@ -42,7 +42,7 @@ h2
     .row
       section#approval-decision
         = render 'approve'
-- if false # @instrument.approved?
+- if @instrument.approved?
   .row
     section#article-collection.clearfix
       h2 Articles

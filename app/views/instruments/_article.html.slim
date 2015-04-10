@@ -1,8 +1,17 @@
 .row
   .list-group.col-sm-8.col-sm-offset-2
     - @articles.each do |art|
+
       h4.list-group-item-heading
         = link_to art[:title], instrument_article_path(@instrument,art[:art_id])
+      - if art[:approval_status] == 'incomplete'
+        div.sphere.status-incomplete.pull-right
+      - elsif art[:approval_status] == 'submitted'
+        div.sphere.status-submitted.pull-right
+      - elsif art[:approval_status] == 'approved'
+        div.sphere.status-approved.pull-right
+      - elsif art[:approval_status] == 'rejected'
+        div.sphere.status-rejected.pull-right
       p.list-group-item-text
         Submitted by
         b<
@@ -10,3 +19,4 @@
         span
           on
           = art[:submitted_on].strftime("%d %B %Y")
+         
