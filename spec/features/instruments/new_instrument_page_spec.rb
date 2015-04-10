@@ -26,7 +26,8 @@ feature 'New Instrument page' do
     expect(page).to have_link 'Edit'
   end
 
-  scenario 'signed-in user creates an invalid instrument' do    
+  # Scenario: User creates musical instrument, but make some mistakes
+  scenario 'signed-in user provides incomplete instrument details' do    
     expect(page).to have_title('New instrument')
     click_button 'Create new instrument'
     expect(page).to have_content 'The musical instrument could not be created.'

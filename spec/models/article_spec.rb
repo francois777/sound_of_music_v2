@@ -7,11 +7,19 @@ describe Article do
   before do
     @user1 = create(:user)
     @user2 = create(:user)
+    @approver = create(:approver)
     @category = create(:strings)
     @subcategory = create(:bowed)
     @theme = create(:instrument_theme)
     @instrument = create(:instrument, created_by: @user1, category: @category, subcategory: @subcategory)
-    @article = create(:instrument_article, publishable: @instrument, author: @user2, theme: @theme)
+    @article = Article.create( title: 'The history of the harp', 
+                            publishable: @instrument, 
+                            body: 'This is what happened in the 16th century..',
+                            author: @user1, 
+                            approver: @approver,
+                            approval_status: :approved,
+                            rejection_reason: :not_rejected,
+                            theme: @theme)
   end
 
   subject { @article }
@@ -20,6 +28,7 @@ describe Article do
   it { should respond_to(:body) }
   it { should respond_to(:publishable) }
   it { should respond_to(:author) }
+  it { should respond_to(:approver) }
   it { should respond_to(:theme) }
   it { should respond_to(:approval_status) }
   it { should respond_to(:rejection_reason) }
@@ -29,7 +38,8 @@ describe Article do
   end
 
   it "must have a valid factory" do
-    article_fact = build(:instrument_article)
+    article_fact = FactoryGirl.build(:instrument_article)
+    article_fact.approver = @approver
     expect(article_fact).to be_valid
   end
 
@@ -39,13 +49,19 @@ describe Article do
   end
 
   it "must validate the article's author" do
-    expect(@article.author).to eq(@user2)
+    expect(@article.author).to eq(@user1)
     @article.author = nil
     expect(@article).not_to be_valid
   end
 
+  it "must validate the article's approver" do
+    expect(@article.approver).to eq(@approver)
+    @article.approver = nil
+    expect(@article).not_to be_valid
+  end
+
   it "must validate the article's approval status" do
-    expect(@article.submitted?).to eq(true)
+    expect(@article.approved?).to eq(true)
     expect { @article.approval_status = :unexpected }.to raise_error(ArgumentError)
   end
 

@@ -6,4 +6,10 @@ module ApplicationHelper
     display_reasons
   end
 
+  def options_for_article_rejection
+    display_reasons = {}
+    Article.rejection_reasons.each { |k,v| display_reasons[k.humanize] = v }
+    display_reasons
+  end
+
 end

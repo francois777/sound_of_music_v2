@@ -21,27 +21,34 @@ h2
         = f.label :origin_period, 'Origin period', class: 'col-sm-3 col-sm-offset-2 control-label'
         .col-sm-4
           = f.text_field :origin_period, :readonly => "", :value => @instrument.origin_period, class: 'form-control'
-    - if policy(@instrument).approve_info?
+    - if current_user and policy(@instrument).approve_info?
       .form-group
         = f.label :created_by_id, 'Created by', class: 'col-sm-3 col-sm-offset-2 control-label'
         .col-sm-4
           = f.text_field :created_by_id, readonly: "", value: @instrument.created_by.name, class: 'form-control'
-    .form-group
-      = f.label :approval_status, 'Approval status', class: 'col-sm-3 col-sm-offset-2 control-label'
-      .col-sm-4
-        = f.text_field :approval_status, readonly: "", value: @instrument.approval_status_display, class: 'form-control'
-    - unless @instrument.not_rejected?
+      .form-group
+        = f.label :approval_status, 'Approval status', class: 'col-sm-3 col-sm-offset-2 control-label'
+        .col-sm-4
+          = f.text_field :approval_status, readonly: "", value: @instrument.approval_status_display, class: 'form-control'
       .form-group
         = f.label :rejection_reason, 'Rejection reason', class: 'col-sm-3 col-sm-offset-2 control-label'
         .col-sm-4
           = f.text_field :rejection_reason, readonly: "", value: @instrument.rejection_reason_display, class: 'form-control'  
-.row
-  
-  - if current_user
-    - if policy(@instrument).submit? or policy(@instrument).edit?
-      section#submit-decision
-        = render 'submit'  
-.row
+
+- if current_user
+  section#submit-decision
+    = render 'submit'  
   - if policy(@instrument).for_approver? 
-    section#approval-decision
-      = render 'approve'
+    .row
+      section#approval-decision
+        = render 'approve'
+- if false # @instrument.approved?
+  .row
+    section#article-collection.clearfix
+      h2 Articles
+      - if @articles
+        = render 'article'
+      - else
+        p No articles have been written for this instrument. Please write the first one!
+
+

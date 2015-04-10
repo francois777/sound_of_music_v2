@@ -1,6 +1,9 @@
 = form_for ([@instrument]), html: {class: "form-horizontal buttons", role: "form"}, method: :post, url: { action: "submit" } do |f|
   .row    
     .actions  
+      - if @instrument.approved?
+      .btn.pull-left
+        = link_to "Create article", new_instrument_article_path(@instrument)
       - if policy(@instrument).submit?
         .button
           = f.submit 'Submit', class: "btn btn-large btn-success"

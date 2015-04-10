@@ -10,6 +10,11 @@ Rails.application.routes.draw do
     member do
       post :submit
     end
+    resources :articles do 
+      member do
+        post :submit
+      end
+    end
   end
 
   namespace :admin do

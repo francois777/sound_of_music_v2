@@ -25,7 +25,10 @@ en:
     site_name: "The Sound of Music"
     by: "by"
     author: "Francois van der Hoven"
-
+  prompts:
+    select_instrument_theme: <---Select Instrument Theme--->
+    select_rejection_reason: <---Select Rejection Reason--->
+    select_article_theme: <---Select Article Theme--->
   success:
     article_approved: Article has been approved.
     article_created: Article has been created.
@@ -42,7 +45,7 @@ en:
   
   failure:
     access_denied: Access denied.
-    article_create_failed: Article could not be created.
+    article_create_failed: The article could not be created.
     article_not_saved: An error occurred and the article could not be saved.
     article_not_approved: Article could not be approved.
     article_not_found: Article could not be found.

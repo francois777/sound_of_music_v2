@@ -1,0 +1,14 @@
+= render 'shared/error_messages', object: f.object
+
+.form-group
+  = f.label :title, t(:title, scope: [:activerecord, :attributes, :article]), class: "col-sm-1 col-sm-offset-1 control-label"
+  .col-sm-8
+    = f.text_field :title, class: "form-control"
+.form-group
+  = f.label :theme_id, t(:theme, scope: [:activerecord, :attributes, :article]), class: "col-sm-1 col-sm-offset-1 control-label"
+  .col-sm-8
+    = f.select :theme_id, options_for_select(@instrument_themes.collect { |theme| [theme.name.humanize, theme.id] }, selected: @article.theme_id), {include_blank: t(:select_article_theme, scope: [:prompts])}, {id: 'article_theme_id'}
+.form-group
+  = f.label :body, 'Article', class: "col-sm-1 col-sm-offset-1 control-label"
+  .col-sm-8
+    = f.text_area :body, class: "form-control", :cols => 20, :rows => 10

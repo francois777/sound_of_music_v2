@@ -10,6 +10,10 @@ class User < ActiveRecord::Base
   validates :first_name, presence: true, length: { minimum: 2, maximum: 15 }
   validates :last_name,  presence: true, length: { minimum: 2, maximum: 25 }
 
+  scope :users, -> { User.where("role = ?", User.roles[:user]) }
+  scope :approvers, -> { User.where("role = ?", User.roles[:approver]) }
+  scope :owners, -> { User.where("role = ?", User.roles[:owners]) }
+
   def name
     [first_name, last_name].compact.join(' ')
   end

@@ -1,0 +1,12 @@
+.row
+  .list-group.col-sm-8.col-sm-offset-2
+    - @articles.each do |art|
+      h4.list-group-item-heading
+        = link_to art[:title], instrument_article_path(@instrument,art[:art_id])
+      p.list-group-item-text
+        Submitted by
+        b<
+          = art[:author_name]
+        span
+          on
+          = art[:submitted_on].strftime("%d %B %Y")

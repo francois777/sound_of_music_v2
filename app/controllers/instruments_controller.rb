@@ -4,6 +4,7 @@ class InstrumentsController < ApplicationController
   before_action :set_instrument, except: [:new, :create, :index, :update_subcategories]
 
   def show
+    set_articles
     #authorize @instrument
   end
 
@@ -105,5 +106,26 @@ class InstrumentsController < ApplicationController
       new_params["category_id"] = instrument_params["category_id"].to_i
       new_params["subcategory_id"] = instrument_params["subcategory_id"].to_i
       new_params
-    end    
+    end 
+
+    def set_articles
+      # puts "Executing set_articles"
+      # if current_user.nil? 
+      #   instrument_articles = @instrument.articles.approved
+      #   puts "No current user, approved articles = #{instrument_articles.count}"
+      # elsif current_user.user?
+      #   instrument_articles = @instrument.articles.own_and_other_articles(current_user.id)
+      #   puts "normal user, own and other articles = #{instrument_articles.count}"
+      # else
+      #   instrument_articles = @instrument.articles
+      #   puts "Senior users, all articles = #{instrument_articles.count}"
+      # end  
+      scoped_articles = ArticlePolicy::Scope.new(current_user, @instrument).resolve
+      if scoped_articles
+        @articles = scoped_articles.collect { |art| { art_id: art.id, title: art.title, author_name: art.author.name, email: art.author.email, submitted_on: art.created_at }}
+      else
+        @articles = []
+      end
+    end
+
 end

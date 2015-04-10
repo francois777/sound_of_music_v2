@@ -1,36 +1,36 @@
 - provide(:title, 'Instruments')
 
-h1 Musical Instruments
-.row
-  .col-xs-offset-1.col-md-offset-2
-    = will_paginate @instruments
-  .col-md-8.col-sm-10.col-xs-12.col-md-offset-2.col-sm-offset-1
-    .table-responsive
-      table.table.instruments
-        thead
-          tr
-            td
-              b Instrument name
-            td
-              b Performer
-            td
-              b Category
-            - if current_user and policy(User).approver?
+div#instruments
+  h1 Musical Instruments
+  .row
+    .col-xs-offset-1.col-md-offset-2
+      = will_paginate @instruments
+    .col-md-8.col-sm-10.col-xs-12.col-md-offset-2.col-sm-offset-1
+      .table-responsive
+        table.table.instruments
+          thead
+            tr
               td
-                b Status  
-        tbody
-          - if @instruments.any?
-            = render @instruments
-.row
-  .col-xs-offset-1.col-md-offset-2
-    = will_paginate @instruments
-    
-.row
-  .col-xs-offset-4.col-sm-offset-5.col-md-offset-5.col-xs-3.col-sm-3.col-md-2
-    - if @instruments.none?
-      p No instruments exist
-      - if signed_in?      
+                b Instrument name
+              td
+                b Performer
+              td
+                b Category
+              - if current_user and policy(User).approver?
+                td
+                  b Status  
+          tbody
+            - if @instruments.any?
+              = render @instruments
+  .row
+    .col-xs-offset-1.col-md-offset-2
+      = will_paginate @instruments
+      
+  .row
+    .col-xs-offset-4.col-sm-offset-5.col-md-offset-5.col-xs-3.col-sm-3.col-md-2
+      - if @instruments.none?
+        p No instruments exist
+      -elsif signed_in?      
         .actions
-          .button.btn
+          .btn
             = link_to 'New instrument', new_instrument_path
-        

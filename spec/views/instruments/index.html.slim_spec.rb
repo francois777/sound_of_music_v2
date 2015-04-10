@@ -25,8 +25,8 @@ RSpec.describe 'instruments/index' do
       allow(view).to receive_messages(:will_paginate => nil)
       render
       page = Capybara::Node::Simple.new(rendered)
-
-      expect(rendered).to match /Instruments/
+      
+      expect(rendered).to match /Musical Instruments/
       expect(rendered).to match /Guitar/
       expect(rendered).to match /Banjo/
     end

@@ -14,4 +14,19 @@ FactoryGirl.define do
     rejection_reason :not_rejected
   end
 
+  factory :triangle, class: Instrument do
+    name "Triangle"
+    category { Category.where("name = ?", 'Percussion').first || create(:percussion) }
+    subcategory { Subcategory.where("name = ?", 'Idiophone').first || create(:idiophone) }
+    performer_title 'Percussionist'
+    tuned false
+    other_names ""
+    origin_period "10th century"
+    created_by { User.users.first || create(:user) }
+    approver {User.approvers.first || create(:approver) }
+    last_image_id 0
+    approval_status :approved
+    rejection_reason :not_rejected
+  end    
+
 end

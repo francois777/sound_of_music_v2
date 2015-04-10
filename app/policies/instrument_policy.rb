@@ -2,9 +2,6 @@ class InstrumentPolicy < ApplicationPolicy
   attr_reader :current_user, :model
 
   def initialize(current_user, model)
-    # puts "Inside InstrumentPolicy#initialize"
-    # puts "Current user: #{current_user.inspect}"
-    # puts "Model: #{model.inspect}"
     @current_user = current_user
     @current_role = current_user.role
     @author = model.created_by

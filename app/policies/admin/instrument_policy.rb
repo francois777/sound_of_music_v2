@@ -9,7 +9,6 @@ class Admin::InstrumentPolicy < ApplicationPolicy
   end
 
   def approve?
-    puts "Executing admin instrument policy"
     @instrument.submitted? and @current_user and @current_user.approver?
   end
 end

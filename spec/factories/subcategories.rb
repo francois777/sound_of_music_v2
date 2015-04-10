@@ -7,7 +7,7 @@ FactoryGirl.define do
 
   factory :membranophone, class: Subcategory do
     name 'Membranophone'
-    category nil
+    category { Category.where('name = ?', 'Percussion').first || create(:percussion) }
   end
 
   factory :idiophone, class: Subcategory do
