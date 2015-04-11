@@ -65,8 +65,7 @@ html {
   }
 
   form.form-horizontal {
-    margin-top: 5px;
-    margin-bottom: 20px;
+    margin: 5px 10%;
   }
 
   /*   Menus   */
@@ -103,9 +102,6 @@ html {
       }
     }
   }
-  /*   User forms   */
-  .authform {
-  }
 
   /*   Instruments   */
   #instruments {
@@ -136,8 +132,8 @@ html {
     background-color: #B9D2CB;
     height: 105px;
     padding-top: 10px;
-    margin: 0 auto;
-    width: 88%;
+    margin: 0 35px;
+    width: 80%;
     border-radius: 15px;
   }
 
@@ -186,20 +182,9 @@ html {
     display: inline-block;
     // margin: 5%;
   }
-  // .sphere::after {
-  //   background-color: rgba(255, 255, 255, 0.3);
-  //   content: '';
-  //   height: 45%;
-  //   width: 12%;
-  //   position: absolute;
-  //   top: 4%;
-  //   left: 15%;
-  //   border-radius: 50%;
-  //   transform: rotate(40deg);
-  // }
 
   #article-collection {
-    margin-top: 8px;
+    margin: 8px 10%;
     h2 {
       color: #FFEEB0;
     }
@@ -325,7 +310,8 @@ html {
 @media only screen and (min-width : 480px) {  
 
   #approval-decision form {
-    width: 70%;
+    width: 80%;
+    margin: 0 10%;
   }
 
 }
@@ -339,16 +325,22 @@ html {
     }
   }
 
-  #approval-decision form {
-    width: 60%;
+  form.form-horizontal {
+    margin: 10px 10%;
   }
+
+  // #approval-decision form {
+  //   width: 80%;
+  //   margin: 0 10%;
+  // }
 }
 
 /* Media Devices, Desktops */
 @media only screen and (min-width : 992px) {
 
   #approval-decision form {
-    width: 50%;
+    width: 60%;
+    margin: 0 20%;
   }
 
 }

@@ -12,29 +12,29 @@ h3
 .row
   = form_for ([@subject, @article]), :html => {class: "form-horizontal", :role => "form"} do |f|
     .form-group
-      = f.label :theme, 'Theme', class: 'col-sm-2 col-sm-offset-1 control-label'
-      .col-sm-7
+      = f.label :theme, 'Theme', class: 'col-xs-4 col-sm-3 control-label'
+      .col-xs-8.col-sm-6
         = f.text_field :theme, :readonly => "", :value => @article.theme.name, class: 'form-control'
     .form-group
-      = f.label :author, 'Author', class: 'col-sm-2 col-sm-offset-1 control-label'
-      .col-sm-7
+      = f.label :author, 'Author', class: 'col-xs-4 col-sm-3 control-label'
+      .col-xs-8.col-sm-6
         = f.text_field :author, :readonly => '', :value => @article.author.name, class: 'form-control'
     .form-group
-      = f.label :created_at, 'Created at', class: 'col-sm-2 col-sm-offset-1 control-label'
-      .col-sm-7
+      = f.label :created_at, 'Created at', class: 'col-xs-4 col-sm-3 control-label'
+      .col-xs-8.col-sm-6
         = f.text_field :created_at, readonly: '', value: Time.at(@article.created_at).strftime("%d %B %Y"), class: 'form-control', format: :std
     .form-group
-      = f.label :body, "", class: 'col-sm-2 col-sm-offset-1 control-label'
-      .col-sm-7
+      = f.label :body, "Article", class: 'col-sm-1 control-label'
+      .col-sm-12
         = f.text_area :body, readonly: "", :value => @article.body, class: 'form-control', :rows => 10
     - if policy(@article).view_approval_info?    
       .form-group
-        = f.label :approval_status, 'Approved status', class: 'col-sm-2 col-sm-offset-1 control-label'
-        .col-sm-7
+        = f.label :approval_status, 'Approved status', class: 'col-xs-4 col-sm-3 control-label'
+        .col-xs-8.col-sm-6
           = f.text_field :approval_status, readonly: "", value: @article.approval_status_display, class: 'form-control'
       .form-group
-        = f.label :rejection_reason, 'Rejection reason', class: 'col-sm-2 col-sm-offset-1 control-label'
-        .col-sm-7
+        = f.label :rejection_reason, 'Rejection reason', class: 'col-xs-4 col-sm-3 control-label'
+        .col-xs-8.col-sm-6
           = f.text_field :rejection_reason, readonly: "", value: @article.rejection_reason_display, class: 'form-control'
 
 - if current_user and (policy(@article).submit? or policy(@article).edit?)

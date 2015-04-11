@@ -10,29 +10,29 @@ h2
     - if !@instrument.other_names.empty?
       .form-group
         = f.label :other_names, 'Other names', class: 'col-sm-3 col-sm-offset-2 control-label'
-        .col-sm-4
+        .col-sm-8
           = f.text_field :other_names, :readonly => "", :value => @instrument.other_names, class: 'form-control'
     .form-group
-      = f.label :performer, 'Performer title', class: 'col-sm-3 col-sm-offset-2 control-label'
-      .col-sm-4
+      = f.label :performer, 'Performer title', class: 'col-sm-3 control-label'
+      .col-sm-8
         = f.text_field :performer, :readonly => "", :value => @instrument.performer_title, class: 'form-control'
     - unless @instrument.origin_period.empty?
       .form-group
-        = f.label :origin_period, 'Origin period', class: 'col-sm-3 col-sm-offset-2 control-label'
-        .col-sm-4
+        = f.label :origin_period, 'Origin period', class: 'col-sm-3 control-label'
+        .col-sm-8
           = f.text_field :origin_period, :readonly => "", :value => @instrument.origin_period, class: 'form-control'
     - if current_user and policy(@instrument).approve_info?
       .form-group
-        = f.label :created_by_id, 'Created by', class: 'col-sm-3 col-sm-offset-2 control-label'
-        .col-sm-4
+        = f.label :created_by_id, 'Created by', class: 'col-sm-3 control-label'
+        .col-sm-8
           = f.text_field :created_by_id, readonly: "", value: @instrument.created_by.name, class: 'form-control'
       .form-group
-        = f.label :approval_status, 'Approval status', class: 'col-sm-3 col-sm-offset-2 control-label'
-        .col-sm-4
+        = f.label :approval_status, 'Approval status', class: 'col-sm-3 control-label'
+        .col-sm-8
           = f.text_field :approval_status, readonly: "", value: @instrument.approval_status_display, class: 'form-control'
       .form-group
-        = f.label :rejection_reason, 'Rejection reason', class: 'col-sm-3 col-sm-offset-2 control-label'
-        .col-sm-4
+        = f.label :rejection_reason, 'Rejection reason', class: 'col-sm-3 control-label'
+        .col-sm-8
           = f.text_field :rejection_reason, readonly: "", value: @instrument.rejection_reason_display, class: 'form-control'  
 
 - if current_user
