@@ -16,8 +16,8 @@ class Article < ActiveRecord::Base
   validate :rejection_reason_only_applies_when_requesting_revision
   validate :validate_approver_required, if: "approval_status == 'approved' or approval_status == 'to_be_revised'"
 
-  scope :own_and_other_articles, -> (current_user_id) { 
-    where("author_id = ? OR approval_status = ?", current_user_id, Article.approval_statuses[:approved])
+  scope :own_and_other_articles, -> (user_id) { 
+    where("author_id = ? OR approval_status = ?", user_id, Article.approval_statuses[:approved])
   } 
 
   def approval_status_display

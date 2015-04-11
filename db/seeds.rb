@@ -216,9 +216,9 @@ technique = Theme.where("name = ?", 'Technique').first
 
 puts "Number of themes loaded: #{Theme.count}"
 
-normal_user_1 = User.users.first
-normal_user_2 = User.users.last
-approver = User.approvers.last
+normal_user_1 = User.user.first
+normal_user_2 = User.user.last
+approver = User.approver.last
 
 Article.delete_all
 Instrument.all.each do |ins|

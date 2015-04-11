@@ -22,8 +22,8 @@ FactoryGirl.define do
     tuned false
     other_names ""
     origin_period "10th century"
-    created_by { User.users.first || create(:user) }
-    approver {User.approvers.first || create(:approver) }
+    created_by { User.user.first || create(:user) }
+    approver {User.approver.first || create(:approver) }
     last_image_id 0
     approval_status :approved
     rejection_reason :not_rejected

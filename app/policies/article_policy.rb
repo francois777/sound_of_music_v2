@@ -39,6 +39,10 @@ class ArticlePolicy < ApplicationPolicy
     @current_user.admin? or @current_user.approver? or @current_user.owner?
   end
 
+  def approve?
+    @article.submitted? and @current_user and @current_user.approver?
+  end
+
   def destroy?
     current_user.admin?
   end
@@ -50,7 +54,7 @@ class ArticlePolicy < ApplicationPolicy
 
   def view_approval_info?
     return false unless @current_user
-    @author == @current_user or @article.to_be_revised? or @article.submitted?
+    @author == @current_user or @current_user.approver? #@article.to_be_revised? or @article.submitted?
   end
 
   def for_approver?

@@ -4,19 +4,21 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable, :confirmable,
          :recoverable, :rememberable, :trackable, :validatable
 
+  has_many :created_articles, class_name: 'Article', foreign_key: 'author_id' 
+  has_many :approved_articles, class_name: 'Article', foreign_key: 'approver_id' 
+
   enum role: [:user, :approver, :owner]
   after_initialize :set_default_role, :if => :new_record?
 
   validates :first_name, presence: true, length: { minimum: 2, maximum: 15 }
   validates :last_name,  presence: true, length: { minimum: 2, maximum: 25 }
 
-  scope :users, -> { User.where("role = ?", User.roles[:user]) }
-  scope :approvers, -> { User.where("role = ?", User.roles[:approver]) }
-  scope :owners, -> { User.where("role = ?", User.roles[:owners]) }
+  scope :articles_for, -> (user) { Article.where("author_id = ?", user.id ) }
 
   def name
     [first_name, last_name].compact.join(' ')
   end
+
 
   private
 

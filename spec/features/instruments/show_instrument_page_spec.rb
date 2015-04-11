@@ -35,7 +35,7 @@ feature 'Show Instrument page' do
       expect(page).not_to have_link('Request revision')
     end
 
-    scenario 'signed-in approver may view any submitted instrument' do    
+    scenario 'signed-in approver may approved any submitted instrument' do    
       signin(@approver.email, 'password')
       visit instrument_path(@instrument)
       
@@ -43,7 +43,21 @@ feature 'Show Instrument page' do
       expect(page).to have_link('Edit')
       expect(page).to have_selector("input[type=submit][value='Approve']")
       expect(page).to have_selector("input[type=submit][value='Request revision']")
+
+      click_button 'Approve'
+      expect(page).to have_content('Instrument has been approved')
+      expect(page).to have_title(@instrument.name)
     end
+
+    scenario 'signed-in approver may reject any submitted instrument' do    
+      signin(@approver.email, 'password')
+      visit instrument_path(@instrument)
+      select "Incorrect facts", from: "Rejection reason"
+      click_button 'Request revision'
+      expect(page).to have_content('The author is requested to revise this instrument')
+      expect(page).to have_title(@instrument.name)
+    end
+
   end
 
   context 'Rejected instruments' do
