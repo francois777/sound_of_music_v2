@@ -259,6 +259,12 @@ html {
     margin-bottom: 0;
   }
 
+  #accordion {
+    background-color: #AAA;
+    margin: 20px auto;
+    display: block;
+  }
+
   /*   Error-handling   */
   #error_explanation {
     background-color: #FFDFCC;

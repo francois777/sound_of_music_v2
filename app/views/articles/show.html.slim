@@ -44,3 +44,5 @@ h3
   .row
     section#approval-decision
       = render 'approve'
+  = render "audit_logs", audit_history: @article.versions if @article.versions.any?
+div.clearfix  

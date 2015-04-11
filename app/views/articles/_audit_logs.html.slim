@@ -1,0 +1,17 @@
+.col-sm-8.col-sm-offset-2
+  #accordion.panel-group.audit-hist[role="tablist" aria-multiselectable="true"]
+    - audit_history.each do |version|
+      .panel.panel-default
+        div.panel-heading id="heading#{version.index}" role="tab"
+          h4.panel-title
+            a data-toggle="collapse" parent="#accordion" href="#collapse#{version.index}" aria-expanded="true" aria-controls="collapse#{version.index}" = "Version history #{version.index}"
+        div.panel-collapse.collapse.in id="collapse#{version.index}" role="tabpanel" aria-labelledby="heading#{version.index}"
+          .panel-body
+            p
+              = "#{version.event}d"
+              '  by
+              b
+                - if version.whodunnit
+                  = User.find(version.whodunnit).name
+              '  on
+              = l(version.created_at, format: "%-d.%m.%Y %H:%M:%S %Z")

@@ -2,6 +2,8 @@ Rails.application.routes.draw do
   devise_for :users, :controllers => { :registrations => 'registrations', :confirmations => 'confirmations' },
                      except: [:index, :destroy]
 
+  post "versions/:id/revert" => "versions#revert", :as => "revert_version"
+  
   resources :users, only: :show 
 
   get 'instruments(/:id)/update_subcategories', to: 'instruments#update_subcategories', as: 'update_subcategories'

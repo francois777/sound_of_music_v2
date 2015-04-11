@@ -43,7 +43,7 @@ class ArticlesController < ApplicationController
     update_params = article_params
     update_params['theme_id'] = Theme.instruments.first.id.to_s if update_params['theme_id'].empty?
     if @article.update_attributes(update_params)
-      flash[:notice] = t(:article_updated, scope: [:success])
+      flash[:notice] = "#{ t(:article_updated, scope: [:success])} (#{undo_link})"
       redirect_to [@subject, @article]
     else
       flash[:error] = t(:article_update_failed, scope: [:failure])
@@ -52,7 +52,7 @@ class ArticlesController < ApplicationController
   end
 
   def user_for_paper_trail
-    current_user
+    current_user.id
   end
 
   def undo
@@ -64,7 +64,7 @@ class ArticlesController < ApplicationController
         # For undoing the create action
         @article_version.item.destroy
       end
-      flash[:success] = "Undid that! #{redo_link}"
+      flash[:notice] = "Undid that! #{redo_link}"
     rescue
       flash[:alert] = "Failed undoing the action..."
     ensure
@@ -116,12 +116,12 @@ class ArticlesController < ApplicationController
       # puts "ArticlesController#undo_link"
       # puts "Versions: #{@article.versions.count}"
       if @article.versions.any?
-        view_context.link_to("Undo", undo_path(@article.versions.last), method: :post)
+        view_context.link_to("Undo", revert_version_path(@article.versions.last), method: :post)
       end
     end
 
     def redo_link
-      params[:redo] == "true" ? link = "Undo that plz!" : link = "Redo that plz!"
+      params[:redo] == "true" ? link = "Undo that plz!" : link = "Redo that please!"
       view_context.link_to link, undo_path(@article_version.next, redo: !params[:redo]), method: :post
     end
 

@@ -54,12 +54,11 @@ class ArticlePolicy < ApplicationPolicy
 
   def view_approval_info?
     return false unless @current_user
-    @author == @current_user or @current_user.approver? #@article.to_be_revised? or @article.submitted?
+    @author == @current_user or @current_user.approver?
   end
 
   def for_approver?
-    return false unless @current_user and @current_user.approver?
-    @article.to_be_revised? or @article.submitted?
+    @current_user and @current_user.approver?
   end
 
   class Scope < Struct.new(:current_user, :model)
@@ -68,23 +67,11 @@ class ArticlePolicy < ApplicationPolicy
         model.articles.approved
       end
       if current_user.user?  
-        puts "current_user.user? detected"
-        model.articles.model.own_and_other_articles(current_user.id)
-        puts "resolve completed"
+        current_user.viewable_articles_for_instrument(model.id)
       else
         model.articles
       end  
     end    
-
-      # if current_user 
-      #   if current_user.user?
-      #     model.own_and_other_articles(current_user.id)
-      #   else
-      #     model.all
-      #   end
-      # else
-      #   model.approved
-      # end
   end
 
 end

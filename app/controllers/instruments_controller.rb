@@ -48,7 +48,6 @@ class InstrumentsController < ApplicationController
 
   def update_subcategories
     @subcategories = Subcategory.where("category_id = ?", params[:category_id].to_i)
-    puts "Inside InstrumentsController#update_subcategories"
 
     respond_to do |format|
       format.js
@@ -109,17 +108,6 @@ class InstrumentsController < ApplicationController
     end 
 
     def set_articles
-      # puts "Executing set_articles"
-      # if current_user.nil? 
-      #   instrument_articles = @instrument.articles.approved
-      #   puts "No current user, approved articles = #{instrument_articles.count}"
-      # elsif current_user.user?
-      #   instrument_articles = @instrument.articles.own_and_other_articles(current_user.id)
-      #   puts "normal user, own and other articles = #{instrument_articles.count}"
-      # else
-      #   instrument_articles = @instrument.articles
-      #   puts "Senior users, all articles = #{instrument_articles.count}"
-      # end  
       scoped_articles = ArticlePolicy::Scope.new(current_user, @instrument).resolve
       if scoped_articles
         @articles = scoped_articles.collect { |art| { art_id: art.id, title: art.title, author_name: art.author.name, email: art.author.email, approval_status: art.approval_status, submitted_on: art.created_at }}
