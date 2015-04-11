@@ -1,2 +1,2 @@
 $ ->
-  $(".collapse").collapse()
+  $("#accordion .collapse").collapse()
