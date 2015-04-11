@@ -6,6 +6,7 @@ class Article < ActiveRecord::Base
   belongs_to :approver, class_name: 'User'
   belongs_to :theme
   belongs_to :publishable, polymorphic: true
+  has_many :photos, as: :imageable
 
   enum approval_status: [:incomplete, :submitted, :to_be_revised, :approved]
   enum rejection_reason: [:not_rejected, :grammar_and_spelling, :incorrect_facts, :irrelevant_material, :not_acceptable]

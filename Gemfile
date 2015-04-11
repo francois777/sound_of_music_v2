@@ -16,6 +16,7 @@ gem 'simple_form'
 gem 'slim-rails'
 gem 'thin'
 gem 'paper_trail'
+gem 'carrierwave'
 gem 'cloudinary'
 
 group :development do

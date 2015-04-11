@@ -19,6 +19,13 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :articles do
+    member do
+      post :submit
+    end
+    resources :photos
+  end
+
   namespace :admin do
     root :to => "base#index"
     resources :users, only: [:index, :destroy]
@@ -30,6 +37,12 @@ Rails.application.routes.draw do
     resources :instruments, only: :destroy do
       member do
         post :approve
+      end
+    end
+    resources :photos do
+      member do
+        get :review
+        post :review
       end
     end
   end  
