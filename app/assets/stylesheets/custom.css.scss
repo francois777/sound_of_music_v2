@@ -132,13 +132,16 @@ textarea {
     }
   }
 
-  #approval-decision form {
-    background-color: #B9D2CB;
-    height: 105px;
-    padding-top: 10px;
-    margin: 0 35px;
-    width: 80%;
-    border-radius: 15px;
+  #approval-decision {
+    // margin-bottom: 10px;
+    form {
+      background-color: #B9D2CB;
+      height: 105px;
+      padding-top: 15px;
+      // margin: 10px 35px;
+      width: 80%;
+      border-radius: 15px;
+    }
   }
 
   #submit-decision {
@@ -268,6 +271,33 @@ textarea {
     margin: 20px auto;
     display: block;
   }
+
+  /*  Photos   */
+  .one-painting {
+    margin: 0 auto 20px auto;
+    text-align: center;
+
+    .actions {
+      // width: 25%;
+      margin-top: 10px;
+    }
+
+    .status {
+      color: #005965;
+      margin: 10px 0;
+    }
+    .name {
+      padding-top: 5px;
+      font-size: 1.2em;
+    }
+    img {
+      border-radius: 20px;
+    }
+  }
+
+span.wring img {
+  border-radius: 10px;  
+}
 
   /*   Error-handling   */
   #error_explanation {

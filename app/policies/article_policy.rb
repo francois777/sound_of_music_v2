@@ -65,8 +65,7 @@ class ArticlePolicy < ApplicationPolicy
     def resolve
       if current_user.nil?
         model.articles.approved
-      end
-      if current_user.user?  
+      elsif current_user.user?  
         current_user.viewable_articles_for_instrument(model.id)
       else
         model.articles

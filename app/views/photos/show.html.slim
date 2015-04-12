@@ -1,0 +1,29 @@
+- provide(:title, 'Photo') 
+
+= render 'shared/error_messages', object: @photo
+
+h1
+  = "#{@subject.name} picture"
+h3
+  = "Theme: #{@collection.title}"
+.row
+  .one-painting
+    = image_tag @photo.image.large.url if @photo.image?
+    .name
+      = @photo.title
+    .submitted_by
+      = "Submitted by #{@photo.submitted_by.name}" 
+    - if current_user.approver? || current_user == @photo.submitted_by
+      .status 
+        = "Approval status: #{@photo.approval_status.humanize}"
+    - if current_user.approver? and (@photo.submitted?) 
+      .row
+        section#approval-decision
+          = render 'approve'
+    .actions
+      .btn.pull-left
+        = link_to 'Back to article', instrument_article_path(@subject, @collection) if @subject.is_a? Instrument
+      - if current_user and (current_user.approver? or current_user == @photo.submitted_by)
+        .btn  
+          = link_to 'Edit', edit_article_photo_path(@subject, @photo)
+ 

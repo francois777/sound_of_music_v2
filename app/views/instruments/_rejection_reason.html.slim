@@ -1,6 +1,0 @@
-/ = render 'shared/error_messages', object: f.object
-
-/ .form-group
-/   = f.label :rejection_reason, 'Rejection reason', class: 'col-xs-4 col-sm-4 col-md-4 col-sm-offset-2 col-md-offset-4 control-label'
-/   .col-xs-8.col-sm-6.col-md-4
-/     = f.select :rejection_reason, options_for_instrument_rejection, { include_blank: t(:select_rejection_reason, scope: [:prompts]) }, class: "form-control"

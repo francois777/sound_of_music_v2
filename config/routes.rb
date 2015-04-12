@@ -41,6 +41,7 @@ Rails.application.routes.draw do
     end
     resources :photos do
       member do
+        post :approve
         get :review
         post :review
       end

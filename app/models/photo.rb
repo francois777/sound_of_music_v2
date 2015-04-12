@@ -4,7 +4,7 @@ class Photo < ActiveRecord::Base
   belongs_to :submitted_by, class_name: 'User'
   belongs_to :approved_by, class_name: 'User'
   mount_uploader :image, ImageUploader
-  before_save :assign_image_name
+  before_save :assign_image_name, :increase_image_id
 
   enum approval_status: [:submitted, :to_be_revised, :approved]
   enum rejection_reason: [:not_rejected, :not_related_to_theme, :inferior_quality, :unsuitable_size]
@@ -19,6 +19,11 @@ class Photo < ActiveRecord::Base
   validate :validate_approver_required, if: "approval_status == 'approved' or approval_status == 'to_be_revised'"
 
   private
+    def increase_image_id
+      publ = self.imageable.publishable
+      publ.last_image_id += 1
+      publ.save
+    end
 
     def reason_given_for_rejection?
       rejection_reason != 'not_rejected'
@@ -26,7 +31,7 @@ class Photo < ActiveRecord::Base
 
     def assign_image_name
       subject = self.imageable.publishable
-      self.image_name = "#{subject.name.parameterize}-#{subject.last_image_id}"
+      self.image_name = "#{subject.name.parameterize}-#{subject.last_image_id + 1}"
     end
 
     def validate_approver_required

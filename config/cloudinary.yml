@@ -1,0 +1,18 @@
+development:
+  cloud_name: soundofmusic
+  api_key: '645588275577415'
+  api_secret: DMszWUeTVkseXoEP6hNXxTeS5nw
+  enhance_image_tag: true
+  static_image_support: false
+production:
+  cloud_name: soundofmusic
+  api_key: '287911816846592'
+  api_secret: 6MV6Nc4OBar0QAE2ev2xaxi0tRA
+  enhance_image_tag: true
+  static_image_support: true
+test:
+  cloud_name: soundofmusic
+  api_key: '645588275577415'
+  api_secret: DMszWUeTVkseXoEP6hNXxTeS5nw
+  enhance_image_tag: true
+  static_image_support: false

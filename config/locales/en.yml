@@ -40,6 +40,8 @@ en:
     instrument_created: Musical instrument has been created.
     instrument_to_be_revised: The author is requested to revise this instrument.
     instrument_updated: Musical instrument has been updated.
+    photo_stored_successfully: Photo stored successfully
+    photo_updated_successfully: Photo updated successfully
     theme_created: Theme has been created.
     theme_updated: Theme has been updated.
   
@@ -61,6 +63,9 @@ en:
     instrument_not_saved: Instrument could not be saved.
     instrument_submission_not_allowed: Submission of instrument not allowed.
     instrument_update_failed: The musical instrument could not be updated.
+    photo_not_found: Photo not found
+    photo_not_updated: Photo not updated.
+    photo_not_uploaded: Photo could not be uploaded.
     rejection_reason_missing: Rejection reason must be selected.
     rejection_reason_does_not_apply: Rejection reason does not apply when approving.
 
