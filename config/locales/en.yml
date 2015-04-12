@@ -40,7 +40,9 @@ en:
     instrument_created: Musical instrument has been created.
     instrument_to_be_revised: The author is requested to revise this instrument.
     instrument_updated: Musical instrument has been updated.
+    photo_approved: Photo has been approved
     photo_stored_successfully: Photo stored successfully
+    photo_to_be_revised: The submitted by person is requested to revise this photo
     photo_updated_successfully: Photo updated successfully
     theme_created: Theme has been created.
     theme_updated: Theme has been updated.

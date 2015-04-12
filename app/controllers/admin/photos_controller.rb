@@ -5,49 +5,51 @@ class Admin::PhotosController < ApplicationController
 
   def approve
     approve_params = photo_params
-    if authorize @article
+    if authorize @photo
       params[:commit] == "Approve" ? process_approval(approve_params) : process_rejection(approve_params)
     else
       flash[:error] = t(:approval_not_allowed, scope: [:failure])
     end  
-    redirect_to [@subject, @article]
+    redirect_to [@collection, @photo]
   end
 
   private
 
     def process_approval(approve_params)
-      @article.approval_status = :approved
-      @article.rejection_reason = :not_rejected
-      @article.approver = current_user
-      if @article.save
-        flash[:notice] = t(:article_approved, scope: [:success])
+      @photo.approval_status = :approved
+      @photo.rejection_reason = :not_rejected
+      @photo.approved_by = current_user
+      if @photo.save
+        flash[:notice] = t(:photo_approved, scope: [:success])
       else
-        puts "What is wrong with this article?: #{@article.inspect}"
-        flash[:error] = t(:article_not_approved, scope: [:failure])
+        puts "What is wrong with this photo?: #{@photo.inspect}"
+        flash[:error] = t(:photo_not_approved, scope: [:failure])
       end
-      #redirect_to [@subject, @article]
     end
 
     def process_rejection(approve_params)
-      @article.approval_status = :to_be_revised
-      @article.rejection_reason = params["article"]["rejection_reason"].to_i
-      @article.approver = current_user
-      if @article.save
-        flash[:notice] = t(:article_to_be_revised, scope: [:success])
+      @photo.approval_status = :to_be_revised
+      @photo.rejection_reason = params["photo"]["rejection_reason"].to_i
+      @photo.approved_by = current_user
+      if @photo.save
+        flash[:notice] = t(:photo_to_be_revised, scope: [:success])
       else
-        puts "What is wrong with this article?: #{@article.inspect}"
+        puts "What is wrong with this photo?: #{@photo.inspect}"
         flash[:error] = t(:article_not_approved, scope: [:failure])
       end
-      #redirect_to @instrument
     end
 
-    def set_article
-      @article = Article.find(params[:id])
-      @subject = @article.publishable
+    def set_photo
+      @photo = Photo.find(params[:id].to_i)
+      @collection = @photo.imageable
+      @subject = @collection.publishable
+    rescue
+      flash[:alert] = t(:photo_not_found, scope: [:failure]) 
+      redirect_to [@subject, @collection]
     end
 
     def photo_params
-      params.require(:article).permit(:submitted_by, :approval_status, :rejection_reason )
+      params.require(:photo).permit(:rejection_reason )
     end
 
 end

@@ -31,12 +31,3 @@ feature 'New Photo page' do
     expect(page).to have_selector('h3', text: "Theme: #{@collection.title}")
   end  
 end
-
-  # factory :photo do
-  #   sequence(:title) { |n| "Photo #{n} on article" }
-  #   submitted_by { User.user.take || create(:user) }
-  #   approved_by { User.approver.take || create(:approver) }
-  #   imageable { Article.take || create(:instrument_article) }
-  #   approval_status 'submitted'
-  #   rejection_reason :not_rejected
-  #   image 'my-photo.jpg'    
