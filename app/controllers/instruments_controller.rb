@@ -4,6 +4,7 @@ class InstrumentsController < ApplicationController
   before_action :set_instrument, except: [:new, :create, :index, :update_subcategories]
 
   def show
+    @context = "Articles"
     set_articles
     #authorize @instrument
   end
@@ -110,7 +111,24 @@ class InstrumentsController < ApplicationController
     def set_articles
       scoped_articles = ArticlePolicy::Scope.new(current_user, @instrument).resolve
       if scoped_articles
-        @articles = scoped_articles.collect { |art| { art_id: art.id, title: art.title, author_name: art.author.name, email: art.author.email, approval_status: art.approval_status, submitted_on: art.created_at }}
+        # articles = scoped_articles.collect { |art| { art_id: art.id, title: art.title, author_name: art.author.name, email: art.author.email, approval_status: art.approval_status, submitted_on: art.created_at }}
+
+        filter = params['filter']
+        if @context == 'Articles'
+          case filter
+          when 'all'
+            articles = scoped_articles
+          when 'incomplete'
+            articles = scoped_articles.incomplete
+          when 'submitted'
+            articles = scoped_articles.submitted
+          when 'under-revision'
+            articles = scoped_articles.to_be_revised
+          else
+            articles = scoped_articles
+          end  
+          @articles = articles.collect { |art| { art_id: art.id, title: art.title, author_name: art.author.name, email: art.author.email, approval_status: art.approval_status, submitted_on: art.created_at }}
+        end
       else
         @articles = []
       end

@@ -40,7 +40,8 @@ class ArticlePolicy < ApplicationPolicy
   end
 
   def approve?
-    @article.submitted? and @current_user and @current_user.approver?
+    return false unless @current_user and @current_user.approver?
+    @article.submitted? or @article.approved? or @article.to_be_revised?
   end
 
   def destroy?
