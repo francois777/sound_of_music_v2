@@ -70,7 +70,6 @@ pickle-email-*.html
 
 # Configuration files
 /config/application.yml
-/config/secrets.yml
 
 # Textmate project files
 /*.tmproj
