@@ -5,11 +5,51 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
-CreateAdminService.new.call
+# CreateAdminService.new.call
 # puts 'ADMIN USER: ' << user.email
-user = User.where('last_name = ?', 'User').first
-approver = User.where('last_name = ?', 'Owner').first
-owner = User.where('last_name = ?', 'Owner').first
+
+user = User.create(
+    password: Rails.application.secrets.admin_password,
+    password_confirmation: Rails.application.secrets.admin_password,
+    first_name: 'Admin',
+    last_name: 'Administrator',
+    admin: true,
+    role: 2,
+    email: Rails.application.secrets.admin_email,
+    confirmed_at: Time.now)
+
+approver = User.create(
+    password: Rails.application.secrets.admin_password,
+    password_confirmation: Rails.application.secrets.admin_password,
+    first_name: 'Anthony',
+    last_name: 'Approver',
+    role: 1,
+    email: Rails.application.secrets.approver_email,
+    confirmed_at: Time.now)
+end
+owner = User.create(
+    password: Rails.application.secrets.admin_password,
+    password_confirmation: Rails.application.secrets.admin_password,
+    first_name: 'Olivia',
+    last_name: 'Owner',
+    role: 2,
+    email: Rails.application.secrets.owner_email,
+    confirmed_at: Time.now)
+end    
+user = User.create(
+    password: Rails.application.secrets.admin_password,
+    password_confirmation: Rails.application.secrets.admin_password,
+    first_name: 'Ursula',
+    last_name: 'User',
+    role: 0,
+    email: Rails.application.secrets.user_email,
+    confirmed_at: Time.now)
+
+# user = User.where('last_name = ?', 'User').first
+# approver = User.where('last_name = ?', 'Owner').first
+# owner = User.where('last_name = ?', 'Owner').first
+
+puts "#{User.count} Users have been loaded"
 
 if Subcategory.count == 0
   Category.delete_all
