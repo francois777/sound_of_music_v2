@@ -26,7 +26,7 @@ approver = User.create(
     role: 1,
     email: Rails.application.secrets.approver_email,
     confirmed_at: Time.now)
-end
+
 owner = User.create(
     password: Rails.application.secrets.admin_password,
     password_confirmation: Rails.application.secrets.admin_password,
@@ -35,7 +35,7 @@ owner = User.create(
     role: 2,
     email: Rails.application.secrets.owner_email,
     confirmed_at: Time.now)
-end    
+    
 user = User.create(
     password: Rails.application.secrets.admin_password,
     password_confirmation: Rails.application.secrets.admin_password,
