@@ -29,6 +29,5 @@ class CreateAdminService
         user.last_name = 'User'
         user.role = 0
         user.confirm!
-    end
   end
 end
