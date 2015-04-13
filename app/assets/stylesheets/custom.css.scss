@@ -295,9 +295,120 @@ textarea {
     }
   }
 
-span.wring img {
-  border-radius: 10px;  
-}
+  #paintings {
+    margin: 0 auto 20px;
+    width: 90%;
+
+    ul {
+      display: block;
+      list-style-type: disc;
+      text-align: center;
+      -webkit-margin-before: 1em;
+      -webkit-margin-after: 1em;
+      -webkit-margin-start: 0px;
+      -webkit-margin-end: 0px;
+      -webkit-padding-start: 40px;
+    }
+    .medium-wrap>li .wring {
+      display: table-cell;
+      vertical-align: middle;
+      width: 199px;
+      height: 199px;    
+    }
+    .thumb-wrap>li .wring {
+      display: table-cell;
+      vertical-align: middle;
+      width: 120px;
+      height: 120px;    
+    }
+    .thumb-wrap {
+      padding: 15px 8px 0 8px;
+      li {
+        margin: 0 4px 15px 4px;
+        width: 132px;
+        padding: 5px;
+      }
+    }
+    .medium-wrap {
+      padding: 15px 8px 0 8px;
+      li {
+        margin: 0 7px 15px 7px;
+        width: 262px;
+        padding: 5px;
+      }
+      .caption {
+        display: block;
+        padding: .3em 5px;
+        font-size: .9em;
+        line-height: 1.1;
+        border-top: 1px solid #ccc;
+        text-align: center;
+        .title {
+          color: #fff;
+        }
+      }
+      .submitted_by {
+        text-align: center;
+        color: #005965;
+      }
+      .status {
+        text-align: center;
+        color: #ffffff;
+        font-style: italic;
+      }
+      .name {
+        padding-top: 5px;
+        text-align: center;
+        font-weight: bold;
+      }
+    }
+    .medium-wrap, .thumb-wrap {
+      margin: 0;
+      li {
+        display: -moz-inline-box;
+        display: inline-block;
+        border: none;   //1px solid #fff;
+      }
+      a {
+        display: block;
+        text-decoration: none;
+        cursor: pointer;
+      }
+      img {
+        vertical-align: middle;
+      }
+
+    }
+  }
+
+  .painting {
+    border: solid 1px #CCC;
+    padding: 10px 10px;
+    // float: left;
+    margin-right: 20px;
+    margin-bottom: 20px;
+    width: 270px;
+    text-align: center;
+
+    a img {
+      display: inline;
+    }
+
+    .center {
+      text-align: center;
+    }
+    .title {
+      padding-top: 5px;
+      padding-bottom: 5px;
+    }
+    .name {
+      font-weight: bold;    
+    }
+  }
+
+  span.wring img {
+    border-radius: 10px;  
+  }
 
   /*   Error-handling   */
   #error_explanation {
