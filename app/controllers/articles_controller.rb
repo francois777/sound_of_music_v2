@@ -52,7 +52,7 @@ class ArticlesController < ApplicationController
   end
 
   def user_for_paper_trail
-    current_user.id
+    current_user.id if current_user
   end
 
   def undo
