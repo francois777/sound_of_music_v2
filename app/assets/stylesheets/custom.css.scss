@@ -147,14 +147,15 @@ table.table > tbody > tr > td {
   }
 
   #approval-decision {
-    // margin-bottom: 10px;
     form {
       background-color: #B9D2CB;
-      height: 105px;
+      height: 110px;
       padding-top: 15px;
-      // margin: 10px 35px;
-      width: 80%;
+      width: 75%;
       border-radius: 15px;
+      .form-group {
+        margin-bottom: 10px;
+      }
     }
   }
 
