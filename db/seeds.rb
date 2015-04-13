@@ -7,47 +7,48 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 # CreateAdminService.new.call
 # puts 'ADMIN USER: ' << user.email
+if User.count == 0
+  admin = User.create(
+      password: Rails.application.secrets.admin_password,
+      password_confirmation: Rails.application.secrets.admin_password,
+      first_name: 'Admin',
+      last_name: 'Administrator',
+      admin: true,
+      role: 2,
+      email: Rails.application.secrets.admin_email,
+      confirmed_at: Time.now)
 
-user = User.create(
-    password: Rails.application.secrets.admin_password,
-    password_confirmation: Rails.application.secrets.admin_password,
-    first_name: 'Admin',
-    last_name: 'Administrator',
-    admin: true,
-    role: 2,
-    email: Rails.application.secrets.admin_email,
-    confirmed_at: Time.now)
+  approver = User.create(
+      password: Rails.application.secrets.admin_password,
+      password_confirmation: Rails.application.secrets.admin_password,
+      first_name: 'Anthony',
+      last_name: 'Approver',
+      role: 1,
+      email: Rails.application.secrets.approver_email,
+      confirmed_at: Time.now)
 
-approver = User.create(
-    password: Rails.application.secrets.admin_password,
-    password_confirmation: Rails.application.secrets.admin_password,
-    first_name: 'Anthony',
-    last_name: 'Approver',
-    role: 1,
-    email: Rails.application.secrets.approver_email,
-    confirmed_at: Time.now)
+  owner = User.create(
+      password: Rails.application.secrets.admin_password,
+      password_confirmation: Rails.application.secrets.admin_password,
+      first_name: 'Olivia',
+      last_name: 'Owner',
+      role: 2,
+      email: Rails.application.secrets.owner_email,
+      confirmed_at: Time.now)
+      
+  user = User.create(
+      password: Rails.application.secrets.admin_password,
+      password_confirmation: Rails.application.secrets.admin_password,
+      first_name: 'Ursula',
+      last_name: 'User',
+      role: 0,
+      email: Rails.application.secrets.user_email,
+      confirmed_at: Time.now)
+end
 
-owner = User.create(
-    password: Rails.application.secrets.admin_password,
-    password_confirmation: Rails.application.secrets.admin_password,
-    first_name: 'Olivia',
-    last_name: 'Owner',
-    role: 2,
-    email: Rails.application.secrets.owner_email,
-    confirmed_at: Time.now)
-    
-user = User.create(
-    password: Rails.application.secrets.admin_password,
-    password_confirmation: Rails.application.secrets.admin_password,
-    first_name: 'Ursula',
-    last_name: 'User',
-    role: 0,
-    email: Rails.application.secrets.user_email,
-    confirmed_at: Time.now)
-
-# user = User.where('last_name = ?', 'User').first
-# approver = User.where('last_name = ?', 'Owner').first
-# owner = User.where('last_name = ?', 'Owner').first
+user = User.where('last_name = ?', 'User').first
+approver = User.where('last_name = ?', 'Owner').first
+owner = User.where('last_name = ?', 'Owner').first
 
 puts "#{User.count} Users have been loaded"
 
@@ -87,7 +88,7 @@ if Instrument.count == 0
                                  origin_period: '1822',
                                  approval_status: :submitted,
                                  rejection_reason: :not_rejected,
-                                 created_by: user,
+                                 created_by_id: user.id,
                                  approver: nil )
   aeolian_harp = Instrument.create( name: 'Accordion',
                                  other_names: 'wind harp',
@@ -97,7 +98,7 @@ if Instrument.count == 0
                                  origin_period: '1600',
                                  approval_status: :submitted,
                                  rejection_reason: :not_rejected,
-                                 created_by: user,
+                                 created_by_id: user.id,
                                  approver: nil )
   alto_sax = Instrument.create( name: 'Alto saxophone',
                                  other_names: '',
@@ -107,7 +108,7 @@ if Instrument.count == 0
                                  origin_period: '1600',
                                  approval_status: :submitted,
                                  rejection_reason: :not_rejected,
-                                 created_by: user,
+                                 created_by_id: user.id,
                                  approver: nil )
   dulcimer = Instrument.create( name: 'Appalachian dulcimer',
                                  other_names: 'Mountain dulcimer',
@@ -117,7 +118,7 @@ if Instrument.count == 0
                                  origin_period: 'unknown',
                                  approval_status: :submitted,
                                  rejection_reason: :not_rejected,
-                                 created_by: user,
+                                 created_by_id: user.id,
                                  approver: nil )
   bagpipes = Instrument.create( name: 'Bagpipes',
                                  other_names: '',
@@ -127,7 +128,7 @@ if Instrument.count == 0
                                  origin_period: '14th century',
                                  approval_status: :submitted,
                                  rejection_reason: :not_rejected,
-                                 created_by: user,
+                                 created_by_id: user.id,
                                  approver: nil )
   balalaika = Instrument.create( name: 'Balalaika',
                                  other_names: '',
@@ -137,7 +138,7 @@ if Instrument.count == 0
                                  origin_period: '18th century',
                                  approval_status: :submitted,
                                  rejection_reason: :not_rejected,
-                                 created_by: user,
+                                 created_by_id: user.id,
                                  approver: nil )
   banjo = Instrument.create( name: 'Banjo',
                                  other_names: '',
@@ -147,7 +148,7 @@ if Instrument.count == 0
                                  origin_period: '17th century',
                                  approval_status: :submitted,
                                  rejection_reason: :not_rejected,
-                                 created_by: user,
+                                 created_by_id: user.id,
                                  approver: nil )
   baritone_sax = Instrument.create( name: 'Baritone saxophone',
                                  other_names: '',
@@ -157,7 +158,7 @@ if Instrument.count == 0
                                  origin_period: '',
                                  approval_status: :submitted,
                                  rejection_reason: :not_rejected,
-                                 created_by: user,
+                                 created_by_id: user.id,
                                  approver: nil )
   baryton = Instrument.create( name: 'Baryton',
                                  other_names: '',
@@ -167,7 +168,7 @@ if Instrument.count == 0
                                  origin_period: '',
                                  approval_status: :submitted,
                                  rejection_reason: :not_rejected,
-                                 created_by: user,
+                                 created_by_id: user.id,
                                  approver: nil )
   bass_clarinet = Instrument.create( name: 'Bass clarinet',
                                  other_names: '',
@@ -177,7 +178,7 @@ if Instrument.count == 0
                                  origin_period: '',
                                  approval_status: :submitted,
                                  rejection_reason: :not_rejected,
-                                 created_by: user,
+                                 created_by_id: user.id,
                                  approver: nil )
   bass_drum = Instrument.create( name: 'Bass drum',
                                  other_names: '',
@@ -187,7 +188,7 @@ if Instrument.count == 0
                                  origin_period: '',
                                  approval_status: :submitted,
                                  rejection_reason: :not_rejected,
-                                 created_by: user,
+                                 created_by_id: user.id,
                                  approver: nil )
   basoon = Instrument.create( name: 'Bassoon',
                                  other_names: '',
@@ -197,7 +198,7 @@ if Instrument.count == 0
                                  origin_period: '1712',
                                  approval_status: :submitted,
                                  rejection_reason: :not_rejected,
-                                 created_by: user,
+                                 created_by_id: user.id,
                                  approver: nil )
   berimbau = Instrument.create( name: 'Berimbau',
                                  other_names: '',
@@ -207,7 +208,7 @@ if Instrument.count == 0
                                  origin_period: '1712',
                                  approval_status: :submitted,
                                  rejection_reason: :not_rejected,
-                                 created_by: user,
+                                 created_by_id: user.id,
                                  approver: nil )
   bodhran = Instrument.create( name: 'Bodrán',
                                  other_names: '',
@@ -217,7 +218,7 @@ if Instrument.count == 0
                                  origin_period: '',
                                  approval_status: :submitted,
                                  rejection_reason: :not_rejected,
-                                 created_by: user,
+                                 created_by_id: user.id,
                                  approver: nil )
 end
 
