@@ -2,10 +2,11 @@
   .row    
     .actions  
       - if policy(@article).submit?
-        .button
-          = f.submit 'Submit', class: "btn btn-large btn-success"
-        .button
-          = f.submit 'Delete', class: "btn btn-large btn-danger"
+        .buttons
+          .button
+            = f.submit 'Submit', class: "btn btn-large btn-success"
+          .button
+            = f.submit 'Delete', class: "btn btn-large btn-danger"
       - if policy(@article).edit?  
         .btn
           = link_to 'Edit', edit_instrument_article_path(@article.publishable, @article) 

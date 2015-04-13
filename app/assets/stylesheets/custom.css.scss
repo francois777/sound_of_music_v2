@@ -111,6 +111,30 @@ table.table > tbody > tr > td {
     }
   }
 
+  section.approval-decision {
+    display: block;
+    margin-bottom: 10px;
+    form {
+      height: 110px;
+      display: inline-block;
+      background-color: #B9D2CB;
+      padding-top: 15px;
+      width: 75%;
+      border-radius: 15px;
+      .form-group {
+        margin-bottom: 10px;
+      }
+    }
+  }
+
+  section.submit-decision {
+    display: block;
+    margin-top: 0;
+    form {
+      margin: 0 auto;
+    }
+  }  
+
   /*   Instruments   */
   #instruments {
     padding-top: 10px;
@@ -145,25 +169,9 @@ table.table > tbody > tr > td {
       font-size: 1.0em;
     }
   }
-
-  #approval-decision {
-    form {
-      background-color: #B9D2CB;
-      height: 110px;
-      padding-top: 15px;
-      width: 75%;
-      border-radius: 15px;
-      .form-group {
-        margin-bottom: 10px;
-      }
-    }
-  }
-
-  #submit-decision {
-    margin-top: 0;
-    form {
-      margin: 0 auto;
-    }
+   
+  section#instrument-details {
+    display: block;
   }
 
   /*   Articles   */
@@ -232,6 +240,12 @@ table.table > tbody > tr > td {
     color: #151;
   }
 
+  section#article-details {
+    .actions {
+      display: block;
+    }
+  }
+
   /*   Miscelleneous   */
   div.pagination {
     margin: 5px 0;
@@ -239,7 +253,7 @@ table.table > tbody > tr > td {
 
   /*   Buttons   */
   .buttons {
-    width: 100px;
+    text-align: center;
   }
   .actions {
     text-align: center;
@@ -266,8 +280,8 @@ table.table > tbody > tr > td {
   }
 
   div.button {
-    float: left;
     margin-right: 10px;
+    display: inline-block;
     .btn {
       padding-left: 5px;
       padding-right: 5px;
@@ -475,8 +489,8 @@ table.table > tbody > tr > td {
 /* Extra small devices, Phones */
 @media only screen and (min-width : 480px) {  
 
-  #approval-decision form {
-    width: 80%;
+  section.approval-decision form {
+    // width: 80%;
     margin: 0 10%;
   }
 
@@ -497,18 +511,17 @@ table.table > tbody > tr > td {
     }
   }
 
-  form.form-horizontal {
-    margin: 10px 10%;
-  }
+  // form.form-horizontal {
+  //   margin: 10px 10%;
+  // }
 
 }
 
 /* Media Devices, Desktops */
 @media only screen and (min-width : 992px) {
 
-  #approval-decision form {
-    width: 60%;
-    margin: 0 20%;
+  section.approval-decision form {
+
   }
 
 }

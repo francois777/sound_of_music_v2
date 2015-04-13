@@ -4,7 +4,7 @@
     .col-xs-7.col-sm-6.col-md-6
       = f.select :rejection_reason, options_for_instrument_rejection, { include_blank: t(:select_rejection_reason, scope: [:prompts]) }, class: "form-control"
   .row    
-    .actions  
+    .buttons
       .button
         = f.submit 'Approve', class: "btn btn-large btn-success"
       .button

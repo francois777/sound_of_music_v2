@@ -2,21 +2,21 @@
 h1 
   = @instrument.name
 h2 
-  = "Classification: #{@instrument.category.name}"
+  = @instrument.category.name
   em = " / #{@instrument.subcategory.name}" if @instrument.subcategory
 
-.row
-  div#paintings
-    ul.thumb-wrap
-      - for article in @instrument.articles
-        - for photo in article.photos
-          li
-            div
-              = link_to article_photo_path(article,photo) do
-                span.wring
-                  span
-                  = image_tag photo.image.thumb.url if photo.image?
+div#paintings
+  ul.thumb-wrap
+    - for article in @instrument.articles
+      - for photo in article.photos
+        li
+          div
+            = link_to article_photo_path(article,photo) do
+              span.wring
+                span
+                = image_tag photo.image.thumb.url if photo.image?
 
+section#instrument-details
   = form_for(@instrument, :html => {class: "form-horizontal", :role => "form"}) do |f|
     .form-group
       = f.label :performer, 'Performer title', class: 'col-sm-3 control-label'
@@ -46,20 +46,20 @@ h2
         .col-sm-8
           = f.text_field :rejection_reason, readonly: "", value: @instrument.rejection_reason_display, class: 'form-control'  
 
-- if current_user
-  section#submit-decision
-    = render 'submit'  
-  - if policy(@instrument).for_approver? 
-    .row
-      section#approval-decision
+  - if current_user
+    section.submit-decision
+      = render 'submit'  
+      p &nbsp;
+    - if policy(@instrument).for_approver? 
+      section.approval-decision
         = render 'approve'
-- if @instrument.approved?
-  .row
-    section#article-collection.clearfix
-      h2 Articles
-      - if @articles
-        = render 'article'
-      - else
-        p No articles have been written for this instrument. Please write the first one!
+  - if @instrument.approved?
+    .row
+      section#article-collection.clearfix
+        h2 Articles
+        - if @articles
+          = render 'article'
+        - else
+          p No articles have been written for this instrument. Please write the first one!
 
 
