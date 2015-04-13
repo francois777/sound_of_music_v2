@@ -5,11 +5,11 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
-user = User.first || CreateAdminService.new.call
-puts 'ADMIN USER: ' << user.email
-
-#Instrument.delete_all
-
+CreateAdminService.new.call
+# puts 'ADMIN USER: ' << user.email
+user = User.where('last_name = ?', 'User').first
+approver = User.where('last_name = ?', 'Owner').first
+owner = User.where('last_name = ?', 'Owner').first
 
 if Subcategory.count == 0
   Category.delete_all
@@ -204,6 +204,8 @@ if Theme.count == 0
                                   name: 'Technique')
 end
 
+puts "Number of themes loaded: #{Theme.count}"
+
 characteristics = Theme.where("name = ?", 'Characteristics').first
 construction = Theme.where("name = ?", 'Construction').first
 description = Theme.where("name = ?", 'Description').first
@@ -216,38 +218,30 @@ technique = Theme.where("name = ?", 'Technique').first
 
 puts "Number of themes loaded: #{Theme.count}"
 
-normal_user_1 = User.user.first
-normal_user_2 = User.user.last
-approver = User.approver.last
-
 Article.delete_all
 Instrument.all.each do |ins|
   art1 = Article.create!(title: "The early history of #{ins.name}", publishable: ins, approver: nil,
-    body: Faker::Lorem.paragraph(2, false, 3), author: normal_user_1, theme: description,
+    body: Faker::Lorem.paragraph(2, false, 3), author: user, theme: description,
     approval_status: :incomplete, rejection_reason: :not_rejected)
   puts "Article name: #{art1.title}"
-  puts art1.inspect
-  if art1.valid?
-    puts art1.errors.inspect
-  end  
   art2 = Article.create!(title: "The meaning of #{ins.name}", publishable: ins, approver: nil,
-    body: Faker::Lorem.paragraph(2, false, 3), author: normal_user_1, theme: etymology,
+    body: Faker::Lorem.paragraph(2, false, 3), author: user, theme: etymology,
     approval_status: :submitted, rejection_reason: :not_rejected)
   puts "Article name: #{art2.title}"
   art3 = Article.create!(title: "The construction of #{ins.name}", publishable: ins, approver: approver,
-    body: Faker::Lorem.paragraph(2, false, 2), author: normal_user_2, theme: construction,
+    body: Faker::Lorem.paragraph(2, false, 2), author: user, theme: construction,
     approval_status: :submitted, rejection_reason: :not_rejected)
   puts "Article name: #{art3.title}"
   art4 = Article.create!(title: "The history of #{ins.name}", publishable: ins, approver: approver,
-    body: Faker::Lorem.paragraph(2, false, 3), author: normal_user_2, theme: history,
+    body: Faker::Lorem.paragraph(2, false, 3), author: user, theme: history,
     approval_status: :approved, rejection_reason: :not_rejected)
   puts "Article name: #{art4.title}"
   art5 = Article.create!(title: "The operation of #{ins.name}", publishable: ins, approver: approver,
-    body: Faker::Lorem.paragraph(2, false, 3), author: normal_user_2, theme: operation,
+    body: Faker::Lorem.paragraph(2, false, 3), author: user, theme: operation,
     approval_status: :approved, rejection_reason: :not_rejected)
   puts "Article name: #{art5.title}"
   art6 = Article.create!(title: "Techniques to play the #{ins.name}", publishable: ins, approver: approver,
-    body: Faker::Lorem.paragraph(2, false, 4), author: normal_user_1, theme: technique,
+    body: Faker::Lorem.paragraph(2, false, 4), author: user, theme: technique,
     approval_status: :to_be_revised, rejection_reason: :grammar_and_spelling)
   puts "Article name: #{art6.title}"
 end
