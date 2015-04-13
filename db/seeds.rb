@@ -52,9 +52,11 @@ owner = User.where('last_name = ?', 'Owner').first
 
 puts "#{User.count} Users have been loaded"
 
+Article.delete_all
+Instrument.delete_all
+Subcategory.delete_all
+Category.delete_all
 if Subcategory.count == 0
-  Category.delete_all
-
   brass      = Category.create(name: 'Brass')
   electronic = Category.create(name: 'Electronic')
   keyboard   = Category.create(name: 'Keyboard')
