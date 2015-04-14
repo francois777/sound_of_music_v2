@@ -9,10 +9,9 @@ class Photo < ActiveRecord::Base
   enum approval_status: [:submitted, :to_be_revised, :approved]
   enum rejection_reason: [:not_rejected, :not_related_to_theme, :inferior_quality, :unsuitable_size]
 
-  validates :image,
-    :file_size => { :maximum => 0.5.megabytes.to_i }
   validates :title, presence: true,
                     length: { minimum: 10, maximum: 255 }
+  validates :image, :file_size => { :maximum => 0.5.megabytes.to_i }       
   validates :submitted_by, :imageable, :approval_status, presence: true
   validate :rejected_photo_requires_rejection_reason, if: :to_be_revised?
   validate :rejection_reason_only_applies_when_requesting_revision

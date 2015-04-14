@@ -6,7 +6,7 @@ class PhotosController < ApplicationController
   before_action :set_photo_parents, only: [:show, :new, :create, :edit, :update]
 
   def show
-    @photo = Photo.find(params[:id].to_i)
+    authorize @photo
   end
 
   def new
@@ -46,6 +46,11 @@ class PhotosController < ApplicationController
       set_subject
       render :action => 'edit', :photo => @photo
     end
+  end
+
+  def user_not_authorized
+    flash[:alert] = "This photo is not yet approved. You may not perform this action."
+    redirect_to (request.referrer || root_path)
   end
 
   private

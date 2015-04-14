@@ -4,7 +4,7 @@ class PhotoPolicy < ApplicationPolicy
   def initialize(current_user, model)
     @current_user = current_user
     @current_role = current_user ? current_user.role : 'visitor'
-    @author = model.submitted_by
+    @submitted_by = model.submitted_by
     @photo = model
   end
 
@@ -12,8 +12,8 @@ class PhotoPolicy < ApplicationPolicy
   end
 
   def show?
-    return true if @photo.approved?
     return false unless Photo.exists?(@photo.id)
+    return true if @photo.approved?
     @current_user and (@submitted_by == @current_user or @current_user.approver?)
   end
 

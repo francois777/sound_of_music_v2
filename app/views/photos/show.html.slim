@@ -18,7 +18,7 @@ h3
         = "Approval status: #{@photo.approval_status.humanize}"
     - if current_user.approver? and (@photo.submitted?) 
       .row
-        section#approval-decision
+        section.approval-decision
           = render 'approve'
     .actions
       .btn.pull-left

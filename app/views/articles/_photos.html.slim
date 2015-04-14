@@ -11,7 +11,7 @@ div#paintings
               = photo.image_name
               .title
                 = photo.title
-              .actions
-                - if current_user && (current_user.admin? || @article.author == current_user)
-                  button.btn.btn-info
-                    = link_to 'Edit', edit_article_photo_path(@article,photo)
+              / .actions
+              /   - if current_user && (current_user.admin? || @article.author == current_user)
+              /     button.btn.btn-info
+              /       = link_to 'Edit', edit_article_photo_path(@article,photo)
