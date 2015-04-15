@@ -49,8 +49,12 @@ describe Artist do
     expect { @artist.gender = 2 }.to raise_error
   end
 
-  it "must provide a name" do
-    expect( @artist.name ).to eq('John Cornelius Peterson')
+  it "must reflect the derived assigned_name correctly" do
+    expect( @artist.assigned_name ).to eq('John Cornelius Peterson')
+  end
+
+  it "must reflect the derived official name correctly" do
+    expect( @artist.official_name).to eq('John Cornelius Peterson')
   end
 
 end
