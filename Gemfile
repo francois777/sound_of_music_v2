@@ -21,6 +21,7 @@ gem 'thin'
 gem 'paper_trail'
 gem 'carrierwave'
 gem 'cloudinary'
+gem 'country_select'
 
 group :development do
   gem 'better_errors'

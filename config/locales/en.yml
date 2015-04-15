@@ -21,6 +21,7 @@
 
 en:
   hello: "Hello world"
+  locale: "en"
   site:
     site_name: "The Sound of Music"
     by: "by"

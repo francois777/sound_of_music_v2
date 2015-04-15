@@ -13,13 +13,13 @@ class UserPolicy < ApplicationPolicy
 
   def index?
     # Important note: This method is used by _navigation_links!
+    return false unless current_user
     return true if current_user.admin?
     ['owner', 'approver'].include? current_user.role
   end
 
   def approver?
-    return false unless current_user
-    current_user.approver? ? true : false
+    current_user and current_user.approver?
   end  
 
 end

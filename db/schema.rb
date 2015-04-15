@@ -11,10 +11,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150411123705) do
+ActiveRecord::Schema.define(version: 20150414052525) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "approvals", force: :cascade do |t|
+    t.integer  "approval_status",  default: 0
+    t.integer  "rejection_reason", default: 0
+    t.integer  "approvable_id"
+    t.string   "approvable_type"
+    t.integer  "approver_id_id",   default: 0
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
+  end
+
+  add_index "approvals", ["approvable_id", "approvable_type"], name: "index_approvals_on_approvable_id_and_approvable_type", using: :btree
 
   create_table "articles", force: :cascade do |t|
     t.string   "title"
@@ -33,6 +45,26 @@ ActiveRecord::Schema.define(version: 20150411123705) do
   add_index "articles", ["approver_id"], name: "index_article_approver", using: :btree
   add_index "articles", ["author_id"], name: "index_article_author", using: :btree
   add_index "articles", ["publishable_id", "publishable_type"], name: "index_articles_on_publishable_id_and_publishable_type", using: :btree
+
+  create_table "artist_names", force: :cascade do |t|
+    t.integer "artist_id"
+    t.string  "name"
+    t.integer "name_type"
+  end
+
+  add_index "artist_names", ["name"], name: "index_artist_names_on_name", using: :btree
+
+  create_table "artists", force: :cascade do |t|
+    t.datetime "born_on"
+    t.datetime "died_on"
+    t.string   "assigned_name",                     null: false
+    t.string   "born_country_code",    default: ""
+    t.integer  "historical_period_id", default: 0
+    t.integer  "gender",               default: 0
+    t.integer  "approval_id",          default: 0
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
+  end
 
   create_table "categories", force: :cascade do |t|
     t.string "name"
