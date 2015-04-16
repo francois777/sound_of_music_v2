@@ -8,6 +8,7 @@ class CreateArtists < ActiveRecord::Migration
       t.integer :historical_period_id, default: 0
       t.integer :gender,               default: 0
       t.integer :approval_id,          default: 0
+      t.references :submitted_by, null: false   
       t.timestamps null: false
     end
 

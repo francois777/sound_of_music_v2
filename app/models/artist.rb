@@ -1,12 +1,12 @@
 class Artist < ActiveRecord::Base
 
+  belongs_to :submitted_by, class_name: 'User'
   has_one :approval, as: :approvable, dependent: :destroy
   has_many :artist_names, dependent: :destroy
   has_many :articles, as: :publishable, dependent: :destroy
   accepts_nested_attributes_for :artist_names
 
   validates :born_on, presence: true
-
   validate :assign_name_from_supplied_names
   validate :death_after_birth, unless: "died_on == nil"
   validate :valid_country,     unless: "born_country_code == ''"
@@ -66,6 +66,9 @@ class Artist < ActiveRecord::Base
       end
       if middle_name_count > 3
         errors.add(:assigned_name, "A maximum of 3 middle names are allowed")
+      end
+      unless first_name.present? and last_name.present?
+        errors.add(:assigned_name, "First and last name are required")
       end
       return if errors.count > 0
       if public_name.present?
