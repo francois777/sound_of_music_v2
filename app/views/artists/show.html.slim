@@ -1,0 +1,44 @@
+- provide(:title, 'Artist details')
+h1 
+  = @artist.assigned_name
+
+section#artist-details
+  = form_for(@artist, :html => {class: "form-horizontal", :role => "form"}) do |f|
+
+    - @artist.artist_names.each do |nme|
+      .form-group
+        = label_tag :name, nme.name_type.humanize, class: 'col-xs-4 col-sm-4 control-label'
+        .col-xs-8.col-sm-6
+          = text_field_tag :name, nme.name, class: 'form-control'
+
+    .form-group
+      = label_tag :official_name, 'Official name', class: 'col-xs-4 col-sm-4 control-label'
+      .col-xs-8.col-sm-6
+        = text_field_tag :official_name, @artist.official_name, class: 'form-control'
+    .form-group
+      = label_tag :gender, 'Gender', class: 'col-xs-4 col-sm-4 control-label'
+      .col-xs-3.col-sm-2
+        = text_field_tag :gender, @artist.gender.titleize, class: 'form-control'
+    .form-group
+      = label_tag :born_on, 'Born', class: 'col-xs-4 col-sm-4 control-label'
+      .col-xs-5.col-sm-3
+        = text_field_tag :born_on, display_date(@artist.born_on), class: 'form-control'
+      .col-sm-1.hidden-xs 
+        span.literal
+          b = " to "
+      .hidden-xs.col-sm-3
+        = text_field_tag :died_on, display_date(@artist.died_on), class: 'form-control'
+    .form-group
+      = label_tag :died_on, 'Died', class: 'col-xs-4 hidden-sm control-label'
+      .col-xs-5.hidden-sm
+        = text_field_tag :died_on, display_date(@artist.died_on), class: 'form-control'
+    .form-group
+      = label_tag :born_country_code, 'Born in country', class: 'col-xs-4 col-sm-4 control-label'
+      .col-xs-8.col-sm-6
+        = text_field_tag :died_on, t("countries.#{@artist.born_country_code}"), class: 'form-control'
+    .form-group
+      = label_tag :submitted_by_id, 'Submitted by', class: 'col-xs-4 col-sm-4 control-label'
+      .col-xs-8.col-sm-6
+        = text_field_tag :submitted_by_id, @submitted_by, class: 'form-control'
+        
+

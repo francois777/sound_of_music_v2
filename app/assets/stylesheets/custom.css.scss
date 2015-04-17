@@ -183,6 +183,20 @@ input[type="radio"] {
   }
 
   /*   Articles   */
+  #artists {
+    padding-top: 10px;
+    tr {
+      // border-bottom: 1px solid #A0C2B8; C1EBDF
+      border-bottom: 1px solid #C1EBDF;
+    }
+    tr:first-child {
+      border-top: none;
+    }
+    tr:last-child {
+      border-bottom: none;
+    }      
+  }
+
   #article-form select {
     border: 1px solid #BBB;
     margin-top: 2px;
@@ -251,6 +265,10 @@ input[type="radio"] {
   section#article-details {
     .actions {
       display: block;
+    }
+    form span.literal {
+      display: inline-block;
+      padding-top: 5px;
     }
   }
 

@@ -1,0 +1,7 @@
+tr
+  td
+    = link_to artist.assigned_name, artist
+  td
+    = display_date(artist.born_on)
+  td
+    = t("countries.#{artist.born_country_code}")

@@ -37,6 +37,10 @@ en:
     article_submitted: Article has been submitted.
     article_to_be_revised: The author is requested to revise this article.
     article_updated: Article has been updated.
+    artist_deleted: Artist has been deleted
+    artist_submitted: Artist has been submitted
+    artist_to_be_revised: The author is requested to revise this article
+    artist_updated: Artist has been updated
     instrument_approved: Instrument has been approved.
     instrument_created: Musical instrument has been created.
     instrument_to_be_revised: The author is requested to revise this instrument.
@@ -59,6 +63,8 @@ en:
     article_request_revision_not_allowed: Requesting revision of article not allowed
     article_update_failed: Article could not be updated.
     article_submission_not_allowed: Submission of article not allowed.
+    artist_submit_failed: Artist could not be submitted
+    artist_update_failed: Artist could not be updated
     approval_not_allowed: Approval of article not allowed.
     instrument_create_failed: The musical instrument could not be created.
     instrument_not_approved: Instrument not approved

@@ -1,0 +1,32 @@
+- provide(:title, 'Artists')
+
+div#artists
+  h1 Artists
+  .row
+    .col-xs-offset-1.col-md-offset-2
+
+    .col-md-8.col-sm-10.col-xs-12.col-md-offset-2.col-sm-offset-1
+      .table-responsive
+        table.table.artists
+          thead
+            tr
+              td
+                b Artist name
+              td
+                b Born
+              td
+                b Country  
+          tbody
+            - if @artists.any?
+              = render @artists
+  .row
+    .col-xs-offset-1.col-md-offset-2
+      
+  .row
+    .col-xs-offset-4.col-sm-offset-5.col-md-offset-5.col-xs-3.col-sm-3.col-md-2
+      - if @artists.none?
+        p No artists exist
+      -elsif signed_in?      
+        .actions
+          .btn
+            = link_to 'New artist', new_artist_path
