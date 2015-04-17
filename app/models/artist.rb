@@ -4,7 +4,9 @@ class Artist < ActiveRecord::Base
   has_one :approval, as: :approvable, dependent: :destroy
   has_many :artist_names, dependent: :destroy
   has_many :articles, as: :publishable, dependent: :destroy
-  accepts_nested_attributes_for :artist_names
+  accepts_nested_attributes_for :artist_names,
+                reject_if: proc { |attributes| attributes['name'].blank? },
+                allow_destroy: true
 
   validates :born_on, presence: true
   validate :assign_name_from_supplied_names

@@ -8,6 +8,8 @@ Rails.application.routes.draw do
 
   get 'instruments(/:id)/update_subcategories', to: 'instruments#update_subcategories', as: 'update_subcategories'
 
+  resources :artists
+
   resources :instruments do
     member do
       post :submit

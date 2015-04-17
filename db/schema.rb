@@ -21,7 +21,7 @@ ActiveRecord::Schema.define(version: 20150414052525) do
     t.integer  "rejection_reason", default: 0
     t.integer  "approvable_id"
     t.string   "approvable_type"
-    t.integer  "approver_id_id",   default: 0
+    t.integer  "approver_id",      default: 0
     t.datetime "created_at",                   null: false
     t.datetime "updated_at",                   null: false
   end

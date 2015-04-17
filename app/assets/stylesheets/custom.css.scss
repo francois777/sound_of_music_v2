@@ -46,6 +46,10 @@ table.table > tbody > tr > td {
   border-top: none;
 }
 
+input[type="radio"] {
+  width: 25px;
+}
+
 /* Custom, iPhone Retina */
 @media only screen and (min-width : 320px) {
 
@@ -74,6 +78,10 @@ table.table > tbody > tr > td {
 
   form.form-horizontal {
     margin: 5px 10%;
+  }
+
+  .radio-group {
+    // padding-top: 5px;
   }
 
   /*   Menus   */
@@ -243,6 +251,29 @@ table.table > tbody > tr > td {
   section#article-details {
     .actions {
       display: block;
+    }
+  }
+
+  /*   Artists   */
+
+  #artist-form {
+    select {
+      font-size: 1em;
+    }
+  }
+
+  section#names-group {
+    // border: 1px solid red;
+    margin-bottom: 10px;
+    padding-left: 10px;
+    .artist_name_fields {
+      margin-bottom: 10px;
+      .form-group {
+        margin-bottom: 5px;
+        select {
+          font-size: 1.5em;
+        }
+      }
     }
   }
 
@@ -488,6 +519,19 @@ table.table > tbody > tr > td {
 
 /* Extra small devices, Phones */
 @media only screen and (min-width : 480px) {  
+
+  #artist-form {
+    select {
+      font-size: 1em;
+    }
+    .select-label {
+      padding-top: 0;
+    }
+  }
+
+  .radio-group {
+    padding-top: 5px;
+  }
 
   section.approval-decision form {
     // width: 80%;

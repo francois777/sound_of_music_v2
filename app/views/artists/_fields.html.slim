@@ -1,0 +1,22 @@
+= render 'shared/error_messages', object: f.object
+
+.form-group
+  = f.label :gender, "Gender", class: "col-xs-4 col-sm-3 control-label"
+  .col-xs-3.col-sm-2.radio-group
+    = f.radio_button(:gender, 'male')
+    = f.label(:gender, "Male")  
+  .col-xs-4.col-sm-2.radio-group
+    = f.radio_button(:gender, 'female')
+    = f.label(:gender, "Female")  
+.form-group
+  = f.label :born_on, 'Born on', class: "col-xs-4 col-sm-3 control-label"
+  .col-xs-5.col-sm-3
+    = f.text_field :born_on, class: "form-control datepicker", data: {provide: "datepicker", dateFormat: "dd M yy"}, value: display_date(@artist.born_on)
+.form-group
+  = f.label :died_on, 'Died on', class: "col-xs-4 col-sm-3 control-label"
+  .col-xs-5.col-sm-3
+    = f.text_field :died_on, class: "form-control datepicker", data: {provide: "datepicker", dateFormat: "dd M yy"}, value: display_date(@artist.died_on)
+.form-group
+  = f.label :born_country_code, 'Born in country', class: "col-xs-4 col-sm-3 control-label select-label"    
+  .col-xs-8.col-sm-6
+    = f.select :born_country_code, options_for_select(I18n.t('countries').collect { |cty| [cty[1], cty[0]]}), {}, class: "form-control col-xs-8 col-sm-6"

@@ -23,7 +23,7 @@ class CreateArtists < ActiveRecord::Migration
       t.integer :approval_status,  default: 0
       t.integer :rejection_reason, default: 0
       t.references :approvable, polymorphic: true
-      t.references :approver_id,   default: 0
+      t.references :approver,   default: 0
       t.timestamps null: false
     end
     add_index :approvals, [:approvable_id, :approvable_type]

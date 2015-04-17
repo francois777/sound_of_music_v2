@@ -12,6 +12,7 @@ feature 'New Photo page' do
   end
 
   scenario "logged-in user uploads photo" do
+    skip 'Slow test: Logged-in user uploads photo'
     signin(@user.email, 'password')
     visit new_article_photo_path(@collection)
 

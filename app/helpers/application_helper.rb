@@ -18,4 +18,15 @@ module ApplicationHelper
     display_reasons
   end
 
+  def display_date(date, options = {})
+    return "" if date == nil
+    return date.strftime("%d %B %Y") unless options[:format]
+    case options[:format]
+      when :short
+        date.strftime("%d/%m/%Y")
+      when :month  
+        date.strftime("%B %Y")
+    end
+  end
+
 end
