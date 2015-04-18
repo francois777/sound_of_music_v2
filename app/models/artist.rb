@@ -15,6 +15,10 @@ class Artist < ActiveRecord::Base
 
   enum gender: [:male, :female]
 
+  scope :approved, -> { joins(:approvals).where('approvals.approval_status = ?', Approval.approval_statuses[:approved]) }  
+  scope :own_and_other_artists, -> (user_id) { joins(:approval).where("submitted_by_id = ? OR approval_status = ?", user_id, Approval.approval_statuses[:approved])
+  } 
+
   def official_name
     names = artist_names.reject{ |art_nme| [:pulic_name, :maiden_name].include?(art_nme.name_type) }.collect { |art_nme| art_nme.name }
     names.join(" ")

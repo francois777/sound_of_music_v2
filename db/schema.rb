@@ -61,7 +61,6 @@ ActiveRecord::Schema.define(version: 20150414052525) do
     t.string   "born_country_code",    default: ""
     t.integer  "historical_period_id", default: 0
     t.integer  "gender",               default: 0
-    t.integer  "approval_id",          default: 0
     t.integer  "submitted_by_id",                   null: false
     t.datetime "created_at",                        null: false
     t.datetime "updated_at",                        null: false

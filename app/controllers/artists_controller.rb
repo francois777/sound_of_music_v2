@@ -2,7 +2,6 @@ class ArtistsController < ApplicationController
 
   before_filter :authenticate_user!, only: [:create, :edit, :update, :submit]
   before_action :set_artist, except: [:new, :create, :index]
-  before_action :initialise_default_artist
 
   def show
     @context = "Artists"
@@ -10,8 +9,16 @@ class ArtistsController < ApplicationController
   end
 
   def index
+
     @context = "Artists"
-    @artists = Artist.all
+    case params['filter'] 
+    when 'submitted'
+      @artists = policy_scope(Artist).submitted.paginate(page: params[:page])
+    when 'under-revision'
+      @artists = policy_scope(Artist).to_be_revised.paginate(page: params[:page])  
+    else
+      @artists = policy_scope(Artist).paginate(page: params[:page])
+    end
   end
 
   def new
@@ -26,10 +33,10 @@ class ArtistsController < ApplicationController
   end
 
   def create
-    puts "Params: #{params}"
     @artist = Artist.new(artist_params_formatted)
     @artist.submitted_by = current_user
     if @artist.save
+      create_approval(@artist.reload)
       flash[:notice] = t(:artist_submitted, scope: [:success])
       redirect_to @artist
     else
@@ -41,7 +48,9 @@ class ArtistsController < ApplicationController
 
   private
 
-    def initialise_default_artist
+    def create_approval(approvable)
+      approval_params = Approval::INCOMPLETE.merge( {approvable: @artist} )
+      Approval.create( approval_params )
     end
 
     def artist_params_formatted

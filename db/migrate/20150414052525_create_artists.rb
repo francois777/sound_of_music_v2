@@ -7,7 +7,6 @@ class CreateArtists < ActiveRecord::Migration
       t.string  :born_country_code,    default: ""
       t.integer :historical_period_id, default: 0
       t.integer :gender,               default: 0
-      t.integer :approval_id,          default: 0
       t.references :submitted_by, null: false   
       t.timestamps null: false
     end
