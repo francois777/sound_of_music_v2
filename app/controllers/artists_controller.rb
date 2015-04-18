@@ -6,6 +6,9 @@ class ArtistsController < ApplicationController
   def show
     @context = "Artists"
     @submitted_by = @artist.submitted_by.name
+    @approval = @artist.approval
+    @rejection_reasons = Approval.rejection_reasons.collect { |k,v| [k.humanize, v] }
+    authorize @artist
   end
 
   def index
@@ -41,9 +44,13 @@ class ArtistsController < ApplicationController
       redirect_to @artist
     else
       flash[:alert] = t(:artist_submit_failed, scope: [:failure])
-      set_default_categories
       render :new
     end
+  end
+
+  def user_not_authorized
+    flash[:alert] = "This artist is not yet approved. You may not perform this action."
+    redirect_to (request.referrer || root_path)
   end
 
   private

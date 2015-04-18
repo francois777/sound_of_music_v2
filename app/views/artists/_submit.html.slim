@@ -1,0 +1,9 @@
+= form_for (@approval), html: {class: "form-horizontal buttons", role: "form"}, method: :post, url: { controller: "approvals", action: "submit" } do |f|
+  .row    
+    .actions
+      .buttons
+        .button
+          = f.submit 'Submit', class: "btn btn-large btn-success"
+        .button
+          = f.submit 'Delete', class: "btn btn-large btn-danger"
+         

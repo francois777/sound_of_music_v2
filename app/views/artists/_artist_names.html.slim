@@ -1,14 +1,16 @@
 = render 'shared/error_messages', object: nme.object
 
 section#names-group
+  - name_inx = 0
   = nme.fields_for :artist_names do |nme|
+    - name_inx += 1
     .artist_name_fields
       .form-group
-        = nme.label :name, "Name", class: "col-xs-4 col-sm-3 control-label"
+        = nme.label :name, "Name (#{name_inx})", class: "col-xs-4 col-sm-3 control-label"
         .col-xs-8
           = nme.text_field :name, class: "form-control"
       .form-group
-        = nme.label :name_type, "Name type", class: "col-xs-4 col-sm-3 control-label"
+        = nme.label :name_type, "Name type (#{name_inx})", class: "col-xs-4 col-sm-3 control-label"
         .col-xs-8
           = nme.select :name_type, options_for_select(ArtistName.name_types.collect { |nt| [nt[0].humanize, nt[1]]}), {}
 

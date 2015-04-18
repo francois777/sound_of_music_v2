@@ -3,7 +3,7 @@ class ArtistPolicy < ApplicationPolicy
 
   def initialize(current_user, model)
     @current_user = current_user
-    @current_role = current_user.role
+    @current_role = current_user ? current_user.role : 'visitor'
     @author = model.submitted_by
     @artist = model
   end
@@ -12,7 +12,9 @@ class ArtistPolicy < ApplicationPolicy
   end
 
   def show?
-    true
+    return false unless Artist.exists?(@artist.id)
+    return true if @artist.approval.approved?
+    @current_user and (@author == @current_user or @current_user.approver?)
   end
 
   def index?
@@ -20,7 +22,7 @@ class ArtistPolicy < ApplicationPolicy
   end
 
   def edit?
-    (@author == @current_user) or @current_user.admin? or @current_user.approval.approver? or @current_user.owner?
+    (@author == @current_user) or @current_user.admin? or @current_user.approver? or @current_user.owner?
   end
 
   def submitted?
@@ -40,7 +42,7 @@ class ArtistPolicy < ApplicationPolicy
   end
 
   def submit?
-    return true if @artist.new_record?
+    return true if @artist.approval.incomplete?
     @author == @current_user and @artist.approval.to_be_revised?
   end
 
@@ -51,7 +53,7 @@ class ArtistPolicy < ApplicationPolicy
 
   def for_approver?
     return false unless @current_user and @current_user.approver?
-    @artist.approval.to_be_revised? or @artist.submitted?
+    @artist.approval.to_be_revised? or @artist.approval.submitted?
   end
 
   def update_subcategories?

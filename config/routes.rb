@@ -8,7 +8,18 @@ Rails.application.routes.draw do
 
   get 'instruments(/:id)/update_subcategories', to: 'instruments#update_subcategories', as: 'update_subcategories'
 
-  resources :artists
+  resources :approvals, only: [:submit, :approve] do
+    member do
+      post :submit
+      post :approve
+    end
+  end
+
+  resources :artists do
+    member do
+      post :submit
+    end
+  end
 
   resources :instruments do
     member do
@@ -41,6 +52,9 @@ Rails.application.routes.draw do
         post :approve
       end
     end
+
+    resources :artists, only: :approve
+
     resources :photos do
       member do
         post :approve

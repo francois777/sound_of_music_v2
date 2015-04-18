@@ -24,6 +24,14 @@ class Artist < ActiveRecord::Base
     names.join(" ")
   end
 
+  def approval_status
+    approval.approval_status.humanize
+  end
+
+  def rejection_reason
+    approval.rejection_reason.humanize
+  end
+
   private 
 
     def death_after_birth
