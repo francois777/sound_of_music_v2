@@ -45,7 +45,7 @@ class InstrumentPolicy < ApplicationPolicy
     @author == @current_user and @instrument.to_be_revised?
   end
 
-  def approve_info?
+  def view_approval_info?
     return false unless @current_user
     @author == @current_user or @instrument.to_be_revised? or @instrument.submitted?
   end

@@ -32,7 +32,7 @@ section#instrument-details
         = f.label :other_names, 'Other names', class: 'col-sm-3 control-label'
         .col-sm-7
           = f.text_field :other_names, :readonly => "", :value => @instrument.other_names, class: 'form-control'
-    - if current_user and policy(@instrument).approve_info?
+    - if current_user and policy(@instrument).view_approval_info?
       .form-group
         = f.label :created_by_id, 'Created by', class: 'col-sm-3 control-label'
         .col-sm-8

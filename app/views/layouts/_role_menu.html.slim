@@ -8,7 +8,14 @@ section#role-menu.clearfix
         .btn.btn-info.navbar-btn
          = link_to 'Submitted', "#{instruments_path}?filter=submitted"
         .btn.btn-info.navbar-btn
-         = link_to 'Under revision', "#{instruments_path}?filter=under-revision"  
+         = link_to 'Under revision', "#{instruments_path}?filter=under-revision"
+      - when 'Artists'
+        .btn.btn-info.navbar-btn
+          = link_to 'All artists', artists_path
+        .btn.btn-info.navbar-btn
+         = link_to 'Submitted', "#{artists_path}?filter=submitted"
+        .btn.btn-info.navbar-btn
+         = link_to 'Under revision', "#{artists_path}?filter=under-revision"  
       - when 'Articles'     
         .btn.btn-info.navbar-btn
           = link_to 'All articles', "#{instrument_path(@instrument)}?filter=all"

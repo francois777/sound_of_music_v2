@@ -8,9 +8,15 @@ class ApprovalPolicy < ApplicationPolicy
     @approval = model
   end
 
+  def edit?
+    return false unless @current_user and (@current_user == @author or @current_user.approver?)
+    return true if @current_user.approver? and ['submitted', 'approved'].include? @approval.approval_status
+    ['incomplete', 'approved', 'to_be_revised'].include? @approval.approval_status
+  end
+
   def submit?
-    return false unless @approval.new_record? or @approval.approval_status == 'incompleted' 
-    @current_user and @current_user == @author
+    return false unless @current_user and @current_user == @author
+    ['incomplete', 'to_be_revised'].include? @approval.approval_status
   end
 
   def approve?

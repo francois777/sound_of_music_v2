@@ -81,10 +81,9 @@ feature 'Show Artist page' do
       expect(page).to have_title('Artist details')
       expect(page).to have_content(@artist.assigned_name)
       expect(page).to have_link('Edit')
-      # expect(page).to have_selector("input[type=submit][value='Submit']")
 
-      expect(page).not_to have_link('Approve')
-      expect(page).not_to have_link('Request revision')
+      expect(page).not_to have_selector("input[type=submit][value='Approve']")
+      expect(page).not_to have_selector("input[type=submit][value='Request revision']")
     end
 
     scenario 'signed-in other user may not view artists with a submitted status' do
@@ -95,26 +94,58 @@ feature 'Show Artist page' do
     end
 
     scenario 'signed-in approver may view and approve any submitted artist' do    
-      skip 'outstanding'
       signin(@approver.email, 'password')
       visit artist_path(@artist)
-
-      if @artist.valid?
-        puts "Artist is valid"
-      else
-        puts "Artist is not valid"
-      end
-      if @approval.valid?
-        puts "Approval is valid"
-      else
-        puts "Approval is not valid"
-      end
-
-      #expect(page).to have_title('Artist details')
+      expect(page).to have_title('Artist details')
       expect(page).to have_content(@artist.assigned_name)
-      # expect(page).to have_link('Approve')
-      # expect(page).to have_link('Request revision')
+      expect(page).to have_selector("input[type=submit][value='Approve']")
+      expect(page).to have_selector("input[type=submit][value='Request revision']")
+
+      click_button 'Approve'
+      expect(page).to have_content('Artist has been approved')
+      expect(page).to have_title('Artist details') 
     end
 
+    scenario 'signed-in approver may view and reject any submitted artist' do    
+      signin(@approver.email, 'password')
+      visit artist_path(@artist)
+      expect(page).to have_title('Artist details')
+      expect(page).to have_content(@artist.assigned_name)
+      expect(page).to have_selector("input[type=submit][value='Approve']")
+      expect(page).to have_selector("input[type=submit][value='Request revision']")
+
+      select "Irrelevant material", from: "Rejection reason"
+      click_button 'Request revision'
+      expect(page).to have_content('The author is requested to revise this article')
+      expect(page).to have_title('Artist details') 
+    end
+  end
+
+  context 'Rejected Artists' do
+    before(:each) do
+      @user = FactoryGirl.create(:user)
+      @approver = FactoryGirl.create(:approver)
+      @artist = Artist.create(born_on: Date.today - 38.years, 
+        born_country_code: 'za',
+        submitted_by: @user,
+        artist_names_attributes: [ { name: 'John', name_type: 0}, 
+                                   { name: 'Cornelius', name_type: 1},
+                                   { name: 'Peterson', name_type: 2}])
+      approval_params = Approval::REJECTED.merge( {approvable: @artist, approver: @approver, rejection_reason: :incorrect_facts} )
+      @approval = Approval.create( approval_params )
+      visit root_path
+    end
+
+    scenario 'signed-in user may view their own rejected artist' do    
+      signin(@user.email, 'password')
+      visit artist_path(@artist)
+
+      expect(page).to have_title('Artist details')
+      expect(page).to have_content(@artist.assigned_name)
+      expect(page).to have_link('Edit')
+      expect(page).to have_selector("input[type=submit][value='Submit']")
+      expect(page).not_to have_selector("input[type=submit][value='Approve']")
+      expect(page).not_to have_selector("input[type=submit][value='Request revision']")
+    end
   end
 end  

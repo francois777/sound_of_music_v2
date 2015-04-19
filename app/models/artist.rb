@@ -15,7 +15,8 @@ class Artist < ActiveRecord::Base
 
   enum gender: [:male, :female]
 
-  scope :approved, -> { joins(:approvals).where('approvals.approval_status = ?', Approval.approval_statuses[:approved]) }  
+  scope :approved, -> { joins(:approval).where('approvals.approval_status = ?', Approval.approval_statuses[:approved]) }  
+  scope :submitted, -> { joins(:approval).where('approvals.approval_status = ?', Approval.approval_statuses[:submitted]) }  
   scope :own_and_other_artists, -> (user_id) { joins(:approval).where("submitted_by_id = ? OR approval_status = ?", user_id, Approval.approval_statuses[:approved])
   } 
 
@@ -35,7 +36,9 @@ class Artist < ActiveRecord::Base
   private 
 
     def death_after_birth
-      errors.add(:died_on, "Died before birth")
+      if born_on > died_on
+        errors.add(:died_on, "Died before birth")
+      end  
     end
 
     def valid_country

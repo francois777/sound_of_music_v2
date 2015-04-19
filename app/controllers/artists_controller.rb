@@ -12,7 +12,6 @@ class ArtistsController < ApplicationController
   end
 
   def index
-
     @context = "Artists"
     case params['filter'] 
     when 'submitted'

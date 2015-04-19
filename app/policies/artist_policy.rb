@@ -46,19 +46,14 @@ class ArtistPolicy < ApplicationPolicy
     @author == @current_user and @artist.approval.to_be_revised?
   end
 
-  def approve_info?
+  def view_approval_info?
     return false unless @current_user
-    @author == @current_user or @artist.approval.to_be_revised? or @artist.approval.submitted?
+    @author == @current_user or @current_user.approver?
   end
 
   def for_approver?
     return false unless @current_user and @current_user.approver?
-    @artist.approval.to_be_revised? or @artist.approval.submitted?
-  end
-
-  def update_subcategories?
-    # Dont know what this is needed
-    true
+    @artist.approval.submitted?
   end
 
   def artist_not_authorized
