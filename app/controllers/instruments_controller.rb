@@ -22,6 +22,7 @@ class InstrumentsController < ApplicationController
     else
       @instruments = policy_scope(Instrument).paginate(page: params[:page])
     end
+    a = 1
   end
 
   def new

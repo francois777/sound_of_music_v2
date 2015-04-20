@@ -72,12 +72,12 @@ class InstrumentPolicy < ApplicationPolicy
     def resolve
       if current_user 
         if current_user.user?
-          model.own_and_other_instruments(current_user.id)
+          model.all   # model.own_and_other_instruments(current_user.id)
         else
           model.all
         end
       else
-        model.approved
+        model.all  # model.approved
       end
     end
   end

@@ -16,9 +16,10 @@ describe Photo do
         category: @category,
         subcategory: @subcategory,
         origin_period: '1600',
-        approval_status: 0,
-        rejection_reason: 0,
         created_by: @user)
+      approval_params = Approval::APPROVED.merge( {approvable: @instrument, approver: @approver} )
+      @approval = Approval.create( approval_params )
+
     @theme = create(:instrument_theme)
     @article = create(:instrument_article, author: @user, publishable: @instrument, theme: @theme)
     @photo = Photo.new(
