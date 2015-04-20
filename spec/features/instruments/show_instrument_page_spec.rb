@@ -9,12 +9,20 @@ feature 'Show Instrument page' do
       @approver = FactoryGirl.create(:approver)
       @category1 = FactoryGirl.create(:percussion)
       @category2 = FactoryGirl.create(:strings)
-      @subcategory1 = FactoryGirl.create(:membranophone, category: @category1)
-      @subcategory2 = FactoryGirl.create(:bowed, category: @category2)
-      @instrument = FactoryGirl.create(:instrument, 
+      @subcategory1 = FactoryGirl.create(:idiophone)
+      @membranophone = FactoryGirl.create(:membranophone, category: @category1)
+      @bowed_instrument = FactoryGirl.create(:bowed, category: @category2)
+      @submitted_instrument = FactoryGirl.create(:submitted_instrument, 
         name: 'Traditional Drum',
         other_names: 'Beat box',
         performer_title: 'Drummer',
+        category: @category1, 
+        subcategory: @subcategory1, 
+        created_by: @user)
+      @approved_instrument = FactoryGirl.create(:submitted_instrument, 
+        name: 'Symbols',
+        other_names: 'Loud symbols',
+        performer_title: 'Percussionist',
         category: @category1, 
         subcategory: @subcategory1, 
         created_by: @user)
@@ -23,46 +31,37 @@ feature 'Show Instrument page' do
     end
 
     scenario 'signed-in user may view their own submitted instrument' do    
-      approval_params = Approval::SUBMITTED.merge( {approvable: @instrument} )
-      approval = Approval.create( approval_params )
-
       signin(@user.email, 'password')
-      visit instrument_path(@instrument)
+      visit instrument_path(@submitted_instrument)
 
-      expect(page).to have_title(@instrument.name)
+      expect(page).to have_title(@submitted_instrument.name)
       expect(page).to have_link('Edit')
       expect(page).not_to have_selector("input[type=submit][value='Approve']")
       expect(page).not_to have_selector("input[type=submit][value='Request revision']")
     end
 
     scenario 'signed-in approver may approve any submitted instrument' do    
-      approval_params = Approval::SUBMITTED.merge( {approvable: @instrument} )
-      approval = Approval.create( approval_params )
-
       signin(@approver.email, 'password')
-      visit instrument_path(@instrument)
+      visit instrument_path(@approved_instrument)
       
-      expect(page).to have_title(@instrument.name)
+      expect(page).to have_title(@approved_instrument.name)
       expect(page).to have_link('Edit')
       expect(page).to have_selector("input[type=submit][value='Approve']")
       expect(page).to have_selector("input[type=submit][value='Request revision']")
 
       click_button 'Approve'
       expect(page).to have_content('Instrument has been approved')
-      expect(page).to have_title(@instrument.name)
+      expect(page).to have_title(@approved_instrument.name)
     end
 
     scenario 'signed-in approver may reject any submitted instrument' do    
-      approval_params = Approval::SUBMITTED.merge( {approvable: @instrument} )
-      approval = Approval.create( approval_params )
-
       signin(@approver.email, 'password')
-      visit instrument_path(@instrument)
+      visit instrument_path(@approved_instrument)
 
       select "Incorrect facts", from: "Rejection reason"
       click_button 'Request revision'
       expect(page).to have_content('The author is requested to revise this instrument')
-      expect(page).to have_title(@instrument.name)
+      expect(page).to have_title(@approved_instrument.name)
     end
 
   end
@@ -77,16 +76,13 @@ feature 'Show Instrument page' do
       @category2 = FactoryGirl.create(:strings)
       @subcategory1 = FactoryGirl.create(:membranophone, category: @category1)
       @subcategory2 = FactoryGirl.create(:bowed, category: @category2)
-      @instrument = FactoryGirl.create(:instrument, 
+      @instrument = FactoryGirl.create(:rejected_instrument, 
         name: 'Traditional Drum',
         other_names: 'Beat box',
         performer_title: 'Drummer',
         category: @category1, 
         subcategory: @subcategory1, 
         created_by: @user)
-
-      approval_params = Approval::REJECTED.merge( {approvable: @instrument, approver: @approver1, rejection_reason: :incorrect_facts} )
-      @approval = Approval.create( approval_params )
       visit root_path
     end
 
@@ -123,16 +119,13 @@ feature 'Show Instrument page' do
       @category2 = FactoryGirl.create(:strings)
       @subcategory1 = FactoryGirl.create(:membranophone, category: @category1)
       @subcategory2 = FactoryGirl.create(:bowed, category: @category2)
-      @instrument = FactoryGirl.create(:instrument, 
+      @instrument = FactoryGirl.create(:approved_instrument, 
         name: 'Traditional Drum',
         other_names: 'Beat box',
         performer_title: 'Drummer',
         category: @category1, 
         subcategory: @subcategory1, 
         created_by: @user)
-
-      approval_params = Approval::APPROVED.merge( {approvable: @instrument, approver: @approver1, rejection_reason: :incorrect_facts} )
-      @approval = Approval.create( approval_params )
       visit root_path
     end
 

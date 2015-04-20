@@ -9,15 +9,13 @@ feature 'Edit Instrument page' do
     @category2 = FactoryGirl.create(:strings)
     @subcategory1 = FactoryGirl.create(:membranophone, category: @category1)
     @subcategory2 = FactoryGirl.create(:bowed, category: @category2)
-    @instrument = FactoryGirl.create(:instrument, 
+    @instrument = FactoryGirl.create(:approved_instrument, 
       name: 'Traditional Drum',
       other_names: 'Beat box',
       performer_title: 'Drummer',
       category: @category1, 
       subcategory: @subcategory1, 
       created_by: @user)
-    approval_params = Approval::APPROVED.merge( {approvable: @instrument, approver: @approver} )
-    approval = Approval.create( approval_params )
 
     visit root_path
     signin(@user.email, 'password')

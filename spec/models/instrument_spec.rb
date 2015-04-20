@@ -36,7 +36,7 @@ describe Instrument do
     end
 
     it "must have a valid factory" do
-      instrument_fact = FactoryGirl.build(:instrument, name: 'Nice instrument', created_by: @user)
+      instrument_fact = FactoryGirl.build(:submitted_instrument, name: 'Nice instrument', created_by: @user)
       expect(instrument_fact).to be_valid
     end
 

@@ -11,7 +11,7 @@ describe Article do
     @category = create(:strings)
     @subcategory = create(:bowed)
     @theme = create(:instrument_theme)
-    @instrument = create(:instrument, created_by: @user1, category: @category, subcategory: @subcategory)
+    @instrument = create(:approved_instrument, created_by: @user1, category: @category, subcategory: @subcategory)
     @article = Article.create( title: 'The history of the harp', 
                             publishable: @instrument, 
                             body: 'This is what happened in the 16th century..',
