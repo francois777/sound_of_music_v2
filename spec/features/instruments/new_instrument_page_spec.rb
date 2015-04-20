@@ -22,11 +22,11 @@ feature 'New Instrument page' do
     expect(page).to have_link 'Edit'
   end
 
-  # scenario 'signed-in user provides incomplete instrument details' do    
-  #   expect(page).to have_title('New instrument')
-  #   click_button 'Create new instrument'
-  #   expect(page).to have_content 'The musical instrument could not be created.'
-  #   expect(page).to have_content 'Name is too short (minimum is 3 characters)'
-  #   expect(page).to have_content "Performer title can't be blank"
-  # end
+  scenario 'signed-in user provides incomplete instrument details' do    
+    expect(page).to have_title('New instrument')
+    click_button 'Create new instrument'
+    expect(page).to have_content 'The musical instrument could not be created.'
+    expect(page).to have_content 'Name is too short (minimum is 3 characters)'
+    expect(page).to have_content "Performer title can't be blank"
+  end
 end

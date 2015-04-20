@@ -1,7 +1,13 @@
-Rails Devise
-================
 
-[![Deploy to Heroku](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
+Overview
+========
+
+This purpose of this website is to provide a platform for building an integrated library of noteworthy musicians and their contributions to the world of music. Music brought joy to our world and reflecting on remarkable musical talent is exciting.
+
+The website is meant to be shared and the public can do so by logging in and publishing an article. Hopefully some enthusiasts will be willing to provide quality control by approving good articles and requesting revision of other articles. People can contribute photos as well but a photo must support the theme selected for an article.
+
+Rails Devise
+------------
 
 This application was generated with the [rails_apps_composer](https://github.com/RailsApps/rails_apps_composer) gem
 provided by the [RailsApps Project](http://railsapps.github.io/).
