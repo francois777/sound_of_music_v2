@@ -1,13 +1,12 @@
 class ArtistsController < ApplicationController
 
-  before_filter :authenticate_user!, only: [:create, :edit, :update, :submit]
+  before_filter :authenticate_user!, only: [:new, :create, :edit, :update]
   before_action :set_artist, except: [:new, :create, :index]
 
   def show
     @context = "Artists"
     @submitted_by = @artist.submitted_by.name
     @approval = @artist.approval
-    @rejection_reasons = Approval.rejection_reasons.collect { |k,v| [k.humanize, v] }
     authorize @artist
   end
 
@@ -30,10 +29,6 @@ class ArtistsController < ApplicationController
     @artist.artist_names.build
   end
 
-  def edit
-    @artist.artist_names.build
-  end
-
   def create
     @artist = Artist.new(artist_params_formatted)
     @artist.submitted_by = current_user
@@ -45,6 +40,10 @@ class ArtistsController < ApplicationController
       flash[:alert] = t(:artist_submit_failed, scope: [:failure])
       render :new
     end
+  end
+
+  def edit
+    @artist.artist_names.build
   end
 
   def user_not_authorized

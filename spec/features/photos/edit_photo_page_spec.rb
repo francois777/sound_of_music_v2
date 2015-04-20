@@ -12,7 +12,7 @@ feature 'Edit Photo page' do
   end
 
   scenario "logged-in user uploads photo" do
-    skip 'passing slow test: upload photo'
+    # skip 'passing slow test: upload photo'
     signin(@user.email, 'password')
     visit new_article_photo_path(@collection)
     fill_in "Title", with: "My beautiful photo"

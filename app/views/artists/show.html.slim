@@ -51,7 +51,7 @@ section#artist-details
       .form-group
         = label_tag :rejection_reason, 'Rejection reason', class: 'col-xs-4 control-label'
         .col-xs-8.col-sm-4.col-md-3
-          = text_field_tag :rejection_reason, @artist.approval.rejection_reason.humanize, readonly: true, class: 'form-control'
+          = text_field_tag :rejection_reason, @rejection_reasons, readonly: true, class: 'form-control'
         
   - if current_user
     section.submit-decision

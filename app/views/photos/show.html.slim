@@ -13,10 +13,12 @@ h3
       = @photo.title
     .submitted_by
       = "Submitted by #{@photo.submitted_by.name}" 
-    - if current_user.approver? || current_user == @photo.submitted_by
+
+    - if current_user and policy(@photo).view_approval_info? 
       .status 
-        = "Approval status: #{@photo.approval_status.humanize}"
-    - if current_user.approver? and (@photo.submitted?) 
+        = "Approver: #{@approval.approver.name}" if @approval.approver
+        = "Approval status: #{@approval.approval_status.humanize}"
+    - if policy(@photo).for_approver? 
       .row
         section.approval-decision
           = render 'approve'

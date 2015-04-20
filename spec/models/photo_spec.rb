@@ -24,26 +24,19 @@ describe Photo do
     @photo = Photo.new(
       title: "An old violin",
       submitted_by: @user,
-      approved_by: @approver,
       image_name: 'photo-1',
       image: 'old_violin.png',
-      imageable: @article,
-      approval_status: :approved,
-      rejection_reason: :not_rejected )
+      imageable: @article )
   end
 
   subject { @photo }
 
   it { should respond_to(:title) }
   it { should respond_to(:submitted_by) }
-  it { should respond_to(:approved_by) }
   it { should respond_to(:imageable) }
   it { should respond_to(:image) }
-  it { should respond_to(:approval_status) }
-  it { should respond_to(:rejection_reason) }
 
   it "must be valid" do
-    @photo.valid?
     expect(@photo).to be_valid
     @photo.save
     expect(@photo.image_name).to eq("alto-saxophone-#{@instrument.last_image_id}")
@@ -82,8 +75,11 @@ describe Photo do
   end
 
   it "must validate the photo's approval_status" do
-    expect(@photo.approved?).to eq(true)
+    @photo.save
+    approval_params = Approval::SUBMITTED.merge( {approvable: @photo} )
+    @approval = Approval.create( approval_params )
+    expect(@photo.approval.submitted?).to eq(true)
     expect(@photo).to be_valid
-    expect { @photo.approval_status = 'wrong' }.to raise_error(ArgumentError)
+    expect { @photo.approval.approval_status = 'wrong' }.to raise_error(ArgumentError)
   end
 end

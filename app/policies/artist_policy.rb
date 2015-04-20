@@ -22,7 +22,11 @@ class ArtistPolicy < ApplicationPolicy
   end
 
   def edit?
-    (@author == @current_user) or @current_user.admin? or @current_user.approver? or @current_user.owner?
+    return false unless @current_user 
+    return false if @artist.approval.submitted? and @author == @current_user
+    return false if @artist.approval.incomplete? and @author != @current_user
+    return true if @author == @current_user
+    @current_user.admin? or @current_user.approver? or @current_user.owner?
   end
 
   def submitted?
@@ -30,7 +34,11 @@ class ArtistPolicy < ApplicationPolicy
   end
 
   def update?
-    (@author == @current_user) or @current_user.admin? or @current_user.approval.approver? or @current_user.owner?
+    return false unless @current_user 
+    return false if @artist.approval.submitted? and @author == @current_user
+    return false if @artist.approval.incomplete? and @author != @current_user
+    return true if @author == @current_user
+    @current_user.admin? or @current_user.approver? or @current_user.owner?
   end
 
   def approve?
@@ -52,8 +60,7 @@ class ArtistPolicy < ApplicationPolicy
   end
 
   def for_approver?
-    return false unless @current_user and @current_user.approver?
-    @artist.approval.submitted?
+    @current_user and @current_user.approver?
   end
 
   def artist_not_authorized

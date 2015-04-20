@@ -9,7 +9,7 @@ class Approval < ActiveRecord::Base
   REJECTED   = { approval_status: :to_be_revised }
 
   enum approval_status: [:incomplete, :submitted, :to_be_revised, :approved]
-  enum rejection_reason: [:not_rejected, :grammar_and_spelling, :incorrect_facts, :irrelevant_material, :not_acceptable]
+  enum rejection_reason: [:not_rejected, :grammar_and_spelling, :incorrect_facts, :irrelevant_material, :not_related_to_theme, :inferior_quality, :unsuitable_size, :not_acceptable]
 
   validate :rejection_requires_rejection_reason, if: :to_be_revised?
   validate :rejection_reason_only_when_appropriate

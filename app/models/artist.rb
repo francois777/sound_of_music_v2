@@ -4,6 +4,9 @@ class Artist < ActiveRecord::Base
   has_one :approval, as: :approvable, dependent: :destroy
   has_many :artist_names, dependent: :destroy
   has_many :articles, as: :publishable, dependent: :destroy
+
+  REJECTION_REASONS = [:not_rejected, :grammar_and_spelling, :incorrect_facts, :irrelevant_material, :not_related_to_theme, :not_acceptable]
+
   accepts_nested_attributes_for :artist_names,
                 reject_if: proc { |attributes| attributes['name'].blank? },
                 allow_destroy: true

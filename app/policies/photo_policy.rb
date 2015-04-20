@@ -4,7 +4,7 @@ class PhotoPolicy < ApplicationPolicy
   def initialize(current_user, model)
     @current_user = current_user
     @current_role = current_user ? current_user.role : 'visitor'
-    @submitted_by = model.submitted_by
+    @author = model.submitted_by
     @photo = model
   end
 
@@ -13,8 +13,8 @@ class PhotoPolicy < ApplicationPolicy
 
   def show?
     return false unless Photo.exists?(@photo.id)
-    return true if @photo.approved?
-    @current_user and (@submitted_by == @current_user or @current_user.approver?)
+    return true if @photo.approval.approved?
+    @current_user and (@author == @current_user or @current_user.approver?)
   end
 
   def index?
@@ -23,7 +23,8 @@ class PhotoPolicy < ApplicationPolicy
 
   def edit?
     return false unless @current_user 
-    return true if @created_by == @current_user
+    return false if @photo.approval.submitted? and @author == @current_user
+    return true if @author == @current_user
     @current_user.admin? or @current_user.approver? or @current_user.owner?
   end
 
@@ -33,7 +34,8 @@ class PhotoPolicy < ApplicationPolicy
 
   def update?
     return false unless @current_user 
-    return true if @submitted_by == @current_user
+    return false if @photo.approval.submitted? and @author == @current_user
+    return true if @author == @current_user
     @current_user.admin? or @current_user.approver? or @current_user.owner?
   end
 
@@ -46,17 +48,21 @@ class PhotoPolicy < ApplicationPolicy
   end
 
   def submit?
-    return true if @photo.new_record?
-    @submitted_by == @current_user and @photo.to_be_revised?
+    @author == @current_user and @photo.approval.to_be_revised?
   end
 
   def view_approval_info?
     return false unless @current_user
-    @submitted_by == @current_user or @current_user.approver?
+    @author == @current_user or @current_user.approver?
   end
 
   def for_approver?
     @current_user and @current_user.approver?
+  end
+
+  def photo_not_authorized
+    flash[:alert] = "This operation is not allowed on photos."
+    redirect_to (request.referrer or root_path)
   end
 
   # class Scope < Struct.new(:current_user, :model)

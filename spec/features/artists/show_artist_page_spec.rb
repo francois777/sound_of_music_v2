@@ -116,7 +116,7 @@ feature 'Show Artist page' do
 
       select "Irrelevant material", from: "Rejection reason"
       click_button 'Request revision'
-      expect(page).to have_content('The author is requested to revise this article')
+      expect(page).to have_content('The author is requested to revise this artist')
       expect(page).to have_title('Artist details') 
     end
   end

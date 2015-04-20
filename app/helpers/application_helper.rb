@@ -14,7 +14,13 @@ module ApplicationHelper
 
   def options_for_photo_rejection
     display_reasons = {}
-    Photo.rejection_reasons.each { |k,v| display_reasons[k.humanize] = v }
+    Photo::REJECTION_REASONS.each_with_index { |k,inx| display_reasons[k.to_s.humanize] = inx }
+    display_reasons
+  end
+
+  def options_for_artist_rejection
+    display_reasons = {}
+    Artist::REJECTION_REASONS.each_with_index { |k,inx| display_reasons[k.to_s.humanize] = inx }
     display_reasons
   end
 

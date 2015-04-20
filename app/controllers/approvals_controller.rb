@@ -10,7 +10,11 @@ class ApprovalsController < ApplicationController
 
   def approve
     params[:commit] == "Approve" ? process_approval : process_rejection
-    redirect_to [@approval.approvable]
+    if ['Photo', 'Article'].include? @approval.approvable.class.name
+      redirect_to [@approval.approvable.imageable, @approval.approvable]
+    else  
+      redirect_to [@approval.approvable]
+    end
   end
 
   private
@@ -43,11 +47,11 @@ class ApprovalsController < ApplicationController
 
       if @approval.save
         #flash[:notice] = "t(:#{@subject_name}_to_be_revised, scope: [:success])"
-        flash[:notice] = 'The author is requested to revise this article.'
+        flash[:notice] = "The author is requested to revise this #{@subject_name.downcase}."
       else
         puts @approval.errors.inspect
         #flash[:error] = "t(:#{@subject_name}_not_approved, scope: [:failure])"
-        flash[:error] = "Unexpected error; A revision for #{@subject_name} has not been processed"
+        flash[:error] = "Unexpected error; A revision for #{@subject_name.downcase} has not been processed"
       end
     end
 

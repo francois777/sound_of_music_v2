@@ -1,11 +1,13 @@
 require 'digest/sha1'
 class PhotosController < ApplicationController
 
-  before_filter :authenticate_user!, only: [:new, :create, :edit, :update, :submit, :approve]
+  before_filter :authenticate_user!, only: [:new, :create, :edit, :update]
   before_action :set_photo, only: [:show, :edit, :update]
   before_action :set_photo_parents, only: [:show, :new, :create, :edit, :update]
 
   def show
+    @submitted_by = @photo.submitted_by.name
+    @approval = @photo.approval
     authorize @photo
   end
 
@@ -17,14 +19,13 @@ class PhotosController < ApplicationController
   def create
     @photo = @collection.photos.new(photo_params)
     @photo.submitted_by = current_user
-    @photo.approval_status = :submitted
-    @photo.rejection_reason = :not_rejected
     if @photo.save
       @photo.update_attributes(:bytes  => @photo.image.metadata['bytes'],
                                :width  => @photo.image.metadata['width'],
                                :height => @photo.image.metadata['height'],
                                :format => @photo.image.metadata['format']
       )
+      create_approval(@photo.reload)
       flash[:notice] = t(:photo_stored_successfully, scope: [:success])
       redirect_to [@collection, @photo]
     else
@@ -54,6 +55,11 @@ class PhotosController < ApplicationController
   end
 
   private
+
+    def create_approval(approvable)
+      approval_params = Approval::SUBMITTED.merge( {approvable: @photo} )
+      Approval.create( approval_params )
+    end
 
     def set_photo_parents
       set_collection

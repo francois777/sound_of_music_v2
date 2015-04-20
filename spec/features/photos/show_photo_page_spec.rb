@@ -18,10 +18,10 @@ feature 'Show Photo page' do
                   imageable: @approved_article,
                   title: "My beautiful photo",
                   image: "my_beautiful_photo.jpg",
-                  submitted_by: @user,
-                  approval_status: :submitted,
-                  rejection_reason: :not_rejected
+                  submitted_by: @user
                   )
+      approval_params = Approval::SUBMITTED.merge( {approvable: @submitted_photo} )
+      @approval = Approval.create( approval_params )
 
       visit root_path
     end
@@ -59,11 +59,12 @@ feature 'Show Photo page' do
     end
 
     scenario "signed-in approver may reject submitted photos" do    
+      # skip "Debugging required"
       signin(@approver.email, 'password')
       visit article_photo_path(@approved_article, @submitted_photo)
       select "Inferior quality", from: "Rejection reason"
       click_button 'Request revision'
-      expect(page).to have_content('The submitted by person is requested to revise this photo')
+      expect(page).to have_content('The author is requested to revise this photo')
       expect(page).to have_title('Photo') 
     end
 
@@ -85,11 +86,10 @@ feature 'Show Photo page' do
                   imageable: @approved_article,
                   title: "My beautiful photo",
                   image: "my_beautiful_photo.jpg",
-                  submitted_by: @user,
-                  approved_by: @approver,
-                  approval_status: :approved,
-                  rejection_reason: :not_rejected
+                  submitted_by: @user
                   )
+      approval_params = Approval::APPROVED.merge( {approvable: @approved_photo, approver: @approver} )
+      @approval = Approval.create( approval_params )
 
       visit root_path
     end
