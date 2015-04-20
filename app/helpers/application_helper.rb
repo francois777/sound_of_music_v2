@@ -2,7 +2,7 @@ module ApplicationHelper
 
   def options_for_instrument_rejection
     display_reasons = {}
-    Instrument.rejection_reasons.each { |k,v| display_reasons[k.humanize] = v }
+    Instrument::REJECTION_REASONS.each_with_index { |k,inx| display_reasons[k.to_s.humanize] = inx }
     display_reasons
   end
 

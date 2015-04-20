@@ -7,6 +7,9 @@ feature 'Edit Article page' do
     @other_user = FactoryGirl.create(:user)
     @approver = FactoryGirl.create(:approver)
     @instrument = FactoryGirl.create(:triangle, created_by: @user)
+    approval_params = Approval::APPROVED.merge( {approvable: @instrument, approver: @approver} )
+    Approval.create( approval_params )
+
     @history_theme = Theme.create(subject: :instruments, name: 'History')
     @construction_theme = Theme.create(subject: :instruments, name: 'Construction')
     @submitted_article = FactoryGirl.create(:instrument_article, 

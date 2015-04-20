@@ -17,25 +17,28 @@ feature 'Show Instrument page' do
         performer_title: 'Drummer',
         category: @category1, 
         subcategory: @subcategory1, 
-        approval_status: :submitted,
-        rejection_reason: :not_rejected,
-        approver_id: nil,
         created_by: @user)
 
       visit root_path
     end
 
     scenario 'signed-in user may view their own submitted instrument' do    
+      approval_params = Approval::SUBMITTED.merge( {approvable: @instrument} )
+      approval = Approval.create( approval_params )
+
       signin(@user.email, 'password')
       visit instrument_path(@instrument)
 
       expect(page).to have_title(@instrument.name)
       expect(page).to have_link('Edit')
-      expect(page).not_to have_link('Approve')
-      expect(page).not_to have_link('Request revision')
+      expect(page).not_to have_selector("input[type=submit][value='Approve']")
+      expect(page).not_to have_selector("input[type=submit][value='Request revision']")
     end
 
-    scenario 'signed-in approver may approved any submitted instrument' do    
+    scenario 'signed-in approver may approve any submitted instrument' do    
+      approval_params = Approval::SUBMITTED.merge( {approvable: @instrument} )
+      approval = Approval.create( approval_params )
+
       signin(@approver.email, 'password')
       visit instrument_path(@instrument)
       
@@ -50,8 +53,12 @@ feature 'Show Instrument page' do
     end
 
     scenario 'signed-in approver may reject any submitted instrument' do    
+      approval_params = Approval::SUBMITTED.merge( {approvable: @instrument} )
+      approval = Approval.create( approval_params )
+
       signin(@approver.email, 'password')
       visit instrument_path(@instrument)
+
       select "Incorrect facts", from: "Rejection reason"
       click_button 'Request revision'
       expect(page).to have_content('The author is requested to revise this instrument')
@@ -76,11 +83,10 @@ feature 'Show Instrument page' do
         performer_title: 'Drummer',
         category: @category1, 
         subcategory: @subcategory1, 
-        approval_status: :to_be_revised,
-        rejection_reason: :incorrect_facts,
-        approver: @approver1,
         created_by: @user)
 
+      approval_params = Approval::REJECTED.merge( {approvable: @instrument, approver: @approver1, rejection_reason: :incorrect_facts} )
+      @approval = Approval.create( approval_params )
       visit root_path
     end
 
@@ -90,8 +96,9 @@ feature 'Show Instrument page' do
 
       expect(page).to have_title(@instrument.name)
       expect(page).to have_link('Edit')
-      expect(page).not_to have_link('Approve')
-      expect(page).not_to have_link('Request revision')
+      expect(page).to have_selector("input[type=submit][value='Submit']")
+      expect(page).not_to have_selector("input[type=submit][value='Approve']")
+      expect(page).not_to have_selector("input[type=submit][value='Request revision']")
     end
 
     scenario 'signed-in approver may view any rejected instrument' do    
@@ -122,11 +129,10 @@ feature 'Show Instrument page' do
         performer_title: 'Drummer',
         category: @category1, 
         subcategory: @subcategory1, 
-        approval_status: :approved,
-        rejection_reason: :not_rejected,
-        approver: @approver1,
         created_by: @user)
 
+      approval_params = Approval::APPROVED.merge( {approvable: @instrument, approver: @approver1, rejection_reason: :incorrect_facts} )
+      @approval = Approval.create( approval_params )
       visit root_path
     end
 

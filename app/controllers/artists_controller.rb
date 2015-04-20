@@ -29,6 +29,10 @@ class ArtistsController < ApplicationController
     @artist.artist_names.build
   end
 
+  def edit
+    @artist.artist_names.build
+  end
+
   def create
     @artist = Artist.new(artist_params_formatted)
     @artist.submitted_by = current_user
@@ -40,10 +44,6 @@ class ArtistsController < ApplicationController
       flash[:alert] = t(:artist_submit_failed, scope: [:failure])
       render :new
     end
-  end
-
-  def edit
-    @artist.artist_names.build
   end
 
   def user_not_authorized

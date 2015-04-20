@@ -1,15 +1,13 @@
-= form_for ([@instrument]), html: {class: "form-horizontal buttons", role: "form"}, method: :post, url: { action: "submit" } do |f|
+= form_for (@approval), html: {class: "form-horizontal buttons", role: "form"}, method: :post, url: { controller: "approvals", action: "submit" } do |f|
+  = f.hidden_field :approval_id, value: @approval.id
   .row    
     .actions
-      - if @instrument.approved?
-        .btn.pull-left
-          = link_to "Create article", new_instrument_article_path(@instrument)
-      - if policy(@instrument).submit?
+      .buttons
+        - if @instrument.approval.approved?
+          .btn.pull-left
+            = link_to "Create article", new_instrument_article_path(@instrument)
         .button
           = f.submit 'Submit', class: "btn btn-large btn-success"
         .button
           = f.submit 'Delete', class: "btn btn-large btn-danger"
-      - if policy(@instrument).edit?  
-        .btn
-          = link_to 'Edit', edit_instrument_path(@instrument) 
       

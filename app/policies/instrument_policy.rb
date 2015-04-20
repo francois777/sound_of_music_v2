@@ -3,7 +3,7 @@ class InstrumentPolicy < ApplicationPolicy
 
   def initialize(current_user, model)
     @current_user = current_user
-    @current_role = current_user.role
+    @current_role = current_user ? current_user.role : 'visitor'
     @author = model.created_by
     @instrument = model
   end
@@ -12,16 +12,21 @@ class InstrumentPolicy < ApplicationPolicy
   end
 
   def show?
-    true
+    #return false unless Instrument.exists?(@instruments.id)
+    return true if @instrument.approval.approved?
+    @current_user and (@author == @current_user or @current_user.approver?)
   end
 
   def index?
-    puts "Applying index scope for instruments"
     true
   end
 
   def edit?
-    (@author == @current_user) or @current_user.admin? or @current_user.approver? or @current_user.owner?
+    return false unless @current_user 
+    return false if @instrument.approval.submitted? and @author == @current_user
+    return false if @instrument.approval.incomplete? and @author != @current_user
+    return true if @author == @current_user
+    @current_user.admin? or @current_user.approver? or @current_user.owner?
   end
 
   def submitted?
@@ -29,11 +34,15 @@ class InstrumentPolicy < ApplicationPolicy
   end
 
   def update?
-    (@author == @current_user) or @current_user.admin? or @current_user.approver? or @current_user.owner?
+    return false unless @current_user 
+    return false if @instrument.approval.submitted? and @author == @current_user
+    return false if @instrument.approval.incomplete? and @author != @current_user
+    return true if @author == @current_user
+    @current_user.admin? or @current_user.approver? or @current_user.owner?
   end
 
   def approve?
-    @instrument.submitted? and @current_user and @current_user.approver?
+    @instrument.approval.submitted? and @current_user and @current_user.approver?
   end
 
   def destroy?
@@ -42,26 +51,20 @@ class InstrumentPolicy < ApplicationPolicy
 
   def submit?
     return true if @instrument.new_record?
-    @author == @current_user and @instrument.to_be_revised?
+    @author == @current_user and @instrument.approval.to_be_revised?
   end
 
   def view_approval_info?
     return false unless @current_user
-    @author == @current_user or @instrument.to_be_revised? or @instrument.submitted?
+    @author == @current_user or @current_user.approver?
   end
 
   def for_approver?
-    return false unless @current_user and @current_user.approver?
-    @instrument.to_be_revised? or @instrument.submitted?
-  end
-
-  def update_subcategories?
-    # Dont know what this is needed
-    true
+    @current_user and @current_user.approver?
   end
 
   def instrument_not_authorized
-    flash[:alert] = "No way! This operation is not allowed on musical instruments."
+    flash[:alert] = "This operation is not allowed on musical instruments."
     redirect_to (request.referrer or root_path)
   end
 

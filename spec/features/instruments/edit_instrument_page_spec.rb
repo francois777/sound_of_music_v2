@@ -4,6 +4,7 @@ feature 'Edit Instrument page' do
 
   before(:each) do
     @user = FactoryGirl.create(:user)
+    @approver = FactoryGirl.create(:approver)
     @category1 = FactoryGirl.create(:percussion)
     @category2 = FactoryGirl.create(:strings)
     @subcategory1 = FactoryGirl.create(:membranophone, category: @category1)
@@ -15,6 +16,8 @@ feature 'Edit Instrument page' do
       category: @category1, 
       subcategory: @subcategory1, 
       created_by: @user)
+    approval_params = Approval::APPROVED.merge( {approvable: @instrument, approver: @approver} )
+    approval = Approval.create( approval_params )
 
     visit root_path
     signin(@user.email, 'password')

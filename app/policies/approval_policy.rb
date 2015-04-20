@@ -4,7 +4,11 @@ class ApprovalPolicy < ApplicationPolicy
   def initialize(current_user, model)
     @current_user = current_user
     @current_role = current_user ? current_user.role : 'visitor'
-    @author = model.approvable.submitted_by
+    if model.approvable.class.name == 'Instrument'
+      @author = model.approvable.created_by
+    else  
+      @author = model.approvable.submitted_by
+    end  
     @approval = model
   end
 
@@ -20,7 +24,7 @@ class ApprovalPolicy < ApplicationPolicy
   end
 
   def approve?
-    return false unless @approval.submitted?
+    return false unless @approval.submitted? or @approval.to_be_revised?
     @current_user and @current_user.approver?
   end
 

@@ -4,34 +4,46 @@ class InstrumentsController < ApplicationController
   before_action :set_instrument, except: [:new, :create, :index, :update_subcategories]
 
   def show
-    @context = "Articles"
+    # @context = "Articles"
+    @submitted_by = @instrument.created_by.name
+    @approval = @instrument.approval
     set_articles
-    #authorize @instrument
+    authorize @instrument
+    a = 1
+  end
+
+  def index
+    @context = "Instruments"
+    case params['filter'] 
+    when 'submitted'
+      @instruments = policy_scope(Instrument).submitted.paginate(page: params[:page])
+    when 'under-revision'
+      @instruments = policy_scope(Instrument).to_be_revised.paginate(page: params[:page])  
+    else
+      @instruments = policy_scope(Instrument).paginate(page: params[:page])
+    end
   end
 
   def new
     @instrument = Instrument.new
-    set_default_categories
+    set_instrument_categories
   end
 
   def edit
-    @categories = Category.all
-    @subcategories = Subcategory.where("category_id = ?", Category.first.id)
     set_instrument_categories
     authorize @instrument
   end
 
   def create
     @instrument = Instrument.new(instrument_params_formatted)
-
     @instrument.created_by = current_user
-
     if @instrument.save
+      create_approval(@instrument.reload)
       flash[:notice] = t(:instrument_created, scope: [:success])
       redirect_to @instrument
     else
       flash[:alert] = t(:instrument_create_failed, scope: [:failure])
-      set_default_categories
+      set_instrument_categories
       render :new
     end
   end
@@ -49,34 +61,26 @@ class InstrumentsController < ApplicationController
 
   def update_subcategories
     @subcategories = Subcategory.where("category_id = ?", params[:category_id].to_i)
-
     respond_to do |format|
       format.js
     end
-  end
-
-  def index
-    @context = "Instruments"
-    case params['filter'] 
-    when 'submitted'
-      @instruments = policy_scope(Instrument).submitted.paginate(page: params[:page])
-    when 'under-revision'
-      @instruments = policy_scope(Instrument).to_be_revised.paginate(page: params[:page])  
-    else
-      @instruments = policy_scope(Instrument).paginate(page: params[:page])
-    end
-    
   end
 
   def destroy
     authorize @instrument
   end
 
-  def submit
-    authorize @instrument
+  def user_not_authorized
+    flash[:alert] = "This instrument is not yet approved. You may not perform this action."
+    redirect_to (request.referrer || root_path)
   end
 
   private
+
+    def create_approval(approvable)
+      approval_params = Approval::INCOMPLETE.merge( {approvable: @instrument} )
+      Approval.create( approval_params )
+    end
 
     def set_instrument
       @instrument = Instrument.find(params[:id].to_i)
@@ -85,10 +89,10 @@ class InstrumentsController < ApplicationController
       redirect_to instruments_path
     end
 
-    def set_default_categories
-      @categories = Category.all
-      @subcategories = Subcategory.where("category_id = ?", Category.first.id)
-    end
+    # def set_default_categories
+    #   @categories = Category.all
+    #   @subcategories = Subcategory.where("category_id = ?", Category.first.id)
+    # end
 
     def set_instrument_categories
       @categories = Category.all
@@ -110,7 +114,7 @@ class InstrumentsController < ApplicationController
 
     def set_articles
       scoped_articles = ArticlePolicy::Scope.new(current_user, @instrument).resolve
-      if scoped_articles
+      if scoped_articles.any?
         # articles = scoped_articles.collect { |art| { art_id: art.id, title: art.title, author_name: art.author.name, email: art.author.email, approval_status: art.approval_status, submitted_on: art.created_at }}
 
         filter = params['filter']

@@ -12,10 +12,6 @@ feature 'New Instrument page' do
     visit new_instrument_path
   end
 
-  # Scenario: User creates musical instrument
-  #   Given user signs in
-  #   When user visits new instrument page
-  #   Then user can create a new instrument
   scenario 'signed-in user creates a valid instrument' do    
     expect(page).to have_title('New instrument')
     fill_in 'Performer title', :with => 'Drummer'
@@ -26,7 +22,6 @@ feature 'New Instrument page' do
     expect(page).to have_link 'Edit'
   end
 
-  # Scenario: User creates musical instrument, but make some mistakes
   scenario 'signed-in user provides incomplete instrument details' do    
     expect(page).to have_title('New instrument')
     click_button 'Create new instrument'

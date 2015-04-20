@@ -8,10 +8,7 @@ FactoryGirl.define do
     other_names "Some other name"
     origin_period ""
     created_by nil
-    approver nil
     last_image_id 1
-    approval_status :submitted
-    rejection_reason :not_rejected
   end
 
   factory :triangle, class: Instrument do
@@ -23,10 +20,7 @@ FactoryGirl.define do
     other_names ""
     origin_period "10th century"
     created_by { User.user.first || create(:user) }
-    approver {User.approver.first || create(:approver) }
     last_image_id 0
-    approval_status :approved
-    rejection_reason :not_rejected
   end    
 
 end
