@@ -16,7 +16,8 @@ class Instrument < ActiveRecord::Base
   scope :approved, -> { joins(:approval).where('approvals.approval_status = ?', Approval.approval_statuses[:approved]) }  
   scope :submitted, -> { joins(:approval).where('approvals.approval_status = ?', Approval.approval_statuses[:submitted]) }  
   scope :own_and_other_instruments, -> (current_user_id) { 
-    where("created_by_id = ? OR approval_status = ?", current_user_id, Approval.approval_statuses[:approved])
+    joins(:approval).
+    where("instruments.created_by_id = ? OR approvals.approval_status = ?", current_user_id, Approval.approval_statuses[:approved])
   } 
 
   validates :name, presence: true,

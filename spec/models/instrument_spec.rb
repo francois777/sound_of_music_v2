@@ -52,5 +52,18 @@ describe Instrument do
       expect(@instrument.subcategory).to eq(@subcategory)
     end
 
+    it "ensure a user can see their own instruments and approved instruments of others" do
+      submitted_instrument_1 =  create(:submitted_instrument, name: 'instr1', created_by: @user)
+      approved_instrument_1 =  create(:submitted_instrument, name: 'instr2', created_by: @user)
+      other_user = create(:user)
+      approved_instrument_2 = create(:approved_instrument, name: 'instr3', created_by: other_user)
+      private_instrument = create(:submitted_instrument, name: 'instr4', created_by: other_user)
+      scoped_instruments = Instrument.own_and_other_instruments(@user)  
+      expect( scoped_instruments ).to include(submitted_instrument_1)
+      expect( scoped_instruments ).to include(approved_instrument_1)
+      expect( scoped_instruments ).to include(approved_instrument_2)
+      expect( scoped_instruments ).not_to include(private_instrument)
+    end
+
   end
 end
