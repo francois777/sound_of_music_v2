@@ -11,26 +11,28 @@ class Article < ActiveRecord::Base
   APPROVAL_STATUSES = [:incomplete, :submitted, :to_be_revised, :approved]
   REJECTION_REASONS = [:not_rejected, :grammar_and_spelling, :incorrect_facts, :irrelevant_material, :not_acceptable]
 
-  # enum approval_status: [:incomplete, :submitted, :to_be_revised, :approved]
-  # enum rejection_reason: [:not_rejected, :grammar_and_spelling, :incorrect_facts, :irrelevant_material, :not_acceptable]
-
   validates :title, :body, :author, :theme, presence: true
   validates :title, length: { minimum: 10, maximum: 50 }
-  # validate :rejected_article_requires_rejection_reason, if: :to_be_revised?
-  # validate :rejection_reason_only_applies_when_requesting_revision
-  # validate :validate_approver_required, if: "approval_status == 'approved' or approval_status == 'to_be_revised'"
 
   scope :all_for_publishable, -> (publishable) {
     where('articles.publishable_type = ? AND articles.publishable_id = ?', 
       publishable.class.name, publishable.id)
   }
-  scope :approved, -> (publishable) { joins(:approval).
+  scope :incomplete, -> (publishable) { joins(:approval).
     where('approvals.approval_status = ? AND articles.publishable_type = ? AND articles.publishable_id = ?', 
-      Approval.approval_statuses[:approved], publishable.class.name, publishable.id) 
+      Approval.approval_statuses[:incomplete], publishable.class.name, publishable.id) 
   }  
   scope :submitted, -> (publishable) { joins(:approval).
     where('approvals.approval_status = ? AND articles.publishable_type = ? AND articles.publishable_id = ?', 
       Approval.approval_statuses[:submitted], publishable.class.name, publishable.id) 
+  }  
+  scope :approved, -> (publishable) { joins(:approval).
+    where('approvals.approval_status = ? AND articles.publishable_type = ? AND articles.publishable_id = ?', 
+      Approval.approval_statuses[:approved], publishable.class.name, publishable.id) 
+  }  
+  scope :to_be_revised, -> (publishable) { joins(:approval).
+    where('approvals.approval_status = ? AND articles.publishable_type = ? AND articles.publishable_id = ?', 
+      Approval.approval_statuses[:to_be_revised], publishable.class.name, publishable.id) 
   }  
   scope :own_and_other_articles, -> (publishable, user_id) { joins(:approval).
     where("(articles.author_id = ? OR approvals.approval_status = ?) AND (articles.publishable_type = ? AND articles.publishable_id = ?)", 

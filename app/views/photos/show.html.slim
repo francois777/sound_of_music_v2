@@ -23,9 +23,10 @@ h3
         section.approval-decision
           = render 'approve'
     .actions
-      .btn.pull-left
-        = link_to 'Back to article', instrument_article_path(@subject, @collection) if @subject.is_a? Instrument
-      - if current_user and (current_user.approver? or current_user == @photo.submitted_by)
-        .btn  
-          = link_to 'Edit', edit_article_photo_path(@subject, @photo)
- 
+      .buttons 
+        .btn.pull-left
+          = link_to 'Back to article', instrument_article_path(@subject, @collection) if @subject.is_a? Instrument
+        - if current_user and (current_user.approver? or current_user == @photo.submitted_by)
+          .btn  
+            = link_to 'Edit', edit_article_photo_path(@subject, @photo)
+   

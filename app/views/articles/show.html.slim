@@ -9,7 +9,7 @@ h3
 
 = render "photos"
 
-section#article-details
+section#article-details.clearfix
   .row
     = form_for ([@subject, @article]), :html => {class: "form-horizontal", :role => "form"} do |f|
 
@@ -30,11 +30,6 @@ section#article-details
         .col-xs-8.col-sm-7.col-md-6
           = f.text_field :created_at, readonly: '', value: Time.at(@article.created_at).strftime("%d %B %Y"), class: 'form-control', format: :std
       - if current_user and policy(@article).view_approval_info?    
-        - if @article.approval.approver
-          .form-group
-            = label_tag :approver, 'Approver', class: 'col-xs-4 control-label'
-            .col-xs-8.col-sm-4.col-md-3
-              = text_field_tag :approver, @article.approval.approver.name, readonly: true, class: 'form-control'
         .form-group.col-sm-6.col-md-6
           = f.label :approval_status, 'Approved status', class: 'col-xs-4 col-sm-5 col-md-6 control-label'
           .col-xs-8.col-sm-7.col-md-6
@@ -43,6 +38,11 @@ section#article-details
           = f.label :rejection_reason, 'Rejection reason', class: 'col-xs-4 col-sm-5 col-md-6 control-label'
           .col-xs-8.col-sm-7.col-md-6
             = f.text_field :rejection_reason, readonly: "", value: @article.rejection_reason_display, class: 'form-control'
+        - if @article.approval.approver
+          .form-group.col-sm-6.col-md-6
+            = label_tag :approver, 'Approver', class: 'col-xs-4 col-sm-5 col-md-6 control-label'
+            .col-xs-8.col-sm-7.col-md-6
+              = text_field_tag :approver, @article.approval.approver.name, readonly: true, class: 'form-control'
   .row
     .actions
       - if current_user and (policy(@article).submit? or policy(@article).edit?)
@@ -51,9 +51,8 @@ section#article-details
       - if current_user and @article.approval.approved?
         .btn
           = link_to 'Upload photo', new_article_photo_path(@article)
-      - if policy(@article).for_approver? 
+      - if policy(@article).approve? 
         section.approval-decision
           = render 'approve'
         = render "audit_logs", audit_history: @article.versions if @article.versions.any?
-  .row      
-    div.clearfix &nbsp;
+

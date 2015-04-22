@@ -3,11 +3,9 @@ $("#subcategory_select").empty().append("<%= escape_javascript(render(:partial =
 show_subcategories = (evt) ->
   category_id = $("#category_select").val()
   switch category_id
-    when "7", "8", "9"
+    when "31", "32", "33"
       $("#subCategory").hide()
-    when "10", "11", "12"
+    when "34", "35", "36"
       $("#subCategory").show()  
 
 show_subcategories()
-
-

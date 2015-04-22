@@ -9,5 +9,5 @@ h2
 .row
   = form_for ([@collection, @photo]), html: {:multipart => true, class: "form-horizontal", role: "form"} do |f| 
     = render 'form', f: f
-    .col-sm-2.col-sm-offset-5.button
+    .col-sm-2.col-sm-offset-5.buttons
       = f.submit 'Submit photo', class: "btn btn-large btn-primary"

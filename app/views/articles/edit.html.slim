@@ -5,5 +5,5 @@ h1
 .row
   = form_for ([@subject, @article]), html: {class: "form-horizontal", role: "form"}  do |f|
     = render 'fields', f: f
-    .col-sm-2.col-sm-offset-5.button
+    .col-sm-2.col-sm-offset-5.buttons
       = f.submit 'Save changes', class: "btn btn-large btn-primary"

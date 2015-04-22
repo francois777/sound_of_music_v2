@@ -14,9 +14,9 @@
     = f.text_field :performer_title, class: "form-control"
 .form-group
   = f.label :category_id, class: "col-sm-3 col-sm-offset-2 control-label"
-  .col-sm-4
+  .col-sm-3.col-md-2
     = f.select :category_id, options_for_select(@categories.collect { |cat| [cat.name.humanize, cat.id] }, selected: @instrument.category_id), {}, { id: 'category_select'}
 .form-group id="subCategory"
   = f.label :subcategory_id, class: "col-sm-3 col-sm-offset-2 control-label"
-  .col-sm-4
+  .col-sm-3.col-md-2
     = f.select :subcategory_id, options_for_select(@subcategories.collect { |scat| [scat.name.humanize, scat.id] }, selected: @instrument.subcategory_id), {}, { id: 'subcategory_select' }

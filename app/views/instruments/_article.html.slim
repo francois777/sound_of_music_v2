@@ -4,13 +4,13 @@
 
       h4.list-group-item-heading
         = link_to art[:title], instrument_article_path(@instrument,art[:art_id])
-      - if art[:approval_status] == 'incomplete'
+      - if art[:approval_status] == 'Incomplete'
         div.sphere.status-incomplete.pull-right
-      - elsif art[:approval_status] == 'submitted'
+      - elsif art[:approval_status] == 'Submitted'
         div.sphere.status-submitted.pull-right
-      - elsif art[:approval_status] == 'approved'
+      - elsif art[:approval_status] == 'Approved'
         div.sphere.status-approved.pull-right
-      - elsif art[:approval_status] == 'to_be_revised'
+      - elsif art[:approval_status] == 'To be revised'
         div.sphere.status-rejected.pull-right
       p.list-group-item-text
         Submitted by

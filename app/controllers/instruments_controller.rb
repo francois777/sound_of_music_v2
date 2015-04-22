@@ -4,7 +4,7 @@ class InstrumentsController < ApplicationController
   before_action :set_instrument, except: [:new, :create, :index, :update_subcategories]
 
   def show
-    # @context = "Articles"
+    @context = "Articles"
     @submitted_by = @instrument.created_by.name
     @approval = @instrument.approval
     set_articles
@@ -17,7 +17,7 @@ class InstrumentsController < ApplicationController
     case params['filter'] 
     when 'submitted'
       @instruments = policy_scope(Instrument).submitted.paginate(page: params[:page])
-    when 'under-revision'
+    when 'under_revision'
       @instruments = policy_scope(Instrument).to_be_revised.paginate(page: params[:page])  
     else
       @instruments = policy_scope(Instrument).paginate(page: params[:page])
@@ -90,11 +90,6 @@ class InstrumentsController < ApplicationController
       redirect_to instruments_path
     end
 
-    # def set_default_categories
-    #   @categories = Category.all
-    #   @subcategories = Subcategory.where("category_id = ?", Category.first.id)
-    # end
-
     def set_instrument_categories
       @categories = Category.all
       @subcategories = Subcategory.where("category_id = ?", @instrument.category_id)
@@ -115,24 +110,25 @@ class InstrumentsController < ApplicationController
 
     def set_articles
       scoped_articles = ArticlePolicy::Scope.new(current_user, Article, @instrument).resolve
+      puts "scoped_articles: #{scoped_articles.inspect}"
       if scoped_articles.any?
         # articles = scoped_articles.collect { |art| { art_id: art.id, title: art.title, author_name: art.author.name, email: art.author.email, approval_status: art.approval_status, submitted_on: art.created_at }}
 
         filter = params['filter']
         if @context == 'Articles'
           case filter
-          when 'all'
-            articles = scoped_articles
+          when 'all_for_publishable'
+            articles = scoped_articles(@instrument)
           when 'incomplete'
-            articles = scoped_articles.incomplete
+            articles = scoped_articles.incomplete(@instrument)
           when 'submitted'
-            articles = scoped_articles.submitted
-          when 'under-revision'
-            articles = scoped_articles.to_be_revised
+            articles = scoped_articles.submitted(@instrument)
+          when 'under_revision'
+            articles = scoped_articles.to_be_revised(@instrument)
           else
             articles = scoped_articles
           end  
-          @articles = articles.collect { |art| { art_id: art.id, title: art.title, author_name: art.author.name, email: art.author.email, approval_status: art.approval_status, submitted_on: art.created_at }}
+          @articles = articles.collect { |art| { art_id: art.id, title: art.title, author_name: art.author.name, email: art.author.email, approval_status: art.approval_status_display, submitted_on: art.created_at }}
         end
       else
         @articles = []

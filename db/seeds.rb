@@ -1,5 +1,6 @@
 require 'factory_girl_rails'
 
+User.delete_all
 if User.count == 0
   admin = User.create(
       password: Rails.application.secrets.admin_password,
@@ -69,12 +70,11 @@ if Subcategory.count == 0
   single_reed   = Subcategory.create(name: 'Single reed', category: woodwind )
   double_reed   = Subcategory.create(name: 'Double reed', category: woodwind )
   other_woodwind = Subcategory.create(name: 'Other woodwind', category: woodwind )
-
-  puts "#{Category.count} Categories have been loaded"
-  puts "#{Subcategory.count} Subcategories have been loaded"
 end
 
-# user = FactoryGirl.create(:user, first_name: 'Nana', last_name: 'Mouskouri')
+puts "#{Category.count} Categories have been loaded"
+puts "#{Subcategory.count} Subcategories have been loaded"
+
 if Instrument.count == 0
   accordion = Instrument.create( name: 'Accordion',
                                  performer_title: 'Accordionist',
@@ -82,6 +82,11 @@ if Instrument.count == 0
                                  subcategory: nil,
                                  origin_period: '1822',
                                  created_by: user )
+  if accordion.valid?
+    puts "Accordion is OK"
+  else
+    puts accordion.errors.inspect
+  end
   Approval.create(approvable: accordion, approval_status: :submitted, rejection_reason: :not_rejected)
 
   aeolian_harp = Instrument.create( name: 'Accordion',
@@ -199,7 +204,7 @@ if Instrument.count == 0
                                  subcategory: membrabophone,
                                  origin_period: '',
                                  created_by: user )
-  Approval.create(approvable: bodran, approval_status: :submitted, rejection_reason: :not_rejected)
+  Approval.create(approvable: bodhran, approval_status: :submitted, rejection_reason: :not_rejected)
 
 end
 
@@ -237,8 +242,6 @@ operation = Theme.where("name = ?", 'Operation').first
 range = Theme.where("name = ?", 'Range').first
 relevance = Theme.where("name = ?", 'Relevance').first
 technique = Theme.where("name = ?", 'Technique').first
-
-puts "Number of themes loaded: #{Theme.count}"
 
 lorem1 = "Crinis verus versus appositus voluptatem cena ambitus non. Tandem vomica cursus. Pariatur bis accusator vultuosus. Dolores reprehenderit trans defluo conor. Cursim attollo voluptatem thymbra solum tot tres. Vilicus decerno valens decimus cicuta. Vae cum molestiae bellicus aqua animi demergo. Aeternus aduro pax vergo odit crinis derideo."
 lorem2 = "Stipes auris appositus vilicus cavus absconditus thema dedecor. Aperte spero curis depono sui. Atrox stipes comprehendo uredo sonitus arbitro clementia. Despecto bellicus cauda cursim conturbo. Fugiat chirographum aer sono benevolentia. Unde cohibeo in patria temeritas tero tenus. Tener vita dapifer tabula."

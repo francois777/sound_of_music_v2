@@ -9,12 +9,11 @@ class Instrument < ActiveRecord::Base
 
   APPROVAL_REASONS = [:submitted, :approved, :to_be_revised]
   REJECTION_REASONS = [:not_rejected, :incorrect_facts]
-  # enum approval_status: [:submitted, :approved, :to_be_revised]
-  # enum rejection_reason: [:not_rejected, :incorrect_facts]
 
   default_scope -> { order('name ASC') }
   scope :approved, -> { joins(:approval).where('approvals.approval_status = ?', Approval.approval_statuses[:approved]) }  
   scope :submitted, -> { joins(:approval).where('approvals.approval_status = ?', Approval.approval_statuses[:submitted]) }  
+  scope :to_be_revised, -> { joins(:approval).where('approvals.approval_status = ?', Approval.approval_statuses[:to_be_revised]) }  
   scope :own_and_other_instruments, -> (current_user_id) { 
     joins(:approval).
     where("instruments.created_by_id = ? OR approvals.approval_status = ?", current_user_id, Approval.approval_statuses[:approved])
@@ -40,6 +39,9 @@ class Instrument < ActiveRecord::Base
     approval.rejection_reason.humanize
   end
 
+  def approved?
+    approval.approved?
+  end
 
 end
 

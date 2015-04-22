@@ -19,49 +19,54 @@ div#paintings
 section#instrument-details
   = form_for(@instrument, :html => {class: "form-horizontal", :role => "form"}) do |f|
     .form-group
-      = f.label :performer, 'Performer title', class: 'col-sm-3 control-label'
-      .col-sm-4.col-md-3
+      = f.label :performer, 'Performer title', class: 'col-xs-5 col-sm-3 control-label'
+      .col-xs-7.col-sm-6
         = f.text_field :performer, :readonly => "", :value => @instrument.performer_title, class: 'form-control'
     - unless @instrument.origin_period.empty?
       .form-group
-        = f.label :origin_period, 'Origin period', class: 'col-sm-3 control-label'
-        .col-sm-4.col-md-3
+        = f.label :origin_period, 'Origin period', class: 'col-xs-5 col-sm-3 control-label'
+        .col-xs-4.col-sm-3
           = f.text_field :origin_period, :readonly => "", :value => @instrument.origin_period, class: 'form-control'
     - if !@instrument.other_names.empty?
       .form-group
-        = f.label :other_names, 'Other names', class: 'col-sm-3 control-label'
-        .col-sm-7
+        = f.label :other_names, 'Other names', class: 'col-xs-5 col-sm-3 control-label'
+        .col-xs-7.col-sm-6
           = f.text_field :other_names, :readonly => "", :value => @instrument.other_names, class: 'form-control'
     .form-group
-      = f.label :created_by_id, 'Created by', class: 'col-sm-3 control-label'
-      .col-sm-8
+      = f.label :created_by_id, 'Created by', class: 'col-xs-5 col-sm-3 control-label'
+      .col-xs-7.col-sm-6
         = f.text_field :created_by_id, readonly: "", value: @instrument.created_by.name, class: 'form-control'
     - if current_user and policy(@instrument).view_approval_info?
       - if @instrument.approval.approver
         .form-group
-          = label_tag :approver, 'Approver', class: 'col-sm-3 control-label'
-          .col-sm-4.col-md-3
+          = label_tag :approver, 'Approver', class: 'col-xs-5 col-sm-3 control-label'
+          .col-xs-7.col-sm-6
             = text_field_tag :approver, @instrument.approval.approver.name, readonly: true, class: 'form-control'
       .form-group
-        = label_tag :approval_status, 'Approval status', class: 'col-sm-3 control-label'
-        .col-sm-8
-          = text_field_tag :approval_status, value: @instrument.approval_status_display, readonly: true, class: 'form-control'
-      .form-group
-        = label_tag :rejection_reason, 'Rejection reason', class: 'col-sm-3 control-label'
-        .col-sm-8
-          = text_field_tag :rejection_reason, value: @instrument.rejection_reason_display, class: 'form-control'  
+        = label_tag :approval_status, 'Approval status', class: 'col-xs-5 col-sm-3 control-label'
+        .col-xs-7.col-sm-3
+          = text_field_tag :approval_status, @instrument.approval_status_display, readonly: true, class: 'form-control'
+        .hidden-xs.col-sm-3
+          = text_field_tag :rejection_reason, @instrument.rejection_reason_display, readonly: true, class: 'form-control'  
+      .form-group.hidden-sm.hidden-md.hidden-lg
+        = label_tag :rejection_reason, 'Rejection reason', class: 'col-xs-5 control-label'
+        .col-xs-7
+          = text_field_tag :rejection_reason, @instrument.rejection_reason_display, readonly: true, class: 'form-control'  
 
   - if current_user
     section.submit-decision
       - if policy(@approval).submit?
         = render 'submit'  
       - if policy(@approval).edit?
-        .btn
-          = link_to 'Edit', edit_instrument_path(@instrument)  
+        .row
+          .buttons
+            .actions
+              .btn
+                = link_to 'Edit', edit_instrument_path(@instrument)  
     - if policy(@approval).approve? 
       section.approval-decision
         = render 'approve'
-  - if @instrument.approval and @instrument.approval.approved?
+  - if @instrument.approved?
     .row
       section#article-collection.clearfix
         h2 Articles
@@ -69,5 +74,7 @@ section#instrument-details
           = render 'article'
         - else
           p No articles have been written for this instrument. Please write the first one!
-
-
+    .row
+      .actions
+        .btn
+          = link_to 'Create new article', new_instrument_article_path(@instrument)     

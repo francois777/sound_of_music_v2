@@ -212,10 +212,21 @@ input[type="radio"] {
     }      
   }
 
-  #instrument-form select {
-    border: 1px solid #BBB;
-    margin-top: 2px;
-    height: 34px;
+  #instrument-form { 
+    form {
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+    select {
+      border: 1px solid #BBB;
+      margin-top: 2px;
+      height: 34px;
+      width: 100%;
+    }
+    input[type='submit'] {
+      margin: 25px auto;
+      display: block;
+    }
   }
 
   table.instruments {
@@ -234,6 +245,9 @@ input[type="radio"] {
    
   section#instrument-details {
     display: block;
+    .actions {
+      display: block;
+    }
   }
 
   /*   Articles   */
@@ -251,10 +265,12 @@ input[type="radio"] {
     }      
   }
 
-  #article-form select {
-    border: 1px solid #BBB;
-    margin-top: 2px;
-    height: 34px;
+  #article-form form {
+    select {
+      border: 1px solid #BBB;
+      margin-top: 2px;
+      height: 34px;
+    } 
   }
 
   select#article_theme_id {
@@ -413,7 +429,7 @@ input[type="radio"] {
       }
     }
     .medium-wrap {
-      padding: 15px 8px 0 8px;
+      padding: 0 8px;
       li {
         margin: 0 7px 15px 7px;
         width: 262px;
@@ -424,7 +440,7 @@ input[type="radio"] {
         padding: .3em 5px;
         font-size: .9em;
         line-height: 1.1;
-        border-top: 1px solid #ccc;
+        // border-top: 1px solid #ccc;
         text-align: center;
         .title {
           color: #fff;
@@ -453,7 +469,7 @@ input[type="radio"] {
         border: none;   //1px solid #fff;
       }
       a {
-        display: block;
+        display: inline-block;
         text-decoration: none;
         cursor: pointer;
       }
@@ -578,9 +594,9 @@ input[type="radio"] {
     }
   }
 
-  // form.form-horizontal {
-  //   margin: 10px 10%;
-  // }
+  #article-form form {
+    width: 90%
+  }
 
 }
 

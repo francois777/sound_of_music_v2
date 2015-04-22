@@ -40,7 +40,7 @@ class ArticlePolicy < ApplicationPolicy
   end
 
   def approve?
-    @current_user and @current_user.approver? and (@article.approve.submitted? or @article.approve.to_be_revised?) 
+    @current_user and @current_user.approver? and (@article.approval.submitted? or @article.approval.to_be_revised?) 
   end
 
   def destroy?

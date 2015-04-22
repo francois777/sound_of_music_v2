@@ -49,7 +49,7 @@ section#artist-details
         .col-xs-8.col-sm-4.col-md-3
           = text_field_tag :approval_status, @artist.approval_status_display, readonly: true, class: 'form-control'
       .form-group
-        = label_tag :rejection_reason, 'Rejection reason', class: 'col-xs-4 control-label'
+        = label_tag :rejection_reason, 'Rejection reason', class: 'col-xs-4 hidden-sm control-label'
         .col-xs-8.col-sm-4.col-md-3
           = text_field_tag :rejection_reason, @artist.rejection_reason_display, readonly: true, class: 'form-control'
         

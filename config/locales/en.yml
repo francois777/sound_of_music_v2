@@ -27,9 +27,9 @@ en:
     by: "by"
     author: "Francois van der Hoven"
   prompts:
-    select_instrument_theme: <---Select Instrument Theme--->
-    select_rejection_reason: <---Select Rejection Reason--->
-    select_article_theme: <---Select Article Theme--->
+    select_instrument_theme: <<  Select Instrument Theme  >>
+    select_rejection_reason: <<  Select Rejection Reason  >>
+    select_article_theme: <<  Select Article Theme  >>
   success:
     article_approved: Article has been approved.
     article_created: Article has been created.

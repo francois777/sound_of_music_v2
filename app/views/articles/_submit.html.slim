@@ -1,13 +1,14 @@
 = form_for (@approval), html: {class: "form-horizontal buttons", role: "form"}, method: :post, url: { controller: "approvals", action: "submit" } do |f|
   = f.hidden_field :approval_id, value: @approval.id
   .row    
-    .actions  
-      - if policy(@article).submit?
+    - if policy(@article).submit?
+      .actions  
         .buttons
           .button
             = f.submit 'Submit', class: "btn btn-large btn-success"
           .button
             = f.submit 'Delete', class: "btn btn-large btn-danger"
-      - if policy(@article).edit?  
+    - if policy(@article).edit?  
+      .actions  
         .btn
           = link_to 'Edit', edit_instrument_article_path(@article.publishable, @article) 

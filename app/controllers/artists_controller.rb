@@ -15,7 +15,7 @@ class ArtistsController < ApplicationController
     case params['filter'] 
     when 'submitted'
       @artists = policy_scope(Artist).submitted.paginate(page: params[:page])
-    when 'under-revision'
+    when 'under_revision'
       @artists = policy_scope(Artist).to_be_revised.paginate(page: params[:page])  
     else
       @artists = policy_scope(Artist).paginate(page: params[:page])

@@ -7,4 +7,4 @@ tr
     = instrument.category.name
   - if current_user and policy(User).approver?
     td
-      = instrument.approval_status.titleize  
+      = instrument.approval_status_display
