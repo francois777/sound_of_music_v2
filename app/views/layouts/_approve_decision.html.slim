@@ -1,0 +1,14 @@
+- if policy(@approval).approve?
+  section.approval-decision
+    = form_for (approval), html: {class: "form-horizontal buttons", role: "form"}, method: :post, url: { controller: "approvals", action: "approve" } do |f|
+      = f.hidden_field :approval_id, value: approval.id
+      .form-group
+        = f.label :rejection_reason, 'Rejection reason', class: 'col-xs-4 col-sm-4 col-md-4 control-label'
+        .col-xs-7.col-sm-6.col-md-6
+          = f.select :rejection_reason, options_for_rejection(resource), { include_blank: t(:select_rejection_reason, scope: [:prompts]) }, class: "form-control"
+      .row    
+        .buttons
+          .button
+            = f.submit 'Approve', class: "btn btn-large btn-success"
+          .button
+            = f.submit 'Request revision', class: "btn btn-large btn-warning"

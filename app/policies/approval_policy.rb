@@ -6,6 +6,8 @@ class ApprovalPolicy < ApplicationPolicy
     @current_role = current_user ? current_user.role : 'visitor'
     if model.approvable.class.name == 'Instrument'
       @author = model.approvable.created_by
+    elsif model.approvable.class.name == 'Article'
+      @author = model.approvable.author    
     else  
       @author = model.approvable.submitted_by
     end  
@@ -24,8 +26,7 @@ class ApprovalPolicy < ApplicationPolicy
   end
 
   def approve?
-    return false unless @approval.submitted? or @approval.to_be_revised?
-    @current_user and @current_user.approver?
+    @current_user and @current_user.approver? and (@approval.submitted? or @approval.to_be_revised?)
   end
 
 end

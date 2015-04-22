@@ -6,12 +6,16 @@ section#role-menu.clearfix
         .btn.btn-info.navbar-btn
           = link_to 'All instruments', instruments_path
         .btn.btn-info.navbar-btn
+         = link_to 'Approved', "#{instruments_path}?filter=approved"
+        .btn.btn-info.navbar-btn
          = link_to 'Submitted', "#{instruments_path}?filter=submitted"
         .btn.btn-info.navbar-btn
          = link_to 'Under revision', "#{instruments_path}?filter=under_revision"
       - when 'Artists'
         .btn.btn-info.navbar-btn
           = link_to 'All artists', artists_path
+        .btn.btn-info.navbar-btn
+         = link_to 'Approved', "#{artists_path}?filter=approved"
         .btn.btn-info.navbar-btn
          = link_to 'Submitted', "#{artists_path}?filter=submitted"
         .btn.btn-info.navbar-btn

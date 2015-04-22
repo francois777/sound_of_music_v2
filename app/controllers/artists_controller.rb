@@ -13,6 +13,8 @@ class ArtistsController < ApplicationController
   def index
     @context = "Artists"
     case params['filter'] 
+    when 'approved'
+      @artists = policy_scope(Artist).approved.paginate(page: params[:page])
     when 'submitted'
       @artists = policy_scope(Artist).submitted.paginate(page: params[:page])
     when 'under_revision'

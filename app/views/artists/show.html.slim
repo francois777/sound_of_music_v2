@@ -60,7 +60,5 @@ section#artist-details
       - if policy(@approval).edit?  
         .btn
           = link_to 'Edit', edit_artist_path(@artist) 
-    - if policy(@artist).for_approver? 
-      section.approval-decision
-        = render 'approve'
+    = render partial: 'layouts/approve_decision', locals: {approval: @approval, resource: @artist}
 

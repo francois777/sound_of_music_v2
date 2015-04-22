@@ -15,6 +15,8 @@ class InstrumentsController < ApplicationController
   def index
     @context = "Instruments"
     case params['filter'] 
+    when 'approved'
+      @instruments = policy_scope(Instrument).approved.paginate(page: params[:page])
     when 'submitted'
       @instruments = policy_scope(Instrument).submitted.paginate(page: params[:page])
     when 'under_revision'
@@ -110,10 +112,7 @@ class InstrumentsController < ApplicationController
 
     def set_articles
       scoped_articles = ArticlePolicy::Scope.new(current_user, Article, @instrument).resolve
-      puts "scoped_articles: #{scoped_articles.inspect}"
       if scoped_articles.any?
-        # articles = scoped_articles.collect { |art| { art_id: art.id, title: art.title, author_name: art.author.name, email: art.author.email, approval_status: art.approval_status, submitted_on: art.created_at }}
-
         filter = params['filter']
         if @context == 'Articles'
           case filter

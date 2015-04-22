@@ -54,8 +54,8 @@ feature 'Show Artist page' do
       visit artist_path(@artist)
       expect(page).to have_title('Artist details')
       expect(page).to have_content(@artist.assigned_name)
-      expect(page).not_to have_link('Approve')
-      expect(page).not_to have_link('Request revision')
+      expect(page).not_to have_selector("input[type=submit][value='Approve']")
+      expect(page).not_to have_selector("input[type=submit][value='Request revision']")
     end
   end
 

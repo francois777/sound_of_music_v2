@@ -19,31 +19,31 @@ div#paintings
 section#instrument-details
   = form_for(@instrument, :html => {class: "form-horizontal", :role => "form"}) do |f|
     .form-group
-      = f.label :performer, 'Performer title', class: 'col-xs-5 col-sm-3 control-label'
+      = f.label :performer, 'Performer title', class: 'col-xs-5 col-sm-4 control-label'
       .col-xs-7.col-sm-6
         = f.text_field :performer, :readonly => "", :value => @instrument.performer_title, class: 'form-control'
     - unless @instrument.origin_period.empty?
       .form-group
-        = f.label :origin_period, 'Origin period', class: 'col-xs-5 col-sm-3 control-label'
+        = f.label :origin_period, 'Origin period', class: 'col-xs-5 col-sm-4 control-label'
         .col-xs-4.col-sm-3
           = f.text_field :origin_period, :readonly => "", :value => @instrument.origin_period, class: 'form-control'
     - if !@instrument.other_names.empty?
       .form-group
-        = f.label :other_names, 'Other names', class: 'col-xs-5 col-sm-3 control-label'
+        = f.label :other_names, 'Other names', class: 'col-xs-5 col-sm-4 control-label'
         .col-xs-7.col-sm-6
           = f.text_field :other_names, :readonly => "", :value => @instrument.other_names, class: 'form-control'
     .form-group
-      = f.label :created_by_id, 'Created by', class: 'col-xs-5 col-sm-3 control-label'
+      = f.label :created_by_id, 'Created by', class: 'col-xs-5 col-sm-4 control-label'
       .col-xs-7.col-sm-6
         = f.text_field :created_by_id, readonly: "", value: @instrument.created_by.name, class: 'form-control'
     - if current_user and policy(@instrument).view_approval_info?
       - if @instrument.approval.approver
         .form-group
-          = label_tag :approver, 'Approver', class: 'col-xs-5 col-sm-3 control-label'
+          = label_tag :approver, 'Approver', class: 'col-xs-5 col-sm-4 control-label'
           .col-xs-7.col-sm-6
             = text_field_tag :approver, @instrument.approval.approver.name, readonly: true, class: 'form-control'
       .form-group
-        = label_tag :approval_status, 'Approval status', class: 'col-xs-5 col-sm-3 control-label'
+        = label_tag :approval_status, 'Approval status', class: 'col-xs-5 col-sm-4 control-label'
         .col-xs-7.col-sm-3
           = text_field_tag :approval_status, @instrument.approval_status_display, readonly: true, class: 'form-control'
         .hidden-xs.col-sm-3
@@ -64,8 +64,7 @@ section#instrument-details
               .btn
                 = link_to 'Edit', edit_instrument_path(@instrument)  
     - if policy(@approval).approve? 
-      section.approval-decision
-        = render 'approve'
+      = render partial: 'layouts/approve_decision', locals: {approval: @approval, resource: @instrument}
   - if @instrument.approved?
     .row
       section#article-collection.clearfix

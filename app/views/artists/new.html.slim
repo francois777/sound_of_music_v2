@@ -2,15 +2,10 @@
 
 h1 New artist
 
-#artist-form
+#artist-form.clearfix
   = form_for(@artist, html: {class: "form-horizontal", role: "form"}) do |f|
     = render 'artist_names', nme: f
 
     = render 'fields', f: f
-    .col-sm-3.col-sm-offset-4.button
-      = f.submit "Create new artist", class: "btn btn-large btn-primary"
-
-/       = nme.input :name_type, collection: ArtistName.name_types.map { |iType| [iType[0].humanize, iType[0]] }, include_blank: false
-
-
+    = f.submit "Create new artist", class: "btn btn-large btn-primary"
 

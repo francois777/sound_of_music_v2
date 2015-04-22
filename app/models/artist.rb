@@ -20,6 +20,7 @@ class Artist < ActiveRecord::Base
 
   scope :approved, -> { joins(:approval).where('approvals.approval_status = ?', Approval.approval_statuses[:approved]) }  
   scope :submitted, -> { joins(:approval).where('approvals.approval_status = ?', Approval.approval_statuses[:submitted]) }  
+  scope :to_be_revised, -> { joins(:approval).where('approvals.approval_status = ?', Approval.approval_statuses[:to_be_revised]) }  
   scope :own_and_other_artists, -> (user_id) { joins(:approval).where("submitted_by_id = ? OR approval_status = ?", user_id, Approval.approval_statuses[:approved])
   } 
 

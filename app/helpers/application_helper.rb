@@ -24,6 +24,19 @@ module ApplicationHelper
     display_reasons
   end
 
+  def options_for_rejection(resource)
+    case resource.class.name
+    when "Instrument"
+      options_for_instrument_rejection
+    when "Photo"
+      options_for_photo_rejection
+    when "Article"
+      options_for_article_rejection
+    when "Artist"
+      options_for_artist_rejection
+    end
+  end
+
   def display_date(date, options = {})
     return "" if date == nil
     return date.strftime("%d %B %Y") unless options[:format]

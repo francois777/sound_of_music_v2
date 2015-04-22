@@ -52,7 +52,6 @@ section#article-details.clearfix
         .btn
           = link_to 'Upload photo', new_article_photo_path(@article)
       - if policy(@article).approve? 
-        section.approval-decision
-          = render 'approve'
+        = render partial: 'layouts/approve_decision', locals: {approval: @approval, resource: @article}
         = render "audit_logs", audit_history: @article.versions if @article.versions.any?
 

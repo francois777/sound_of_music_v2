@@ -8,6 +8,7 @@ getSelectedText = (elementId) ->
 
 show_subcategories = (evt) ->
   text = getSelectedText('category_select')
+  console.log(text)
   switch text
     when "Brass", "Electronic", "Keyboard"
       $("#subCategory").hide()

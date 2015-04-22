@@ -124,7 +124,6 @@ input[type="radio"] {
     margin-bottom: 10px;
     form {
       height: 110px;
-      display: inline-block;
       background-color: #B9D2CB;
       padding-top: 15px;
       width: 75%;
@@ -165,7 +164,7 @@ input[type="radio"] {
       border-radius: 4px;
       padding: 8px 12px;
       height: 34px;
-      min-width: 80px;
+      min-width: 100px;
       display: inline-block;
       vertical-align: middle;
       &:hover {
@@ -345,9 +344,11 @@ input[type="radio"] {
 
   /*   Artists   */
 
-  #artist-form {
-    select {
-      font-size: 1em;
+  #artist-form form {
+    margin-bottom: 20px;
+    input[type='submit'] {
+      margin: 25px auto;
+      display: block;
     }
   }
 
@@ -360,7 +361,8 @@ input[type="radio"] {
       .form-group {
         margin-bottom: 5px;
         select {
-          font-size: 1.5em;
+          font-size: 2em;
+          margin-top: 6px;
         }
       }
     }
@@ -574,8 +576,7 @@ input[type="radio"] {
   }
 
   section.approval-decision form {
-    // width: 80%;
-    margin: 0 10%;
+    margin: 0 auto;
   }
 
 }

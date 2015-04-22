@@ -2,12 +2,13 @@ $ ->
 
   getSelectedText = (elementId) ->
     elt = document.getElementById(elementId)
-    if elt.selectedIndex == -1
+    if elt == null or elt.selectedIndex == -1
       return null
     elt.options[elt.selectedIndex].text
 
   show_subcategories = (evt) ->
     text = getSelectedText('category_select')
+    console.log(text)
     switch text
       when "Brass", "Electronic", "Keyboard"
         $("#subCategory").hide()
@@ -26,4 +27,5 @@ $ ->
       success: (data, textStatus, jqXHR) ->
         # console.log("Dynamic category select OK!")
 
+  $("#subCategory").hide()
   show_subcategories()
