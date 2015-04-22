@@ -15,49 +15,24 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :artists do
-    member do
-      post :submit
-    end
-  end
+  resources :artists
 
   resources :instruments do
-    member do
-      post :submit
-    end
-    resources :articles do 
-      member do
-        post :submit
-      end
-    end
+    resources :articles
   end
 
   resources :articles do
-    member do
-      post :submit
-    end
     resources :photos
   end
 
   namespace :admin do
     root :to => "base#index"
     resources :users, only: [:index, :destroy]
-    resources :articles, except: :submit do
-      member do
-        post :approve
-      end
-    end
-    resources :instruments, only: :destroy do
-      member do
-        post :approve
-      end
-    end
 
     resources :artists, only: :approve
 
     resources :photos do
       member do
-        post :approve
         get :review
         post :review
       end
