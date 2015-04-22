@@ -1,10 +1,17 @@
 $ ->
+
+  getSelectedText = (elementId) ->
+    elt = document.getElementById(elementId)
+    if elt.selectedIndex == -1
+      return null
+    elt.options[elt.selectedIndex].text
+
   show_subcategories = (evt) ->
-    category_id = $("#category_select").val()
-    switch category_id
-      when "31", "32", "33"
+    text = getSelectedText('category_select')
+    switch text
+      when "Brass", "Electronic", "Keyboard"
         $("#subCategory").hide()
-      when "34", "35", "36"
+      when "Percussion", "Strings", "Woodwind"
         $("#subCategory").show()  
 
   $(document).on 'change', '#category_select', (evt) ->
