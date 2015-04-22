@@ -47,11 +47,11 @@ section#artist-details
       .form-group
         = label_tag :approval_status, 'Approval status', class: 'col-xs-4 control-label'
         .col-xs-8.col-sm-4.col-md-3
-          = text_field_tag :approval_status, @artist.approval.approval_status.humanize, readonly: true, class: 'form-control'
+          = text_field_tag :approval_status, @artist.approval_status_display, readonly: true, class: 'form-control'
       .form-group
         = label_tag :rejection_reason, 'Rejection reason', class: 'col-xs-4 control-label'
         .col-xs-8.col-sm-4.col-md-3
-          = text_field_tag :rejection_reason, @rejection_reasons, readonly: true, class: 'form-control'
+          = text_field_tag :rejection_reason, @artist.rejection_reason_display, readonly: true, class: 'form-control'
         
   - if current_user
     section.submit-decision

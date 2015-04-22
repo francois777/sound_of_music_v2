@@ -1,4 +1,5 @@
-= form_for ([@subject, @article]), html: {class: "form-horizontal buttons", role: "form"}, method: :post, url: { controller: "articles", action: "submit" } do |f|
+= form_for (@approval), html: {class: "form-horizontal buttons", role: "form"}, method: :post, url: { controller: "approvals", action: "submit" } do |f|
+  = f.hidden_field :approval_id, value: @approval.id
   .row    
     .actions  
       - if policy(@article).submit?

@@ -40,7 +40,7 @@ class PhotoPolicy < ApplicationPolicy
   end
 
   def approve?
-    @photo.submitted? and @current_user and @current_user.approver?
+    @current_user and @current_user.approver? and (@photo.approve.submitted? or @photo.approve.to_be_revised?) 
   end
 
   def destroy?
@@ -48,6 +48,7 @@ class PhotoPolicy < ApplicationPolicy
   end
 
   def submit?
+    return true if @photo.new_record?
     @author == @current_user and @photo.approval.to_be_revised?
   end
 

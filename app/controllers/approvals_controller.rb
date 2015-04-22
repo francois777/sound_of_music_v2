@@ -10,8 +10,10 @@ class ApprovalsController < ApplicationController
 
   def approve
     params[:commit] == "Approve" ? process_approval : process_rejection
-    if ['Photo', 'Article'].include? @approval.approvable.class.name
+    if @approval.approvable.class.name == 'Photo'
       redirect_to [@approval.approvable.imageable, @approval.approvable]
+    elsif @approval.approvable.class.name == 'Article'
+      redirect_to [@approval.approvable.publishable, @approval.approvable]
     else  
       redirect_to [@approval.approvable]
     end

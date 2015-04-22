@@ -12,13 +12,10 @@ describe Article do
     @subcategory = create(:bowed)
     @theme = create(:instrument_theme)
     @instrument = create(:approved_instrument, created_by: @user1, category: @category, subcategory: @subcategory)
-    @article = Article.create( title: 'The history of the harp', 
+    @article = Article.new( title: 'The history of the harp', 
                             publishable: @instrument, 
                             body: 'This is what happened in the 16th century..',
                             author: @user1, 
-                            approver: @approver,
-                            approval_status: :approved,
-                            rejection_reason: :not_rejected,
                             theme: @theme)
   end
 
@@ -28,22 +25,19 @@ describe Article do
   it { should respond_to(:body) }
   it { should respond_to(:publishable) }
   it { should respond_to(:author) }
-  it { should respond_to(:approver) }
   it { should respond_to(:theme) }
-  it { should respond_to(:approval_status) }
-  it { should respond_to(:rejection_reason) }
 
   it "must be valid" do
     expect(@article).to be_valid
   end
 
   it "must have a valid factory" do
-    article_fact = FactoryGirl.build(:instrument_article)
-    article_fact.approver = @approver
+    article_fact = FactoryGirl.build(:approved_instrument_article)
     expect(article_fact).to be_valid
   end
 
   it "could belong to an instrument" do
+    @article.save
     expect(@article.publishable).to eq(@instrument)
     expect(@article.publishable.class).to eq(Instrument)
   end
@@ -54,27 +48,23 @@ describe Article do
     expect(@article).not_to be_valid
   end
 
-  it "must validate the article's approver" do
-    expect(@article.approver).to eq(@approver)
-    @article.approver = nil
-    expect(@article).not_to be_valid
-  end
+  it "must respond correctly to Article.approved(instrument)" do
+    art1 = create(:submitted_instrument_article, publishable: @instrument)
+    art2 = create(:approved_instrument_article, publishable: @instrument)
+    art3 = create(:submitted_instrument_article, publishable: @instrument)
+    art4 = create(:approved_instrument_article, publishable: @instrument)
 
-  it "must validate the article's approval status" do
-    expect(@article.approved?).to eq(true)
-    expect { @article.approval_status = :unexpected }.to raise_error(ArgumentError)
-  end
+    approved_articles = Article.approved(@instrument)
+    expect( approved_articles ).to include(art2)
+    expect( approved_articles ).to include(art4)
+    expect( approved_articles ).not_to include(art1)
+    expect( approved_articles ).not_to include(art3)
 
-  it "must require a rejection_reason when requesting a review" do
-    @article.approval_status = :to_be_revised
-    expect(@article).not_to be_valid
+    submitted_articles = Article.submitted(@instrument)
+    expect( submitted_articles ).to include(art1)
+    expect( submitted_articles ).to include(art3)
+    expect( submitted_articles ).not_to include(art2)
+    expect( submitted_articles ).not_to include(art4)
   end
-
-  it "cannot have a rejection_reason when not requesting a review" do
-    @article.approval_status = :incomplete
-    @article.rejection_reason = :grammar_and_spelling
-    expect { @article.save! }.to raise_error
-  end
-
 
 end

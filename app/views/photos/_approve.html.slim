@@ -1,4 +1,4 @@
-= form_for ([@approval]), html: {class: "form-horizontal buttons", role: "form"}, method: :post, url: { controller: "approvals", action: "approve" } do |f|
+= form_for (@approval), html: {class: "form-horizontal buttons", role: "form"}, method: :post, url: { controller: "approvals", action: "approve" } do |f|
   = f.hidden_field :approval_id, value: @approval.id
   .form-group
     = f.label :rejection_reason, 'Rejection reason', class: 'col-xs-4 col-sm-4 col-md-4 control-label'

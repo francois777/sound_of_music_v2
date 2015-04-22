@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :submitted_instrument, class: Instrument do
-    sequence(:name) { |n| "Instrument_#{n}" }
+    sequence(:name) { |n| "Submitted Instrument_#{n}" }
     category Category.where("name = ?", 'Strings').first
     subcategory Subcategory.where("name = ?", 'Bowed').first
     performer_title 'Harpist'
@@ -13,7 +13,7 @@ FactoryGirl.define do
   end
 
   factory :approved_instrument, class: Instrument do
-    sequence(:name) { |n| "Instrument_#{n}" }
+    sequence(:name) { |n| "Approved Instrument_#{n}" }
     category Category.where("name = ?", 'Strings').first
     subcategory Subcategory.where("name = ?", 'Bowed').first
     performer_title 'Harpist'
@@ -26,7 +26,7 @@ FactoryGirl.define do
   end
 
   factory :rejected_instrument, class: Instrument do
-    sequence(:name) { |n| "Instrument_#{n}" }
+    sequence(:name) { |n| "Rejected Instrument_#{n}" }
     category Category.where("name = ?", 'Strings').first
     subcategory Subcategory.where("name = ?", 'Bowed').first
     performer_title 'Harpist'

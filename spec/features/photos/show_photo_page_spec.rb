@@ -11,18 +11,14 @@ feature 'Show Photo page' do
       @instrument = FactoryGirl.create(:triangle, created_by: @user)
       @history_theme = Theme.create(subject: :instruments, name: 'History')
       @construction_theme = Theme.create(subject: :instruments, name: 'Construction')
-      @approved_article = FactoryGirl.create(:instrument_article, 
-                  publishable: @instrument, author: @user, approver: @approver,
-                  approval_status: :approved, rejection_reason: :not_rejected )
-      @submitted_photo = FactoryGirl.create(:photo, 
+      @approved_article = FactoryGirl.create(:approved_instrument_article, 
+                  publishable: @instrument, author: @user)
+      @submitted_photo = FactoryGirl.create(:submitted_article_photo, 
                   imageable: @approved_article,
                   title: "My beautiful photo",
                   image: "my_beautiful_photo.jpg",
                   submitted_by: @user
                   )
-      approval_params = Approval::SUBMITTED.merge( {approvable: @submitted_photo} )
-      @approval = Approval.create( approval_params )
-
       visit root_path
     end
 
@@ -79,10 +75,9 @@ feature 'Show Photo page' do
       @instrument = FactoryGirl.create(:triangle, created_by: @user)
       @history_theme = Theme.create(subject: :instruments, name: 'History')
       @construction_theme = Theme.create(subject: :instruments, name: 'Construction')
-      @approved_article = FactoryGirl.create(:instrument_article, 
-                  publishable: @instrument, author: @user, approver: @approver,
-                  approval_status: :approved, rejection_reason: :not_rejected )
-      @approved_photo = FactoryGirl.create(:photo, 
+      @approved_article = FactoryGirl.create(:approved_instrument_article, 
+                  publishable: @instrument, author: @user )
+      @approved_photo = FactoryGirl.create(:approved_article_photo, 
                   imageable: @approved_article,
                   title: "My beautiful photo",
                   image: "my_beautiful_photo.jpg",

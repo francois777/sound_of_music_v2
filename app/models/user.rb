@@ -19,10 +19,6 @@ class User < ActiveRecord::Base
     [first_name, last_name].compact.join(' ')
   end
 
-  def viewable_articles_for_instrument(instrument_id)
-    Article.where('publishable_id = ? AND (approval_status = ? OR author_id = ?)', instrument_id, Article.approval_statuses[:approved], self.id)
-  end
-
   private
 
   def set_default_role

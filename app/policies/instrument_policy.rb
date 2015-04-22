@@ -42,7 +42,7 @@ class InstrumentPolicy < ApplicationPolicy
   end
 
   def approve?
-    @instrument.approval.submitted? and @current_user and @current_user.approver?
+    @current_user and @current_user.approver? and (@instrument.approve.submitted? or @instrument.approve.to_be_revised?) 
   end
 
   def destroy?

@@ -8,7 +8,7 @@ module ApplicationHelper
 
   def options_for_article_rejection
     display_reasons = {}
-    Article.rejection_reasons.each { |k,v| display_reasons[k.humanize] = v }
+    Article::REJECTION_REASONS.each_with_index { |k,inx| display_reasons[k.to_s.humanize] = inx }
     display_reasons
   end
 

@@ -42,7 +42,7 @@ class ArtistPolicy < ApplicationPolicy
   end
 
   def approve?
-    @artist.approval.submitted? and @current_user and @current_user.approver?
+    @current_user and @current_user.approver? and (@artist.approval.submitted? or @artist.approval.to_be_revised?)
   end
 
   def destroy?
@@ -81,6 +81,5 @@ class ArtistPolicy < ApplicationPolicy
       end
     end
   end
-
 
 end

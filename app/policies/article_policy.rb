@@ -12,8 +12,8 @@ class ArticlePolicy < ApplicationPolicy
   end
 
   def show?
-    return true if @article.approved?
     return false unless Article.exists?(@article.id)
+    return true if @article.approval.approved?
     @current_user and (@author == @current_user or @current_user.approver?)
   end
 
@@ -23,8 +23,8 @@ class ArticlePolicy < ApplicationPolicy
 
   def edit?
     return false unless @current_user 
+    return false if @article.approval.submitted? and @author == @current_user
     return true if @author == @current_user
-    return false if @article.incomplete? or @article.submitted?
     @current_user.admin? or @current_user.approver? or @current_user.owner?
   end
 
@@ -34,14 +34,13 @@ class ArticlePolicy < ApplicationPolicy
 
   def update?
     return false unless @current_user 
+    return false if @article.approval.submitted? and @author == @current_user
     return true if @author == @current_user
-    return false if @article.incomplete? or @article.submitted?
     @current_user.admin? or @current_user.approver? or @current_user.owner?
   end
 
   def approve?
-    return false unless @current_user and @current_user.approver?
-    @article.submitted? or @article.approved? or @article.to_be_revised?
+    @current_user and @current_user.approver? and (@article.approve.submitted? or @article.approve.to_be_revised?) 
   end
 
   def destroy?
@@ -50,7 +49,7 @@ class ArticlePolicy < ApplicationPolicy
 
   def submit?
     return true if @article.new_record?
-    @author == @current_user and @article.to_be_revised?
+    @author == @current_user and (@article.approval.incomplete? or @article.approval.to_be_revised?)
   end
 
   def view_approval_info?
@@ -62,14 +61,21 @@ class ArticlePolicy < ApplicationPolicy
     @current_user and @current_user.approver?
   end
 
-  class Scope < Struct.new(:current_user, :model)
+  def article_not_authorized
+    flash[:alert] = "This operation is not allowed on articles."
+    redirect_to (request.referrer or root_path)
+  end
+
+  class Scope < Struct.new(:current_user, :model, :publishable)
     def resolve
-      if current_user.nil?
-        model.articles.approved
-      elsif current_user.user?  
-        current_user.viewable_articles_for_instrument(model.id)
+      if current_user
+        if current_user.user?
+          model.own_and_other_articles(publishable, current_user.id)
+        else
+          model.all_for_publishable(publishable)
+        end
       else
-        model.articles
+        model.approved(publishable)
       end  
     end    
   end

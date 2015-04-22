@@ -6,8 +6,8 @@ feature 'Edit Photo page' do
     @user = FactoryGirl.create(:user)
     @approver = FactoryGirl.create(:approver)
     @subject = FactoryGirl.create(:triangle, created_by: @user)
-    @collection = create(:instrument_article, publishable: @subject, 
-      author: @user, approver: @approver, approval_status: :approved)
+    @collection = create(:approved_instrument_article, publishable: @subject, 
+      author: @user)
     visit root_path
   end
 

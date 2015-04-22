@@ -114,7 +114,7 @@ class InstrumentsController < ApplicationController
     end 
 
     def set_articles
-      scoped_articles = ArticlePolicy::Scope.new(current_user, @instrument).resolve
+      scoped_articles = ArticlePolicy::Scope.new(current_user, Article, @instrument).resolve
       if scoped_articles.any?
         # articles = scoped_articles.collect { |art| { art_id: art.id, title: art.title, author_name: art.author.name, email: art.author.email, approval_status: art.approval_status, submitted_on: art.created_at }}
 

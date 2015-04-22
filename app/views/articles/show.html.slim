@@ -29,11 +29,16 @@ section#article-details
         = f.label :created_at, 'Created at', class: 'col-xs-4 col-sm-5 col-md-6 control-label'
         .col-xs-8.col-sm-7.col-md-6
           = f.text_field :created_at, readonly: '', value: Time.at(@article.created_at).strftime("%d %B %Y"), class: 'form-control', format: :std
-      - if policy(@article).view_approval_info?    
+      - if current_user and policy(@article).view_approval_info?    
+        - if @article.approval.approver
+          .form-group
+            = label_tag :approver, 'Approver', class: 'col-xs-4 control-label'
+            .col-xs-8.col-sm-4.col-md-3
+              = text_field_tag :approver, @article.approval.approver.name, readonly: true, class: 'form-control'
         .form-group.col-sm-6.col-md-6
           = f.label :approval_status, 'Approved status', class: 'col-xs-4 col-sm-5 col-md-6 control-label'
           .col-xs-8.col-sm-7.col-md-6
-            = f.text_field :approval_status, readonly: "", value: @article.approval_status_display, class: 'form-control'
+            = f.text_field :approval_status, value: @article.approval_status_display, readonly: true, class: 'form-control'
         .form-group.col-sm-6.col-md-6
           = f.label :rejection_reason, 'Rejection reason', class: 'col-xs-4 col-sm-5 col-md-6 control-label'
           .col-xs-8.col-sm-7.col-md-6
@@ -43,7 +48,7 @@ section#article-details
       - if current_user and (policy(@article).submit? or policy(@article).edit?)
         section.submit-decision
           = render 'submit'  
-      - if current_user and @article.approved?
+      - if current_user and @article.approval.approved?
         .btn
           = link_to 'Upload photo', new_article_photo_path(@article)
       - if policy(@article).for_approver? 

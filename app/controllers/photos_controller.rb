@@ -78,6 +78,7 @@ class PhotosController < ApplicationController
     end
 
     def set_collection
+      @collection = nil
       @collection = Article.find(params[:article_id].to_i) if params[:article_id]
     end
 

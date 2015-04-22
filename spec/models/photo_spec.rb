@@ -5,23 +5,13 @@ describe Photo do
   include FactoryGirl::Syntax::Methods
 
   before do
-      @user = create(:user)
-      @approver = create(:approver)
-      @category = create(:strings)
-      @subcategory = create(:bowed)
-      @instrument = Instrument.new(
-        name: 'Alto saxophone', 
-        other_names: 'Alto Sax', 
-        performer_title: 'Saxist', 
-        category: @category,
-        subcategory: @subcategory,
-        origin_period: '1600',
-        created_by: @user)
-      approval_params = Approval::APPROVED.merge( {approvable: @instrument, approver: @approver} )
-      @approval = Approval.create( approval_params )
-
+    @user = create(:user)
+    @approver = create(:approver)
+    @category = create(:strings)
+    @subcategory = create(:bowed)
+    @instrument = create(:approved_instrument, name: 'Alto saxophone', created_by: @user, category: @category, subcategory: @subcategory)
     @theme = create(:instrument_theme)
-    @article = create(:instrument_article, author: @user, publishable: @instrument, theme: @theme)
+    @article = create(:approved_instrument_article, author: @user, publishable: @instrument, theme: @theme)
     @photo = Photo.new(
       title: "An old violin",
       submitted_by: @user,
@@ -45,7 +35,7 @@ describe Photo do
   end
 
   it "must have a valid factory" do
-    photo_factory = build(:photo)
+    photo_factory = build(:approved_article_photo)
     expect(photo_factory).to be_valid
   end
 

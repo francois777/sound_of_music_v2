@@ -28,12 +28,12 @@ class Artist < ActiveRecord::Base
     names.join(" ")
   end
 
-  def approval_status
-    approval.approval_status.humanize
+  def approval_status_display
+    approval.approval_status.humanize if approval
   end
 
-  def rejection_reason
-    approval.rejection_reason.humanize
+  def rejection_reason_display
+    approval.rejection_reason.humanize if approval
   end
 
   private 

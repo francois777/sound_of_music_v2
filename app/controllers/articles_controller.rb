@@ -11,6 +11,7 @@ class ArticlesController < ApplicationController
       redirect_to instruments_path
       return
     end
+    @approval = @article.approval
     authorize @article
   end
 
@@ -19,12 +20,9 @@ class ArticlesController < ApplicationController
   end 
 
   def create
-    @article = @subject.articles.new(article_params) 
-    @article.author = current_user
-    @article.rejection_reason = :not_rejected
-    @article.approval_status = :incomplete
-    @article.theme_id = article_params[:theme_id].to_i
+    set_new_article_defaults
     if @article.save
+      create_approval(@article.reload)
       flash[:notice] = t(:article_created, scope: [:success])
       redirect_to [@subject, @article]
     else
@@ -79,6 +77,11 @@ class ArticlesController < ApplicationController
 
   private
 
+    def create_approval(approvable)
+      approval_params = Approval::INCOMPLETE.merge( {approvable: @article} )
+      Approval.create( approval_params )
+    end
+
     def set_article
       if !@subject.nil? && !params[:id].empty?
         @article = Article.find(params[:id]) 
@@ -91,6 +94,12 @@ class ArticlesController < ApplicationController
     def set_instrument_themes
       @instrument_themes = Theme.instruments
     end
+
+    def set_new_article_defaults
+      @article = @subject.articles.new(article_params) 
+      @article.author = current_user
+      @article.theme_id = article_params[:theme_id].to_i
+    end    
 
     def history
       @versions = PaperTrail::Version.order('created_at DESC')

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150420053918) do
+ActiveRecord::Schema.define(version: 20150422010755) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -32,17 +32,13 @@ ActiveRecord::Schema.define(version: 20150420053918) do
     t.string   "title"
     t.integer  "publishable_id"
     t.string   "publishable_type"
-    t.integer  "author_id",                    null: false
-    t.integer  "approver_id"
-    t.integer  "theme_id",                     null: false
-    t.integer  "approval_status",  default: 0
-    t.integer  "rejection_reason", default: 0
+    t.integer  "author_id",        null: false
+    t.integer  "theme_id",         null: false
     t.text     "body"
-    t.datetime "created_at",                   null: false
-    t.datetime "updated_at",                   null: false
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
   end
 
-  add_index "articles", ["approver_id"], name: "index_article_approver", using: :btree
   add_index "articles", ["author_id"], name: "index_article_author", using: :btree
   add_index "articles", ["publishable_id", "publishable_type"], name: "index_articles_on_publishable_id_and_publishable_type", using: :btree
 

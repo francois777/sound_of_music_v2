@@ -9,16 +9,8 @@ feature 'Show Article page' do
     @instrument = FactoryGirl.create(:triangle, created_by: @user)
     @history_theme = Theme.create(subject: :instruments, name: 'History')
     @construction_theme = Theme.create(subject: :instruments, name: 'Construction')
-    @submitted_article = FactoryGirl.create(:instrument_article, 
-                publishable: @instrument, author: @user, approver: nil,
-                approval_status: :submitted,
-                rejection_reason: :not_rejected
-                )
-    @approved_article = FactoryGirl.create(:instrument_article, 
-                publishable: @instrument, author: @user, approver: @approver,
-                approval_status: :approved,
-                rejection_reason: :not_rejected
-                )
+    @submitted_article = FactoryGirl.create(:submitted_instrument_article)
+    @approved_article = FactoryGirl.create(:approved_instrument_article)
     visit root_path
   end
 
