@@ -13,7 +13,7 @@ class ArtistPolicy < ApplicationPolicy
 
   def show?
     return false unless Artist.exists?(@artist.id)
-    return true if @artist.approval.approved?
+    return true if @artist.approved?
     @current_user and (@author == @current_user or @current_user.approver?)
   end
 

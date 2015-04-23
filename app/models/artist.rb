@@ -37,6 +37,10 @@ class Artist < ActiveRecord::Base
     approval.rejection_reason.humanize if approval
   end
 
+  def approved?
+    approval.approved?
+  end
+
   private 
 
     def death_after_birth
@@ -88,8 +92,10 @@ class Artist < ActiveRecord::Base
       if middle_name_count > 3
         errors.add(:assigned_name, "A maximum of 3 middle names are allowed")
       end
-      unless first_name.present? and last_name.present?
-        errors.add(:assigned_name, "First and last name are required")
+      unless public_name.present?
+        unless first_name.present? and last_name.present?
+          errors.add(:assigned_name, "First and last name are required")
+        end
       end
       return if errors.count > 0
       if public_name.present?

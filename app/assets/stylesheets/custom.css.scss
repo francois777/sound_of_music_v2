@@ -352,7 +352,7 @@ input[type="radio"] {
     }
   }
 
-  section#names-group {
+  #names-group {
     // border: 1px solid red;
     margin-bottom: 10px;
     padding-left: 10px;
@@ -361,10 +361,20 @@ input[type="radio"] {
       .form-group {
         margin-bottom: 5px;
         select {
+          padding: 5px;
+          line-height: 1;
           font-size: 2em;
           margin-top: 6px;
+          height: 34px;
         }
       }
+    }
+  }
+
+  #artist-details {
+    display: block;
+    .actions {
+      display: block;
     }
   }
 

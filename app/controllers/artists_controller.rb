@@ -27,8 +27,7 @@ class ArtistsController < ApplicationController
   def new
     @artist = Artist.new
     @artist.born_on = Date.today - 50.years
-    @artist.artist_names.build
-    @artist.artist_names.build
+    4.times { @artist.artist_names.build }
   end
 
   def edit
@@ -48,6 +47,16 @@ class ArtistsController < ApplicationController
     end
   end
 
+  def update
+    if @artist.update_attributes(artist_params_formatted)
+      flash[:notice] = t(:artist_updated, scope: [:success])
+      redirect_to @artist
+    else  
+      flash[:alert] = t(:artist_update_failed, scope: [:failure])
+      render :edit
+    end
+  end
+
   def user_not_authorized
     flash[:alert] = "This artist is not yet approved. You may not perform this action."
     redirect_to (request.referrer || root_path)
@@ -62,14 +71,17 @@ class ArtistsController < ApplicationController
 
     def artist_params_formatted
       new_params = artist_params
-      new_params['artist_names_attributes']['0']['name_type'] = artist_params['artist_names_attributes']['0']['name_type'].to_i
-      new_params['artist_names_attributes']['1']['name_type'] = artist_params['artist_names_attributes']['1']['name_type'].to_i
+      inx = 0
+      while new_params['artist_names_attributes'][inx.to_s] != nil
+        new_params['artist_names_attributes'][inx.to_s]['name_type'] = artist_params['artist_names_attributes'][inx.to_s]['name_type'].to_i
+        inx += 1
+      end
       new_params
     end
 
     def artist_params
       params.require(:artist).
-        permit(:born_on, :died_on, :born_country_code, :historical_period_id, :gender, artist_names_attributes: [:name, :name_type])
+        permit(:born_on, :died_on, :born_country_code, :historical_period_id, :gender, artist_names_attributes: [:id, :name, :name_type])
     end
 
     def set_artist
