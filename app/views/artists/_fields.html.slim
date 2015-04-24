@@ -11,12 +11,16 @@
 .form-group
   = f.label :born_on, 'Born on', class: "col-xs-4 col-sm-3 control-label"
   .col-xs-5.col-sm-3
-    = f.text_field :born_on, class: "form-control datepicker", data: {provide: "datepicker", dateFormat: "dd M yy"}, value: display_date(@artist.born_on)
+    = f.text_field :born_on, class: "form-control", data: {provide: "datepicker"}, value: display_date(@artist.born_on), id: "datepicker1"
 .form-group
   = f.label :died_on, 'Died on', class: "col-xs-4 col-sm-3 control-label"
   .col-xs-5.col-sm-3
-    = f.text_field :died_on, class: "form-control datepicker", data: {provide: "datepicker", dateFormat: "dd M yy"}, value: display_date(@artist.died_on)
+    = f.text_field :died_on, class: "form-control", data: {provide: "datepicker"}, value: display_date(@artist.died_on), id: "datepicker2"
 .form-group
   = f.label :born_country_code, 'Born in country', class: "col-xs-4 col-sm-3 control-label select-label"    
   .col-xs-8.col-sm-6
     = f.select :born_country_code, options_for_select(I18n.t('countries').collect { |cty| [cty[1], cty[0]]}, selected: @artist.born_country_code), {}, class: "form-control col-xs-8 col-sm-6"
+
+javascript:
+  $('#datepicker1').datepicker({format: 'dd-mm-yyyy'});    
+  $('#datepicker2').datepicker({format: 'dd-mm-yyyy'});    

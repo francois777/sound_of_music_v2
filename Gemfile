@@ -22,6 +22,7 @@ gem 'thin'
 gem 'paper_trail'
 gem 'carrierwave'
 gem 'cloudinary'
+gem 'bootstrap-datepicker-rails'
 
 group :development do
   gem 'better_errors'
