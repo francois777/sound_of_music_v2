@@ -1,4 +1,4 @@
-require 'factory_girl_rails'
+# require 'factory_girl_rails' # cannot do this in production
 
 # User.delete_all
 if User.count == 0
