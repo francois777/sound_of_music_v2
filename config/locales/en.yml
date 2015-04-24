@@ -56,6 +56,7 @@ en:
   failure:
     access_denied: Access denied.
     article_create_failed: The article could not be created.
+    article_delete_failed: The article could not be deleted.
     article_not_saved: An error occurred and the article could not be saved.
     article_not_approved: Article could not be approved.
     article_not_found: Article could not be found.

@@ -17,6 +17,12 @@ class ArticlePolicy < ApplicationPolicy
     @current_user and (@author == @current_user or @current_user.approver?)
   end
 
+  def delete?
+    return false unless @current_user
+    return true if @current_user.approver? or @current_user.owner?
+    !@article.approved?
+  end
+
   def index?
     true
   end

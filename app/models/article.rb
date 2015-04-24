@@ -39,6 +39,10 @@ class Article < ActiveRecord::Base
       user_id, Approval.approval_statuses[:approved], publishable.class.name, publishable.id)
   } 
 
+  def approved?
+    approval.approved?
+  end
+
   def approval_status_display
     approval.approval_status.humanize if approval
   end

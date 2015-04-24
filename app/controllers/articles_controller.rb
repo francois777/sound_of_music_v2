@@ -37,6 +37,15 @@ class ArticlesController < ApplicationController
     authorize @article
   end
 
+  def destroy
+    @article.delete
+    flash[:notice] = t(:article_deleted, scope: [:success])
+    case @subject.class.name
+    when 'Instrument'
+      redirect_to instrument_path(@subject)
+    end
+  end
+
   def update
     update_params = article_params
     update_params['theme_id'] = Theme.instruments.first.id.to_s if update_params['theme_id'].empty?
@@ -122,8 +131,6 @@ class ArticlesController < ApplicationController
     end
 
     def undo_link
-      # puts "ArticlesController#undo_link"
-      # puts "Versions: #{@article.versions.count}"
       if @article.versions.any?
         view_context.link_to("Undo", revert_version_path(@article.versions.last), method: :post)
       end
