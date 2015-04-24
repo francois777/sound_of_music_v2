@@ -44,6 +44,7 @@ en:
     artist_updated: Artist has been updated
     instrument_approved: Instrument has been approved.
     instrument_created: Musical instrument has been created.
+    instrument_deleted: Musical instrument has been deleted.
     instrument_to_be_revised: The author is requested to revise this instrument.
     instrument_updated: Musical instrument has been updated.
     photo_approved: Photo has been approved

@@ -7,10 +7,12 @@ section#names-group
     div class="name-#{name_inx}"
       .artist_name_fields
         .form-group
-          = nme.label :name, "Name", class: "col-xs-4 col-sm-3 control-label"
+          = nme.label :name, "Name", class: "col-xs-4 col-sm-2 control-label"
+          .hidden-xs.col-sm-3 
+            = nme.select :name_type, options_for_select(ArtistName.name_types.collect { |nt| [nt[0].humanize, nt[1]]}, selected: ArtistName.name_types[nme.object.name_type.to_s.to_sym]), {}, id: 'xs-name-type'
           .col-xs-8.col-sm-6
             = nme.text_field :name, class: "form-control"
-        .form-group
+        .form-group.hidden-sm.hidden-md.hidden-lg
           = nme.label :name_type, "Name type", class: "col-xs-4 col-sm-3 control-label"
-          .col-xs-8.col-sm-6
+          .col-xs-8
             = nme.select :name_type, options_for_select(ArtistName.name_types.collect { |nt| [nt[0].humanize, nt[1]]}, selected: ArtistName.name_types[nme.object.name_type.to_s.to_sym]), {}

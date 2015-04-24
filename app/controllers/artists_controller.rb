@@ -57,6 +57,13 @@ class ArtistsController < ApplicationController
     end
   end
 
+  def destroy
+    @artist.delete
+    flash[:notice] = t(:artist_deleted, scope: [:success])
+    redirect_to artists_path
+    authorize @artist
+  end
+
   def user_not_authorized
     flash[:alert] = "This artist is not yet approved. You may not perform this action."
     redirect_to (request.referrer || root_path)

@@ -44,19 +44,8 @@ section#article-details.clearfix
             .col-xs-8.col-sm-7.col-md-6
               = text_field_tag :approver, @article.approval.approver.name, readonly: true, class: 'form-control'
   .row
-    .actions
-      - if current_user and (policy(@article).submit? or policy(@article).edit?)
-        section.submit-decision
-          = render 'submit'  
-      - if policy(@article).delete?
-        = form_for ([@subject, @article]), html: {method: :delete, class: "form-horizontal", role: "form"}  do |f|
-          .actions.buttons
-            .button
-              = f.submit 'Delete', class: "btn btn-large btn-danger"
-      - if current_user and @article.approved?
-        .btn
-          = link_to 'Upload photo', new_article_photo_path(@article)
-      - if policy(@article).approve? 
-        = render partial: 'layouts/approve_decision', locals: {approval: @approval, resource: @article}
-  .row
-    p &nbsp;
+    - if current_user
+      = render 'submit'  
+    - if policy(@article).approve? 
+      = render partial: 'layouts/approve_decision', locals: {approval: @approval, resource: @article}
+

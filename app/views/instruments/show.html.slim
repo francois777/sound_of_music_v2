@@ -52,19 +52,10 @@ section#instrument-details
         = label_tag :rejection_reason, 'Rejection reason', class: 'col-xs-5 control-label'
         .col-xs-7
           = text_field_tag :rejection_reason, @instrument.rejection_reason_display, readonly: true, class: 'form-control'  
-
-  - if current_user
-    section.submit-decision
-      - if policy(@approval).submit?
-        = render 'submit'  
-      - if policy(@approval).edit?
-        .row
-          .buttons
-            .actions
-              .btn
-                = link_to 'Edit', edit_instrument_path(@instrument)  
-    - if policy(@approval).approve? 
-      = render partial: 'layouts/approve_decision', locals: {approval: @approval, resource: @instrument}
+    - if current_user
+      = render 'submit'  
+      - if policy(@approval).approve? 
+        = render partial: 'layouts/approve_decision', locals: {approval: @approval, resource: @instrument}
   - if @instrument.approved?
     .row
       section#article-collection.clearfix

@@ -1,10 +1,15 @@
-= form_for (@approval), html: {class: "form-horizontal buttons", role: "form"}, method: :post, url: { controller: "approvals", action: "submit" } do |f|
-  = f.hidden_field :approval_id, value: @approval.id
-  .row    
-    .actions
-      .buttons
-        .button
-          = f.submit 'Submit', class: "btn btn-large btn-success"
-        .button
-          = f.submit 'Delete', class: "btn btn-large btn-danger"
+.row
+  section.submit-decision
+    .actions.buttons
+      .button
+        - if policy(@artist).submit?
+          = form_for (@approval), html: {class: "form-horizontal buttons", role: "form"}, method: :post, url: { controller: "approvals", action: "submit" } do |f|
+            = f.hidden_field :approval_id, value: @approval.id
+            = f.submit 'Submit', class: "btn btn-large btn-success"
+        - if policy(@artist).delete?
+          = form_for (@artist), html: {method: :delete, class: "form-horizontal", role: "form"}  do |f|
+            = f.submit 'Delete', class: "btn btn-large btn-danger"
+        - if policy(@artist).edit?  
+          = link_to 'Edit', edit_artist_path(@artist) 
+
          

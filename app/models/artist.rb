@@ -22,7 +22,10 @@ class Artist < ActiveRecord::Base
   scope :submitted, -> { joins(:approval).where('approvals.approval_status = ?', Approval.approval_statuses[:submitted]) }  
   scope :to_be_revised, -> { joins(:approval).where('approvals.approval_status = ?', Approval.approval_statuses[:to_be_revised]) }  
   scope :own_and_other_artists, -> (user_id) { joins(:approval).where("submitted_by_id = ? OR approval_status = ?", user_id, Approval.approval_statuses[:approved])
-  } 
+  }
+   
+  self.per_page = 10
+
 
   def official_name
     names = artist_names.reject{ |art_nme| [:pulic_name, :maiden_name].include?(art_nme.name_type) }.collect { |art_nme| art_nme.name }

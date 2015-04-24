@@ -45,6 +45,12 @@ class ArtistPolicy < ApplicationPolicy
     @current_user and @current_user.approver? and (@artist.approval.submitted? or @artist.approval.to_be_revised?)
   end
 
+  def delete?
+    return false unless @current_user
+    return true if @current_user.approver? or @current_user.owner?
+    !@artist.approved?
+  end
+
   def destroy?
     current_user.admin?
   end

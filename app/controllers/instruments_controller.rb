@@ -70,6 +70,9 @@ class InstrumentsController < ApplicationController
   end
 
   def destroy
+    @instrument.delete
+    flash[:notice] = t(:instrument_deleted, scope: [:success])
+    redirect_to instrument_path(@subject)
     authorize @instrument
   end
 

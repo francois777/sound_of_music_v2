@@ -1,12 +1,15 @@
-= form_for (@approval), html: {class: "form-horizontal buttons", role: "form"}, method: :post, url: { controller: "approvals", action: "submit" } do |f|
-  = f.hidden_field :approval_id, value: @approval.id
-  .row    
-    - if policy(@article).submit?
-      .actions  
-        .buttons
-          .button
+.row
+  section.submit-decision
+    .actions.buttons
+      .button
+        - if policy(@article).submit?
+          = form_for (@approval), html: {class: "form-horizontal buttons", role: "form"}, method: :post, url: { controller: "approvals", action: "submit" } do |f|
+            = f.hidden_field :approval_id, value: @approval.id
             = f.submit 'Submit', class: "btn btn-large btn-success"
-    - if policy(@article).edit?  
-      .actions  
-        .btn
+        - if policy(@article).delete?
+          = form_for ([@subject, @article]), html: {method: :delete, class: "form-horizontal", role: "form"}  do |f|
+            = f.submit 'Delete', class: "btn btn-large btn-danger"
+        - if policy(@article).edit?  
           = link_to 'Edit', edit_instrument_article_path(@article.publishable, @article) 
+      - if @article.approved?
+        = link_to 'Upload photo', new_article_photo_path(@article)

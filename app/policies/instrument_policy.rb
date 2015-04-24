@@ -29,6 +29,12 @@ class InstrumentPolicy < ApplicationPolicy
     @current_user.admin? or @current_user.approver? or @current_user.owner?
   end
 
+  def delete?
+    return false unless @current_user
+    return true if @current_user.approver? or @current_user.owner?
+    !@instrument.approved?
+  end
+
   def submitted?
     true
   end
