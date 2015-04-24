@@ -29,6 +29,10 @@ class Artist < ActiveRecord::Base
     names.join(" ")
   end
 
+  def name
+    assigned_name
+  end
+
   def approval_status_display
     approval.approval_status.humanize if approval
   end

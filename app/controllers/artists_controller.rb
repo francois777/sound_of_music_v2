@@ -65,7 +65,7 @@ class ArtistsController < ApplicationController
   private
 
     def create_approval(approvable)
-      approval_params = Approval::INCOMPLETE.merge( {approvable: @artist} )
+      approval_params = Approval::SUBMITTED.merge( {approvable: @artist} )
       Approval.create( approval_params )
     end
 

@@ -21,14 +21,14 @@ section#artist-details
         = text_field_tag :gender, @artist.gender.titleize, readonly: true, class: 'form-control'
     .form-group
       = label_tag :born_on, 'Lived from/to', class: 'hidden-xs col-sm-4 control-label'
-      = label_tag :born_on, 'Born', class: 'col-xs-4 hidden-sm hidden-md control-label'
-      .col-xs-5.col-sm-3.col-md-3
+      = label_tag :born_on, 'Born', class: 'col-xs-4 hidden-sm hidden-md hidden-lg control-label'
+      .col-xs-5.col-sm-3.col-md-3.col-lg-3
         = text_field_tag :born_on, display_date(@artist.born_on), readonly: true, class: 'form-control'
-      .hidden-xs.col-sm-3.col-md-3
+      .hidden-xs.col-sm-3.col-md-3.col-lg-3
         = text_field_tag :died_on, display_date(@artist.died_on), readonly: true, class: 'form-control'
     .form-group
-      = label_tag :died_on, 'Died', class: 'col-xs-4 hidden-sm hidden-md control-label'
-      .col-xs-5.hidden-sm.hidden-md
+      = label_tag :died_on, 'Died', class: 'col-xs-4 hidden-sm hidden-md hidden-lg control-label'
+      .col-xs-5.hidden-sm.hidden-md.hidden-lg
         = text_field_tag :died_on, display_date(@artist.died_on), readonly: true, class: 'form-control'
     .form-group
       = label_tag :born_country_code, 'Born in country', class: 'col-xs-4 col-sm-4 control-label'

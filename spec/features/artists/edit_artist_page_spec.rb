@@ -61,7 +61,7 @@ feature 'Edit Artist page' do
       expect(@artist.artist_names[2].name_type).to eq("last_name")
       expect(@artist.born_on).to eq(Date.new(1999, 12, 31))
       expect(@artist.died_on).to eq(Date.new(2014, 02, 28))
-      expect(@artist.born_country_code).to eq('sp')
+      expect(@artist.born_country_code).to eq('es')
 
     end    
   end
