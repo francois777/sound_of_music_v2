@@ -31,7 +31,7 @@ feature 'Edit Artist page' do
       expect( find(:css, "select#artist_artist_names_attributes_1_name_type").value ).to eq('1')
       expect( find(:css, "input#artist_artist_names_attributes_2_name").value ).to eq('Peterson')
       expect( find(:css, "select#artist_artist_names_attributes_2_name_type").value ).to eq('2')
-      expect( find(:css, "input#artist_born_on").value ).to eq(display_date(@artist.born_on))
+      expect( find(:css, "input#born-on").value ).to eq(display_date(@artist.born_on))
 
       within("#names-group .name-1") do
         fill_in 'Name', with: 'Julian'
@@ -46,8 +46,8 @@ feature 'Edit Artist page' do
         select 'Last name', from: 'Name type'
       end
       # find(:css, "input#artist_gender_female").set(true)
-      fill_in 'Born on', with: '31 December 1999'
-      fill_in 'Died on', with: '28 February 2014'
+      fill_in 'born-on', with: '31-12-1999'
+      fill_in 'died-on', with: '28-02-2014'
       select 'Spain', from: 'Born in country'
       click_button 'Save changes'
 
