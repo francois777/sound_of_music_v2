@@ -49,11 +49,13 @@ feature 'Edit Article page' do
       click_button 'Save changes'
 
       expect(page).to have_content('Article could not be updated.')
+      title = "Edit Article on #{@publishable.name}"
+      expect(page).to have_content(title)
     end
 
   end
 
-  context "Approver edits submitted article" do
+  context "Editing a submitted article" do
   end
 
   context "User edits rejected article" do

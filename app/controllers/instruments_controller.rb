@@ -89,7 +89,7 @@ class InstrumentsController < ApplicationController
     end
 
     def set_instrument
-      @instrument = Instrument.find(params[:id].to_i)
+      @subject = @instrument = Instrument.find(params[:id].to_i)
     rescue
       flash[:alert] = t(:instrument_not_found, scope: [:failure]) 
       redirect_to instruments_path

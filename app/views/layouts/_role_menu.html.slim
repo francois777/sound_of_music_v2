@@ -20,15 +20,27 @@ section#role-menu.clearfix
          = link_to 'Submitted', "#{artists_path}?filter=submitted"
         .btn.btn-info.navbar-btn
          = link_to 'Under revision', "#{artists_path}?filter=under_revision"  
-      - when 'Articles'     
-        .btn.btn-info.navbar-btn
-          = link_to 'All articles', "#{instrument_path(@instrument)}?filter=all"
-        .btn.btn-info.navbar-btn
-          = link_to 'Incomplete', "#{instrument_path(@instrument)}?filter=incomplete"
-        .btn.btn-info.navbar-btn
-          = link_to 'Submitted', "#{instrument_path(@instrument)}?filter=submitted"
-        .btn.btn-info.navbar-btn
-          = link_to 'Under revision', "#{instrument_path(@instrument)}?filter=under_revision"
+      - when 'Articles'
+        - case @subject.class.name
+        - when 'Instrument'
+          .btn.btn-info.navbar-btn
+            = link_to 'All articles', "#{instrument_path(@subject)}?filter=all"
+          .btn.btn-info.navbar-btn
+            = link_to 'Incomplete', "#{instrument_path(@subject)}?filter=incomplete"
+          .btn.btn-info.navbar-btn
+            = link_to 'Submitted', "#{instrument_path(@subject)}?filter=submitted"
+          .btn.btn-info.navbar-btn
+            = link_to 'Under revision', "#{instrument_path(@subject)}?filter=under_revision"
+        - when 'Artist'
+          .btn.btn-info.navbar-btn
+            = link_to 'All articles', "#{artist_path(@subject)}?filter=all"
+          .btn.btn-info.navbar-btn
+            = link_to 'Incomplete', "#{artist_path(@subject)}?filter=incomplete"
+          .btn.btn-info.navbar-btn
+            = link_to 'Submitted', "#{artist_path(@subject)}?filter=submitted"
+          .btn.btn-info.navbar-btn
+            = link_to 'Under revision', "#{artist_path(@subject)}?filter=under_revision"
+
     p
       = "#{current_user.name}  (#{current_user.role.titleize})"
   / - else 

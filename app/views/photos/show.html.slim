@@ -20,7 +20,7 @@ h3
         = "Approval status: #{@approval.approval_status.humanize}"
     - if policy(@photo).for_approver? 
       .row
-        = render partial: 'layouts/approve_decision', locals: {approval: @approval, resource: @photo}
+        = render partial: 'shared/approve_decision', locals: {approval: @approval, resource: @photo}
     .actions
       .buttons 
         .btn.pull-left

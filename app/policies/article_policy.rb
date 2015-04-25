@@ -14,7 +14,7 @@ class ArticlePolicy < ApplicationPolicy
   def show?
     return false unless Article.exists?(@article.id)
     return true if @article.approval.approved?
-    @current_user and (@author == @current_user or @current_user.approver?)
+    @current_user and (@author == @current_user or @current_user.approver? or @current_user.owner?)
   end
 
   def delete?
@@ -50,21 +50,22 @@ class ArticlePolicy < ApplicationPolicy
   end
 
   def destroy?
-    current_user.admin?
+    current_user.owner?
   end
 
   def submit?
     return true if @article.new_record?
+    return true if @current_user.owner?
     @author == @current_user and (@article.approval.incomplete? or @article.approval.to_be_revised?)
   end
 
   def view_approval_info?
     return false unless @current_user
-    @author == @current_user or @current_user.approver?
+    @author == @current_user or @current_user.approver? or @current_user.owner?
   end
 
   def for_approver?
-    @current_user and @current_user.approver?
+    @current_user and (@current_user.approver? or @current_user.owner?)
   end
 
   def article_not_authorized

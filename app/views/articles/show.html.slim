@@ -47,5 +47,5 @@ section#article-details.clearfix
     - if current_user
       = render 'submit'  
     - if policy(@article).approve? 
-      = render partial: 'layouts/approve_decision', locals: {approval: @approval, resource: @article}
+      = render partial: 'shared/approve_decision', locals: {approval: @approval, resource: @article}
 

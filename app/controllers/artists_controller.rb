@@ -4,9 +4,10 @@ class ArtistsController < ApplicationController
   before_action :set_artist, except: [:new, :create, :index]
 
   def show
-    @context = "Artists"
+    @context = "Articles"
     @submitted_by = @artist.submitted_by.name
     @approval = @artist.approval
+    set_articles
     authorize @artist
   end
 
@@ -92,10 +93,34 @@ class ArtistsController < ApplicationController
     end
 
     def set_artist
-      @artist = Artist.find(params[:id].to_i)
+      @subject = @artist = Artist.find(params[:id].to_i)
     rescue
       flash[:alert] = t(:artist_not_found, scope: [:failure]) 
       redirect_to artists_path
+    end
+
+    def set_articles
+      scoped_articles = ArticlePolicy::Scope.new(current_user, Article, @artist).resolve
+      if scoped_articles.any?
+        filter = params['filter'] || 'all'
+        if @context == 'Articles'
+          case filter
+          when 'all_for_publishable'
+            articles = scoped_articles(@artist)
+          when 'incomplete'
+            articles = scoped_articles.incomplete(@artist)
+          when 'submitted'
+            articles = scoped_articles.submitted(@artist)
+          when 'under_revision'
+            articles = scoped_articles.to_be_revised(@artist)
+          else
+            articles = scoped_articles
+          end  
+          @articles = articles.collect { |art| { art_id: art.id, title: art.title, author_name: art.author.name, email: art.author.email, approval_status: art.approval_status_display, submitted_on: art.created_at }}
+        end
+      else
+        @articles = []
+      end
     end
 
 end

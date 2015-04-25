@@ -2,6 +2,18 @@
 h1 
   = @artist.assigned_name
 
+div#paintings
+  ul.thumb-wrap
+    - for article in @artist.articles
+      - for photo in article.photos
+        li
+          div
+            = link_to article_photo_path(article,photo) do
+              span.wring
+                span
+                = image_tag photo.image.thumb.url if photo.image?
+
+
 section#artist-details
   = form_for(@artist, :html => {class: "form-horizontal", :role => "form"}) do |f|
 
@@ -58,4 +70,17 @@ section#artist-details
   .row
     - if current_user
       = render 'submit'  
-      = render partial: 'layouts/approve_decision', locals: {approval: @approval, resource: @artist}
+      = render partial: 'shared/approve_decision', locals: {approval: @approval, resource: @artist}
+
+  - if @artist.approved?
+    .row
+      section#article-collection.clearfix
+        h2 Articles
+        - if @articles and @articles.count > 0
+          = render partial: 'shared/article_collection', locals: {subject: @artist, articles: @articles}          
+        - else
+          p = "No articles have been written on #{@artist.name}. Please write the first one!"
+    .row
+      .actions
+        .btn
+          = link_to 'Create new article', new_artist_article_path(@artist)     

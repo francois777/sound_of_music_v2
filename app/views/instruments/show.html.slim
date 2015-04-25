@@ -55,7 +55,7 @@ section#instrument-details
     - if current_user
       = render 'submit'  
       - if policy(@approval).approve? 
-        = render partial: 'layouts/approve_decision', locals: {approval: @approval, resource: @instrument}
+        = render partial: 'shared/approve_decision', locals: {approval: @approval, resource: @instrument}
   - if @instrument.approved?
     .row
       section#article-collection.clearfix

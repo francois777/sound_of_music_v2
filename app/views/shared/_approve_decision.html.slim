@@ -1,4 +1,4 @@
-- if policy(@approval).approve?
+- if policy(approval).approve?
   section.approval-decision
     = form_for (approval), html: {class: "form-horizontal buttons", role: "form"}, method: :post, url: { controller: "approvals", action: "approve" } do |f|
       = f.hidden_field :approval_id, value: approval.id

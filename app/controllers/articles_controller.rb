@@ -115,11 +115,13 @@ class ArticlesController < ApplicationController
 
     def get_publishable
       # The subject could have various owners: instrument, artist, genre, historical period, maybe others..
-      if params[:instrument_id].nil?
+      if params[:instrument_id]
+        @subject = Instrument.find(params[:instrument_id])
+      elsif params[:artist_id]
+        @subject = Artist.find(params[:artist_id])
+      else      
         @article = Article.find(params[:id])
         @subject = @article.publishable
-      else
-        @subject = Instrument.find(params[:instrument_id])
       end
     rescue
       @subject = nil

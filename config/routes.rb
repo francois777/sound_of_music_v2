@@ -15,7 +15,9 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :artists
+  resources :artists do
+    resources :articles
+  end
 
   resources :instruments do
     resources :articles
