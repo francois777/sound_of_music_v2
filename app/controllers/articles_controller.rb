@@ -40,10 +40,8 @@ class ArticlesController < ApplicationController
   def destroy
     @article.delete
     flash[:notice] = t(:article_deleted, scope: [:success])
-    case @subject.class.name
-    when 'Instrument'
-      redirect_to instrument_path(@subject)
-    end
+    # keep as example: redirect_to :controller => 'articles', :action => 'edit', :id => 3, subject: @subject
+    redirect_to :controller => @subject.class.name.downcase.pluralize, :action => 'show', id: @subject.id
   end
 
   def update
@@ -54,7 +52,8 @@ class ArticlesController < ApplicationController
       redirect_to [@subject, @article]
     else
       flash[:error] = t(:article_update_failed, scope: [:failure])
-      redirect_to edit_instrument_article_path[@subject, @article]
+      set_instrument_themes
+      render :edit, subject: @subject, article: @article
     end
   end
 
