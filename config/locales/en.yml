@@ -26,6 +26,28 @@ en:
     site_name: "The Sound of Music"
     by: "by"
     author: "Francois van der Hoven"
+
+  static_pages:
+    about:
+      an_opportunity_to_share: |-
+        This sites provides an opportunity for music enthusiasts to share 
+        their love for the sound of musical instruments and the
+        human voice.
+      app_title: The Sound of Music
+      about: About
+      about_the_site: About The Sound of Music
+      invitation: |-
+        I encourage every person who loves music to sign on and contribute. 
+        Share with other, like-minded people what you know about an instrument or artist
+        of your choice. Do this by writing and submitting an article.
+        If your musical instrument or artist is not yet in the library, go ahead and 
+        add it to the list.
+      ending: |-
+        We are looking forward to read your articles!
+        
+    contact:
+      contact: Contact  
+    
   prompts:
     select_instrument_theme: <<  Select Instrument Theme  >>
     select_rejection_reason: <<  Select Rejection Reason  >>

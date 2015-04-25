@@ -202,6 +202,27 @@ input[type="radio"] {
     display: block;
   }
 
+  /*   About page   */
+  #about_page {
+    display: block;
+    color: white;
+    p {
+      margin: 20px 0;
+      font-size: 1.5em;
+    }
+    .about {
+      color: #5070F1;
+    }
+    .author {
+      color: #5070F1;
+    }
+    .author-title {
+      font-size: 1em;
+      display: block;
+      padding-left: 10px;
+    }
+  }
+
   /*   Instruments   */
   #instruments {
     padding-top: 10px;
