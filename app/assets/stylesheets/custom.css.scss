@@ -72,6 +72,17 @@ input[type="radio"] {
     width: 100%;
   }
 
+  ul.dropdown-menu {
+    background-color: black;
+    li a {
+      color: #9D9D9D;
+      &:hover {
+        color: white;
+        background-color: black;
+      }
+    }
+  }
+
   .center {
     text-align: center;
   }
@@ -207,9 +218,15 @@ input[type="radio"] {
   #home_page { 
     .page-header {
       margin-top: 25px;
+      border-bottom: 1px solid #F06A39;
       h1 {
         font-size: 3em;
         color: white;
+        font-family: monospace, courier, arial;
+        font-weight: bold;
+      }
+      span {
+        color: #F06A39;
       }
     }
 
