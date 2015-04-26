@@ -5,8 +5,12 @@ html
     title
       = content_for?(:title) ? yield(:title) : 'Rails Devise'
     meta name="description" content="#{content_for?(:description) ? yield(:description) : 'Rails Devise'}"
+    == stylesheet_link_tag "owl-carousel/owl-carousel", :media => 'all'
+    == stylesheet_link_tag "owl-carousel/owl-theme", :media => 'all'
+    == stylesheet_link_tag "owl-carousel/owl-transitions", :media => 'all'
     == stylesheet_link_tag "application", :media => 'all', 'data-turbolinks-track' => true
     == javascript_include_tag 'application', 'data-turbolinks-track' => true
+    == javascript_include_tag 'owl-carousel/owl-carousel.min.js'
     == csrf_meta_tags
   body
     .main-container  

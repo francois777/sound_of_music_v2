@@ -23,6 +23,7 @@ gem 'paper_trail'
 gem 'carrierwave'
 gem 'cloudinary'
 gem 'bootstrap-datepicker-rails'
+gem 'owlcarousel-rails', '~> 1.1.3.3'
 
 group :development do
   gem 'better_errors'

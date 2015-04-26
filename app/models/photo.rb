@@ -15,6 +15,8 @@ class Photo < ActiveRecord::Base
   validates :image, :file_size => { :maximum => 0.5.megabytes.to_i }       
   validates :submitted_by, :imageable, presence: true
 
+  scope :approved, -> { joins(:approval).where('approvals.approval_status = ?', Approval.approval_statuses[:approved]) }  
+
   def approval_status
     approval.approval_status.humanize if approval
   end

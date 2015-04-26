@@ -16,7 +16,7 @@ feature 'Show Article page' do
 
   scenario 'web site visitor may view submitted article' do
     visit instrument_article_path(@instrument, @submitted_article)
-    expect(page).to have_title('Instruments')
+    expect(page).to have_title('Home')
     expect(page).to have_content('This article is protected. You may not perform this action..')
   end
 
@@ -44,7 +44,7 @@ feature 'Show Article page' do
     signin(@other_user.email, 'password')
     visit instrument_article_path(@instrument, @submitted_article)
 
-    expect(page).to have_title('Instruments')
+    expect(page).to have_title('Home')
     expect(page).to have_content('This article is protected. You may not perform this action..')
   end
 

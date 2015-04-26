@@ -202,6 +202,27 @@ input[type="radio"] {
     display: block;
   }
 
+  /*   Home page   */
+
+  #home_page { 
+    .page-header {
+      margin-top: 25px;
+      h1 {
+        font-size: 3em;
+        color: white;
+      }
+    }
+
+    form .form-group {
+      margin-bottom: 8px;
+      input {
+        background-color: #B6D9CF;
+        border: none;
+        color: #4A6B54;
+      }
+    }
+  }
+
   /*   About page   */
   #about_page {
     display: block;
@@ -411,6 +432,17 @@ input[type="radio"] {
 
 
   /*  Photos   */
+
+  #photo-show {
+    .item {
+      margin: 3px;
+      img {
+        display: block;
+        width: 90%;
+      }
+    }
+  }
+
   .one-painting {
     margin: 0 auto 20px auto;
     text-align: center;
