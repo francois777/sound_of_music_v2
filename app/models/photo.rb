@@ -8,7 +8,8 @@ class Photo < ActiveRecord::Base
   REJECTION_REASONS = [:not_rejected, :not_related_to_theme, :inferior_quality, :unsuitable_size]
 
   mount_uploader :image, ImageUploader
-  before_save :assign_image_name, :increase_image_id
+  before_save :increase_image_id,
+              :assign_image_name
 
   validates :title, presence: true,
                     length: { minimum: 10, maximum: 255 }
@@ -32,7 +33,7 @@ class Photo < ActiveRecord::Base
 
     def assign_image_name
       subject = self.imageable.publishable
-      self.image_name = "#{subject.name.parameterize}-#{subject.last_image_id + 1}"
+      self.image_name = "#{subject.name.parameterize}-#{subject.last_image_id}"
     end
 
 end

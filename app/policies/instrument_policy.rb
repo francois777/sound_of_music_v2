@@ -62,7 +62,7 @@ class InstrumentPolicy < ApplicationPolicy
 
   def view_approval_info?
     return false unless @current_user
-    @author == @current_user or @current_user.approver?
+    @current_user.approver? or @current_user.owner?
   end
 
   def for_approver?

@@ -8,7 +8,7 @@ FactoryGirl.define do
     other_names "Some other name"
     origin_period ""
     created_by { User.user.first || create(:user) }
-    last_image_id 1
+    last_image_id 0
     after(:create) { |instrument| create(:submitted_approval, approvable: instrument) }
   end
 
@@ -21,7 +21,7 @@ FactoryGirl.define do
     other_names "Some other name"
     origin_period ""
     created_by { User.user.first || create(:user) }
-    last_image_id 1
+    last_image_id 0
     after(:create) { |instrument| create(:approved_approval, approvable: instrument) }
   end
 
@@ -34,7 +34,7 @@ FactoryGirl.define do
     other_names "Some other name"
     origin_period ""
     created_by { User.user.first || create(:user) }
-    last_image_id 1
+    last_image_id 0
     after(:create) { |instrument| create(:rejected_approval, approvable: instrument) }
   end
 
