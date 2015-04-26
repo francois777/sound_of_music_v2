@@ -18,14 +18,14 @@ class StaticPagesController < ApplicationController
       cnt = 0
       while img_count < 9 do
         cnt += 1
-        break if cnt > 12
+        break if cnt > 25
         photo = Photo.approved.sample
         unless images.include?(photo)
           images << photo 
           img_count += 1
         end
       end
-      
+
       return images  
     end
 
