@@ -15,9 +15,9 @@ section#home_page
     section#artist-details
       = form_for(@artist, :html => {class: "form-horizontal", :role => "form"}) do |f|
         .form-group
-          = label_tag :official_name, 'Official name', class: 'col-xs-4 col-sm-4 control-label'
+          = label_tag :assigned_name, 'Name', class: 'col-xs-4 col-sm-4 control-label'
           .col-xs-8.col-sm-6
-            = text_field_tag :official_name, @artist.official_name, readonly: true, class: 'form-control'
+            = text_field_tag :assigned_name, @artist.assigned_name, readonly: true, class: 'form-control'
         .form-group
           = label_tag :gender, 'Gender', class: 'col-xs-4 col-sm-4 control-label'
           .col-xs-3.col-sm-2

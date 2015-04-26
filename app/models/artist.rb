@@ -28,14 +28,33 @@ class Artist < ActiveRecord::Base
    
   self.per_page = 10
 
-
-  def official_name
-    names = artist_names.reject{ |art_nme| ['public_name', 'maiden_name'].include?(art_nme.name_type) }.collect { |art_nme| art_nme.name }
-    names.join(" ")
-  end
-
   def name
     assigned_name
+  end
+
+  def first_name
+    fnme = artist_names.where("name_type = ?", ArtistName.name_types[:first_name]).first
+    fnme ? fnme.name : ""
+  end
+
+  def middle_names
+    middle_names = artist_names.where("name_type = ?", ArtistName.name_types[:middle_name])
+    middle_names.map(&:name)
+  end
+
+  def last_name
+    lnme = artist_names.where("name_type = ?", ArtistName.name_types[:last_name]).first
+    lnme ? lnme.name : ""
+  end
+
+  def maiden_name
+    mnme = artist_names.where("name_type = ?", ArtistName.name_types[:maiden_name]).first
+    mnme ? mnme.name : ""
+  end
+
+  def public_name
+    pnme = artist_names.where("name_type = ?", ArtistName.name_types[:public_name]).first
+    pnme ? pnme.name : ""
   end
 
   def approval_status_display

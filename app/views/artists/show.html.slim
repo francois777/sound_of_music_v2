@@ -24,10 +24,6 @@ section#artist-details
           = text_field_tag :name, nme.name, readonly: true, readonly: true, class: 'form-control'
 
     .form-group
-      = label_tag :official_name, 'Official name', class: 'col-xs-4 col-sm-4 control-label'
-      .col-xs-8.col-sm-6
-        = text_field_tag :official_name, @artist.official_name, readonly: true, class: 'form-control'
-    .form-group
       = label_tag :gender, 'Gender', class: 'col-xs-4 col-sm-4 control-label'
       .col-xs-3.col-sm-2
         = text_field_tag :gender, @artist.gender.titleize, readonly: true, class: 'form-control'

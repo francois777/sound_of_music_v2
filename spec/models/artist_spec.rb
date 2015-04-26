@@ -52,10 +52,6 @@ describe Artist do
       expect( @artist.assigned_name ).to eq('John Cornelius Peterson')
     end
 
-    it "must reflect the derived official name correctly" do
-      expect( @artist.official_name).to eq('John Cornelius Peterson')
-    end
-
   end
 
   describe "with invalid data" do
