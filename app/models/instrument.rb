@@ -1,4 +1,5 @@
 class Instrument < ActiveRecord::Base
+  include ActiveModel::Dirty
   
   belongs_to :created_by, class_name: 'User'
   belongs_to :category

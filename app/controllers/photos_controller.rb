@@ -13,7 +13,8 @@ class PhotosController < ApplicationController
 
   def new
     @photo = @collection.photos.build
-    @photo.image_name = "#{@subject.name.parameterize}-#{@subject.last_image_id + 1}"
+    new_id = @subject.last_image_id
+    @photo.image_name = "#{@subject.name.parameterize}-#{new_id + 1}"
   end
 
   def create
