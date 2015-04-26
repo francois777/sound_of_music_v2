@@ -30,7 +30,7 @@ class Artist < ActiveRecord::Base
 
 
   def official_name
-    names = artist_names.reject{ |art_nme| [:pulic_name, :maiden_name].include?(art_nme.name_type) }.collect { |art_nme| art_nme.name }
+    names = artist_names.reject{ |art_nme| ['public_name', 'maiden_name'].include?(art_nme.name_type) }.collect { |art_nme| art_nme.name }
     names.join(" ")
   end
 
