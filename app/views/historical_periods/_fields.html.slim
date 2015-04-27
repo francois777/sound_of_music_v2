@@ -9,7 +9,7 @@
   .col-sm-3
     = f.text_field :period_from, class: "form-control", data: {provide: "datepicker"}, value: display_date(@historical_period.period_from), id: "period-from"
 .form-group
-  = f.label :period_end, 'From', class: "col-sm-3 control-label"
+  = f.label :period_end, 'Until', class: "col-sm-3 control-label"
   .col-sm-3
     = f.text_field :period_end, class: "form-control", data: {provide: "datepicker"}, value: display_date(@historical_period.period_end), id: "period-end"
 .form-group
