@@ -4,7 +4,7 @@ class Artist < ActiveRecord::Base
   has_one :approval, as: :approvable, dependent: :destroy
   has_many :artist_names, dependent: :destroy
   has_many :articles, as: :publishable, dependent: :destroy
-  has_many :historical_periods
+  belongs_to :historical_period
 
   REJECTION_REASONS = [:not_rejected, :grammar_and_spelling, :incorrect_facts, :irrelevant_material, :not_related_to_theme, :not_acceptable]
 
@@ -31,6 +31,18 @@ class Artist < ActiveRecord::Base
 
   def name
     assigned_name
+  end
+
+  def historical_period_name
+    historical_period ? historical_period.name : ""
+  end
+
+  def historical_period_id
+    historical_period ? historical_period.id : 1
+  end 
+
+  def birth_names
+    [first_name, middle_names, last_name].flatten.join(" ")
   end
 
   def first_name
