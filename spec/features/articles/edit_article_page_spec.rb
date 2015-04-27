@@ -43,7 +43,7 @@ feature 'Edit Article page' do
     scenario 'signed-in user incorrectly changes their own article details' do
       signin(@user.email, 'password')
       visit edit_instrument_article_path(@publishable, @article)
-      fill_in 'Title', with: 'Short Ti'
+      fill_in 'Title', with: 'Shor'
       select 'Technique', from: 'Theme'
       fill_in 'Article', with: 'New article body'
       click_button 'Save changes'

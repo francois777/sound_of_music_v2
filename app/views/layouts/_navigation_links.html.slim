@@ -2,6 +2,7 @@
   i.glyphicon.glyphicon-home
 li = link_to 'Instruments', instruments_path  
 li = link_to 'Artists', artists_path  
+li = link_to 'Historical Periods', historical_periods_path  
 - if user_signed_in?
   - if policy(User).index?
     li = link_to 'Users', admin_users_path

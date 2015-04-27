@@ -1,0 +1,7 @@
+- provide(:title, 'Update Historical Period')
+
+h1 Update Historical Period
+#historical-period-form.clearfix
+  = form_for(@historical_period, html: {class: "form-horizontal", role: "form"}) do |f|
+    = render 'fields', f: f
+    = f.submit 'Save changes', class: "btn btn-large btn-primary"

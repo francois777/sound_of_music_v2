@@ -1,0 +1,8 @@
+- provide(:title, 'New Historical Period') 
+
+h1 Create new Historical Period
+#historical-form.clearfix
+  = form_for(@historical_period, html: {class: "form-horizontal", role: "form"}) do |f|
+    = render 'fields', f: f
+    .col-sm-3.col-sm-offset-4
+      = f.submit "Create new Historical Period", class: "btn btn-large btn-primary"

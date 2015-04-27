@@ -27,6 +27,8 @@ Rails.application.routes.draw do
     resources :photos
   end
 
+  resources :historical_periods
+
   namespace :admin do
     root :to => "base#index"
     resources :users, only: [:index, :destroy]

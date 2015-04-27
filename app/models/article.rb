@@ -12,7 +12,7 @@ class Article < ActiveRecord::Base
   REJECTION_REASONS = [:not_rejected, :grammar_and_spelling, :incorrect_facts, :irrelevant_material, :not_acceptable]
 
   validates :title, :body, :author, :theme, presence: true
-  validates :title, length: { minimum: 10, maximum: 50 }
+  validates :title, length: { minimum: 5, maximum: 50 }
 
   scope :all_for_publishable, -> (publishable) {
     where('articles.publishable_type = ? AND articles.publishable_id = ?', 

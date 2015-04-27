@@ -34,12 +34,12 @@ feature 'New Article page' do
     signin(@user.email, 'password')
     visit new_instrument_article_path(@instrument)
 
-    fill_in 'Title', with: 'Articles'
+    fill_in 'Title', with: 'Arti'
     select "Construction", from: "Theme"
     fill_in 'Article', with: 'This is how...'
     click_button 'Create article'
     expect(page).to have_content 'The article could not be created.'
-    expect(page).to have_content 'Title is too short (minimum is 10 characters)'
+    expect(page).to have_content 'Title is too short (minimum is 5 characters)'
   end
 
   scenario 'signed-in approver successfully creates article' do 

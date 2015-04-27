@@ -1,0 +1,28 @@
+- provide(:title, 'Historical Period')
+h1 
+  = @historical_period.name
+
+section#historical-period-details
+  = form_for(@historical_period, :html => {class: "form-horizontal", :role => "form"}) do |f|
+    .form-group
+      = f.label :name, 'Name', class: 'col-sm-2 control-label'
+      .col-sm-6
+        = f.text_field :name, :readonly => "", :value => @historical_period.name, class: 'form-control'
+    .form-group
+      = label_tag :period_from, 'From', class: 'col-sm-2 control-label'
+      .col-sm-3
+        = text_field_tag :period_from, display_date(@historical_period.period_from), readonly: true, class: 'form-control'
+    .form-group
+      = label_tag :period_end, 'Until', class: 'col-sm-2 control-label'
+      .col-sm-3
+        = text_field_tag :period_end, display_date(@historical_period.period_end), readonly: true, class: 'form-control'
+    .form-group
+      = f.label :overview, "Historical Period Overview", class: 'col-sm-2 control-label'
+      .col-sm-9
+        = f.text_area :overview, readonly: "", :value => @historical_period.overview, class: 'form-control', :rows => 10
+
+  - if policy(@historical_period).edit?
+    .row    
+      .actions.buttons
+        .button
+          = link_to 'Edit', edit_historical_period_path(@historical_period)  

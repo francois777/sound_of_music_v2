@@ -1,0 +1,22 @@
+= render 'shared/error_messages', object: f.object
+
+.form-group
+  = f.label :name, class: "col-sm-3 control-label"
+  .col-sm-8
+    = f.text_field :name, class: "form-control", required: true
+.form-group
+  = f.label :period_from, 'From', class: "col-sm-3 control-label"
+  .col-sm-3
+    = f.text_field :period_from, class: "form-control", data: {provide: "datepicker"}, value: display_date(@historical_period.period_from), id: "period-from"
+.form-group
+  = f.label :period_end, 'From', class: "col-sm-3 control-label"
+  .col-sm-3
+    = f.text_field :period_end, class: "form-control", data: {provide: "datepicker"}, value: display_date(@historical_period.period_end), id: "period-end"
+.form-group
+  = f.label :overview, 'Period Overview', class: "col-sm-3 control-label"
+  .col-sm-8
+    = f.text_area :overview, class: "form-control", :cols => 20, :rows => 10
+
+javascript:
+  $('#period-from').datepicker({format: 'dd-mm-yyyy'});    
+  $('#period-end').datepicker({format: 'dd-mm-yyyy'});  

@@ -442,6 +442,27 @@ input[type="radio"] {
     }
   }
 
+  #historical-period-details {
+    display: block;
+    .actions {
+      display: block;
+    }
+  }
+
+  #historical-period-form form {
+    margin-bottom: 20px;
+    input[type='submit'] {
+      margin: 25px auto;
+      display: block;
+    }
+  }
+
+  #historical-periods {
+    .actions {
+      display: block;
+    }
+  }
+
   /*   Miscelleneous   */
   div.pagination {
     margin: 5px 0;

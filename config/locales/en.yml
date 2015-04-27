@@ -64,6 +64,8 @@ en:
     artist_submitted: Artist has been submitted.
     artist_to_be_revised: The author is requested to revise this article
     artist_updated: Artist has been updated
+    historical_period_created: Historical Period has been created.
+    historical_period_updated: Historical Period has been updated.
     instrument_approved: Instrument has been approved.
     instrument_created: Musical instrument has been created.
     instrument_deleted: Musical instrument has been deleted.
@@ -91,6 +93,9 @@ en:
     artist_submit_failed: Artist could not be submitted
     artist_update_failed: Artist could not be updated
     approval_not_allowed: Approval of article not allowed.
+    historical_period_not_found: Historical Period not found.
+    historical_period_create_failed: The Historical Period could not be created.
+    historical_period_update_failed: The Historical Period could not be updated.
     instrument_create_failed: The musical instrument could not be created.
     instrument_not_approved: Instrument not approved
     instrument_not_found: The instrument you were looking for could not be found.
