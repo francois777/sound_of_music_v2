@@ -2,7 +2,8 @@ tr
   td
     = link_to historical_period.name, historical_period
   td
-    = display_date(historical_period.period_from)
+    = historical_period.period_from.strftime("%Y")
   td
-    = display_date(historical_period.period_end)
-
+    = historical_period.period_end.strftime("%Y")
+  td
+    = link_to('Artists..', "#{artists_path}?filter=hist_period&name=#{historical_period.name.split.first}")

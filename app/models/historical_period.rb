@@ -1,5 +1,6 @@
 class HistoricalPeriod < ActiveRecord::Base
 
+  has_many :artists
   validates :name, :period_from, :period_end, :overview, presence: true
   validates :name, uniqueness: { case_sensitive: false }
   validates :name, length: { minimum: 5, maximum: 30 }
@@ -8,6 +9,9 @@ class HistoricalPeriod < ActiveRecord::Base
 
   default_scope -> { order('period_from ASC') }
 
+  def self.find_historical_by_name(name)
+    period = HistoricalPeriod.where("name LIKE ?", "#{name}%").first
+  end
 
   private
 
