@@ -21,7 +21,6 @@ class ArtistsController < ApplicationController
     when 'under_revision'
       @artists = policy_scope(Artist).to_be_revised.paginate(page: params[:page])  
     when 'hist_period'
-      puts "Params: #{params['filter'].inspect}"
       historical_period = HistoricalPeriod.find_historical_by_name(params['name'])
       @artists = historical_period.artists.paginate(page: params[:page])
     else 

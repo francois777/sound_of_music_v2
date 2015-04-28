@@ -19,7 +19,7 @@ feature 'Show Instrument page' do
         category: @category1, 
         subcategory: @subcategory1, 
         created_by: @user)
-      @approved_instrument = FactoryGirl.create(:submitted_instrument, 
+      @approved_instrument = FactoryGirl.create(:approved_instrument, 
         name: 'Symbols',
         other_names: 'Loud symbols',
         performer_title: 'Percussionist',
@@ -42,26 +42,26 @@ feature 'Show Instrument page' do
 
     scenario 'signed-in approver may approve any submitted instrument' do    
       signin(@approver.email, 'password')
-      visit instrument_path(@approved_instrument)
+      visit instrument_path(@submitted_instrument)
       
-      expect(page).to have_title(@approved_instrument.name)
+      expect(page).to have_title(@submitted_instrument.name)
       expect(page).to have_link('Edit')
       expect(page).to have_selector("input[type=submit][value='Approve']")
       expect(page).to have_selector("input[type=submit][value='Request revision']")
 
       click_button 'Approve'
       expect(page).to have_content('Instrument has been approved')
-      expect(page).to have_title(@approved_instrument.name)
+      expect(page).to have_title(@submitted_instrument.name)
     end
 
     scenario 'signed-in approver may reject any submitted instrument' do    
       signin(@approver.email, 'password')
-      visit instrument_path(@approved_instrument)
+      visit instrument_path(@submitted_instrument)
 
       select "Incorrect facts", from: "Rejection reason"
       click_button 'Request revision'
       expect(page).to have_content('The author is requested to revise this instrument')
-      expect(page).to have_title(@approved_instrument.name)
+      expect(page).to have_title(@submitted_instrument.name)
     end
 
   end
