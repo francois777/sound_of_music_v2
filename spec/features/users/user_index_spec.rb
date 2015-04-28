@@ -16,18 +16,13 @@ feature 'User index page', :devise do
   #   When I visit the user index page
   #   Then I see my own email address
   scenario 'user sees own email address' do
-    skip
     pw = 'password'
     user = FactoryGirl.create(:approver, password: pw)
     visit root_path
-    puts "User: #{user.inspect}"
-    puts "User role: #{user.role}"
     signin(user.email, pw)
-    puts "Path: #{admin_users_path}"
     visit admin_users_path
 
     expect(page).to have_selector("table tr:nth-of-type(1) td:nth-of-type(3)", text: user.email)
-
   end
 
 end

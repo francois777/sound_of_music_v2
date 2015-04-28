@@ -91,7 +91,7 @@ class ArticlesController < ApplicationController
     end
 
     def set_article
-      if !@subject.nil? && !params[:id].empty?
+      if !params[:id].empty?
         @article = Article.find(params[:id]) 
         @subject = @article.publishable
       end

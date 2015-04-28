@@ -24,10 +24,9 @@ div#artists
       = will_paginate @artists
       
   .row
-    .col-xs-offset-4.col-sm-offset-5.col-md-offset-5.col-xs-3.col-sm-3.col-md-2
-      - if @artists.none?
-        p No artists exist
-      - if signed_in?      
-        .actions
-          .btn
-            = link_to 'New artist', new_artist_path
+    - if @artists.none?
+      p No artists exist
+    - if signed_in?      
+      .actions
+        .btn
+          = link_to 'New artist', new_artist_path

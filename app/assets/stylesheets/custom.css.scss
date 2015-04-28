@@ -274,6 +274,11 @@ input[type="radio"] {
     tr:last-child {
       border-bottom: none;
     }      
+    p {
+      text-align: center;
+      font-size: 1.2em;
+      color: white;
+    }
   }
 
   #instrument-form { 
@@ -326,7 +331,12 @@ input[type="radio"] {
     }
     tr:last-child {
       border-bottom: none;
-    }      
+    } 
+    p {
+      text-align: center;
+      font-size: 1.2em;
+      color: white;
+    }
   }
 
   #article-form form {

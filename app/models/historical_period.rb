@@ -9,7 +9,7 @@ class HistoricalPeriod < ActiveRecord::Base
 
   default_scope -> { order('period_from ASC') }
 
-  def self.find_historical_by_name(name)
+  def self.find_historical_period_by_name(name)
     period = HistoricalPeriod.where("name LIKE ?", "#{name}%").first
   end
 
