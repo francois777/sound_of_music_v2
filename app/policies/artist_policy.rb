@@ -83,7 +83,7 @@ class ArtistPolicy < ApplicationPolicy
           model.all
         end
       else
-        model.approval.approved
+        model.approved
       end
     end
   end

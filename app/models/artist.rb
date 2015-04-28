@@ -1,10 +1,11 @@
 class Artist < ActiveRecord::Base
 
   belongs_to :submitted_by, class_name: 'User'
+  belongs_to :historical_period
   has_one :approval, as: :approvable, dependent: :destroy
   has_many :artist_names, dependent: :destroy
   has_many :articles, as: :publishable, dependent: :destroy
-  belongs_to :historical_period
+  has_many :artist_contributions
 
   REJECTION_REASONS = [:not_rejected, :grammar_and_spelling, :incorrect_facts, :irrelevant_material, :not_related_to_theme, :not_acceptable]
 
