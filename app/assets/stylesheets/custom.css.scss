@@ -323,24 +323,6 @@ input[type="radio"] {
   }
 
   /*   Articles   */
-  #artists {
-    padding-top: 10px;
-    tr {
-      // border-bottom: 1px solid #A0C2B8; C1EBDF
-      border-bottom: 1px solid #C1EBDF;
-    }
-    tr:first-child {
-      border-top: none;
-    }
-    tr:last-child {
-      border-bottom: none;
-    } 
-    p {
-      text-align: center;
-      font-size: 1.2em;
-      color: white;
-    }
-  }
 
   #article-form form {
     select {
@@ -421,6 +403,25 @@ input[type="radio"] {
 
   /*   Artists   */
 
+  #artists {
+    padding-top: 10px;
+    tr {
+      // border-bottom: 1px solid #A0C2B8; C1EBDF
+      border-bottom: 1px solid #C1EBDF;
+    }
+    tr:first-child {
+      border-top: none;
+    }
+    tr:last-child {
+      border-bottom: none;
+    } 
+    p {
+      text-align: center;
+      font-size: 1.2em;
+      color: white;
+    }
+  }
+
   #artist-form form {
     margin-bottom: 20px;
     input[type='submit'] {
@@ -463,6 +464,15 @@ input[type="radio"] {
   }
 
   /*   Contribution types   */
+
+  #contribution-types {
+    p {
+      text-align: center;
+      font-size: 1.2em;
+      color: white;
+    }
+  }
+
   #contribution-type-form { 
     form {
       margin-top: 10px;
