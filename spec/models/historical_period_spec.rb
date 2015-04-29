@@ -23,7 +23,7 @@ describe HistoricalPeriod do
     end
 
     it "must have a valid factory" do
-      factory_period = FactoryGirl.create(:historical_period)
+      factory_period = FactoryGirl.create(:baroque_period)
       expect(factory_period).to be_valid
     end
 
@@ -41,7 +41,7 @@ describe HistoricalPeriod do
 
     it "cannot result in overlapping dates" do
       @histprd.save
-      new_period = FactoryGirl.build(:historical_period, period_from: Date.new(1699,12,31), period_end: Date.new(1701,1,1))
+      new_period = FactoryGirl.build(:baroque_period, period_from: Date.new(1699,12,31), period_end: Date.new(1701,1,1))
       expect { new_period.save! }.to raise_error
     end
   end

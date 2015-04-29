@@ -9,7 +9,7 @@ class HistoricalPeriodPolicy < ApplicationPolicy
 
   def new?
     return false unless @current_user 
-    @current_user.admin? or @current_user.approver? or @current_user.owner?
+    @current_user.admin? or @current_user.owner?
   end
 
   def show?
@@ -22,17 +22,17 @@ class HistoricalPeriodPolicy < ApplicationPolicy
 
   def edit?
     return false unless @current_user 
-    @current_user.admin? or @current_user.approver? or @current_user.owner?
+    @current_user.admin? or @current_user.owner?
   end
 
   def update?
     return false unless @current_user 
-    @current_user.admin? or @current_user.approver? or @current_user.owner?
+    @current_user.admin? or @current_user.owner?
   end
 
   def historical_period_not_authorized
     flash[:alert] = "This operation is not allowed on historical periods."
-    redirect_to (request.referrer or root_path)
+    redirect_to (request.referrer or historical_periods_path)
   end
 
 end

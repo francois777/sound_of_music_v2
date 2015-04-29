@@ -21,9 +21,6 @@ class ContributionType < ActiveRecord::Base
     end
 
     def voice_type_required
-      puts "Classification: #{classification}"
-      puts "Group type: #{group_type}"
-      puts "Voice type: #{voice_type}"
       errors.add(:voice_type, 'A voice type must be selected') if voice_type == 'not_applicable'
     end
 

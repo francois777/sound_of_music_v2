@@ -8,6 +8,7 @@ class HistoricalPeriodsController < ApplicationController
 
   def new
     @historical_period = HistoricalPeriod.new
+    authorize @historical_period
   end
 
   def index
@@ -26,6 +27,7 @@ class HistoricalPeriodsController < ApplicationController
   end
 
   def edit
+    authorize @historical_period
   end
 
   def update
@@ -36,6 +38,11 @@ class HistoricalPeriodsController < ApplicationController
       flash[:alert] = t(:historical_update_failed, scope: [:failure])
       render :edit
     end
+  end
+
+  def user_not_authorized
+    flash[:alert] = "You are not authorised to perform this action on Historical Periods."
+    redirect_to (request.referrer || historical_periods_path)
   end
 
   private

@@ -3,21 +3,20 @@
 div#historical-periods
   h1 Historical Periods
   .row
-    .col-md-8.col-sm-10.col-xs-12.col-md-offset-2.col-sm-offset-1
-      .table-responsive
-        table.table.artists
-          thead
-            tr
-              td
-                b Period name
-              td
-                b From
-              td
-                b Until  
-              td  
-          tbody
-            - if @historical_periods.any?
-              = render @historical_periods
+    .table-responsive
+      table.table
+        thead
+          tr
+            td
+              b Period name
+            td
+              b From
+            td
+              b Until  
+            td  
+        tbody
+          - if @historical_periods.any?
+            = render @historical_periods
       
   .row
     - if @historical_periods.none?

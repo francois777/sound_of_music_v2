@@ -32,7 +32,14 @@ describe ContributionType do
   end
 
   it "must ensure group type is required for groups" do
-    #ctype = ContributionType.create
+    @contribution_type.group_type = 'a_capella'
+    expect(@contribution_type).not_to be_valid
   end
-  
+
+  it "must ensure voice type is required for vocalists" do
+    contribution_type = FactoryGirl.create(:composer)
+    contribution_type.voice_type = 'alto'
+    expect(contribution_type).not_to be_valid
+  end
+
 end
