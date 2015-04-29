@@ -8,7 +8,7 @@ class ContributionType < ActiveRecord::Base
 
   validates :definition, presence: true,
                    uniqueness: { case_sensitive: false },
-                   length: { minimum: 10, maximum: 80 }
+                   length: { minimum: 10 }
   validates_uniqueness_of :classification, scope: [:group_type, :voice_type]               
   validate :group_type_required, if: :group_of_musicians?
   validate :voice_type_required, if: :vocalist?

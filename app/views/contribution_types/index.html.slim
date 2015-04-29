@@ -1,0 +1,33 @@
+- provide(:title, 'Contribution Types')
+
+div#contribution-types
+  h1 Contribution Types
+  .row
+    .col-xs-offset-1.col-md-offset-2
+      = will_paginate @contribution_types
+    .col-md-8.col-sm-10.col-xs-12.col-md-offset-2.col-sm-offset-1
+      .table-responsive
+        table.table
+          thead
+            tr
+              td
+                b Classification
+              td
+                b Group type
+              td
+                b Voice type
+
+          tbody
+            - if @contribution_types.any?
+              = render @contribution_types
+  .row
+    .col-xs-offset-1.col-md-offset-2
+      = will_paginate @contribution_types
+      
+  .row
+    - if @contribution_types.none?
+      p No contribution types exist
+    -elsif signed_in? and policy(ContributionType).new? 
+      .actions.buttons
+        .btn
+          = link_to 'New contribution type', new_contribution_type_path

@@ -32,6 +32,7 @@ describe Artist do
     it { should respond_to(:created_at) }
     it { should respond_to(:updated_at) }
     it { should respond_to(:artist_names) }
+    it { should respond_to(:person_or_group) }
 
     it "must be valid" do
       expect(@artist).to be_valid

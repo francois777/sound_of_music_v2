@@ -1,0 +1,9 @@
+- provide(:title, 'New Contribution Type') 
+
+h1 New Contribution Type
+#contribution-type-form.clearfix
+  = form_for(@contribution_type, html: {class: "form-horizontal", role: "form"}) do |f|
+    = render 'fields', f: f
+    = f.submit "Create new Contribution Type", class: "btn btn-large btn-primary"
+
+

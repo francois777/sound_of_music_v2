@@ -462,6 +462,33 @@ input[type="radio"] {
     }
   }
 
+  /*   Contribution types   */
+  #contribution-type-form { 
+    form {
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+    select {
+      border: 1px solid #BBB;
+      margin-top: 2px;
+      height: 34px;
+      width: 100%;
+    }
+    input[type='submit'] {
+      margin: 25px auto;
+      display: block;
+    }
+  }
+
+  #contribution-type-details {
+    display: block;
+    .actions {
+      display: block;
+    }
+  }
+
+  /* Historical Periods  */
+
   #historical-period-form form {
     margin-bottom: 20px;
     input[type='submit'] {
@@ -470,7 +497,7 @@ input[type="radio"] {
     }
   }
 
-  #historical-periods {
+  #historical-periods, #contribution-types {
     padding-top: 10px;    
     margin: 0 10% 0 10%;
     .actions {

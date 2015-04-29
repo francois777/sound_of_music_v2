@@ -28,6 +28,7 @@ Rails.application.routes.draw do
   end
 
   resources :historical_periods
+  resources :contribution_types
 
   namespace :admin do
     root :to => "base#index"

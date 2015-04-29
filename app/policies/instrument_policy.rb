@@ -12,14 +12,14 @@ class InstrumentPolicy < ApplicationPolicy
     @current_user 
   end
 
+  def create?
+    @current_user and @instrument.new_record?
+  end
+
   def show?
     #return false unless Instrument.exists?(@instruments.id)
     return true if @instrument.approval.approved?
     @current_user and (@author == @current_user or @current_user.approver?)
-  end
-
-  def index?
-    true
   end
 
   def edit?
@@ -36,20 +36,12 @@ class InstrumentPolicy < ApplicationPolicy
     !@instrument.approved?
   end
 
-  def submitted?
-    true
-  end
-
   def update?
     return false unless @current_user 
     return false if @instrument.approval.submitted? and @author == @current_user
     return false if @instrument.approval.incomplete? and @author != @current_user
     return true if @author == @current_user
     @current_user.admin? or @current_user.approver? or @current_user.owner?
-  end
-
-  def approve?
-    @current_user and @current_user.approver? and (@instrument.approve.submitted? or @instrument.approve.to_be_revised?) 
   end
 
   def destroy?

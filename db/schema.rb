@@ -64,14 +64,14 @@ ActiveRecord::Schema.define(version: 20150428014848) do
   create_table "artists", force: :cascade do |t|
     t.datetime "born_on"
     t.datetime "died_on"
-    t.string   "assigned_name",                        null: false
+    t.string   "assigned_name",                     null: false
     t.string   "born_country_code",    default: ""
     t.integer  "historical_period_id", default: 0
     t.integer  "gender",               default: 0
-    t.integer  "submitted_by_id",                      null: false
-    t.datetime "created_at",                           null: false
-    t.datetime "updated_at",                           null: false
-    t.boolean  "group",                default: false
+    t.integer  "submitted_by_id",                   null: false
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
+    t.integer  "person_or_group",      default: 0
   end
 
   create_table "categories", force: :cascade do |t|
@@ -79,7 +79,7 @@ ActiveRecord::Schema.define(version: 20150428014848) do
   end
 
   create_table "contribution_types", force: :cascade do |t|
-    t.string  "definition"
+    t.text    "definition"
     t.integer "classification", default: 11
     t.integer "group_type",     default: 0
     t.integer "voice_type",     default: 1

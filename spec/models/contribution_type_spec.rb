@@ -20,8 +20,6 @@ describe ContributionType do
   it "must validate the definition" do
     @contribution_type.definition = 'D' * 9
     expect(@contribution_type).not_to be_valid
-    @contribution_type.definition = "A" * 81
-    expect(@contribution_type).not_to be_valid
   end
 
   it "must ensure two contribution_types are unique" do

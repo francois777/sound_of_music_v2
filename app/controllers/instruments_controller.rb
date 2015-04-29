@@ -1,14 +1,14 @@
 class InstrumentsController < ApplicationController
 
-  before_filter :authenticate_user!, only: [:create, :edit, :update, :submit]
+  before_filter :authenticate_user!, only: [:new, :create, :edit, :update, :submit]
   before_action :set_instrument, except: [:new, :create, :index, :update_subcategories]
 
   def show
+    authorize @instrument
     @context = "Articles"
     @submitted_by = @instrument.created_by.name
     @approval = @instrument.approval
     set_articles
-    authorize @instrument
     a = 1
   end
 
@@ -24,21 +24,22 @@ class InstrumentsController < ApplicationController
     else
       @instruments = policy_scope(Instrument).paginate(page: params[:page])
     end
-    a = 1
   end
 
   def new
+    authorize Instrument
     @instrument = Instrument.new
     set_instrument_categories
   end
 
   def edit
-    set_instrument_categories
     authorize @instrument
+    set_instrument_categories
   end
 
   def create
     @instrument = Instrument.new(instrument_params_formatted)
+    authorize @instrument
     @instrument.created_by = current_user
     if @instrument.save
       create_approval(@instrument.reload)
@@ -52,6 +53,7 @@ class InstrumentsController < ApplicationController
   end
 
   def update
+    authorize @instrument
     if @instrument.update_attributes(instrument_params_formatted)
       flash[:success] = t(:instrument_updated, scope: [:success])
       redirect_to @instrument
@@ -70,10 +72,10 @@ class InstrumentsController < ApplicationController
   end
 
   def destroy
+    authorize @instrument
     @instrument.delete
     flash[:notice] = t(:instrument_deleted, scope: [:success])
     redirect_to instrument_path(@subject)
-    authorize @instrument
   end
 
   def user_not_authorized
@@ -101,7 +103,6 @@ class InstrumentsController < ApplicationController
     end
 
     def instrument_params
-      params['instrument']
       params.require(:instrument).permit(:name, :other_names, 
         :performer_title, :category_id, :subcategory_id, :tuned, :origin_period)
     end
