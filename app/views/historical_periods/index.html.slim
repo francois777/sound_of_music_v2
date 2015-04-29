@@ -21,7 +21,7 @@ div#historical-periods
   .row
     - if @historical_periods.none?
       p No Historical Periods exist
-    - if signed_in?      
+    - if signed_in? and policy(HistoricalPeriod).new? 
       .actions.buttons
         .btn
           = link_to 'New Historical Period', new_historical_period_path

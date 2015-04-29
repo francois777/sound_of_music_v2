@@ -4,11 +4,12 @@ class InstrumentPolicy < ApplicationPolicy
   def initialize(current_user, model)
     @current_user = current_user
     @current_role = current_user ? current_user.role : 'visitor'
-    @author = model.created_by
     @instrument = model
+    @author = model == Instrument ? nil : model.created_by
   end
 
   def new?
+    @current_user 
   end
 
   def show?

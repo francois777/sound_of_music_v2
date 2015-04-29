@@ -4,11 +4,12 @@ class ArtistPolicy < ApplicationPolicy
   def initialize(current_user, model)
     @current_user = current_user
     @current_role = current_user ? current_user.role : 'visitor'
-    @author = model.submitted_by
     @artist = model
+    @author = model == Artist ? nil : model.submitted_by
   end
 
   def new?
+    @current_user 
   end
 
   def show?

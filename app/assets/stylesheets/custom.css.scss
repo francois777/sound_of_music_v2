@@ -279,6 +279,9 @@ input[type="radio"] {
       font-size: 1.2em;
       color: white;
     }
+    .actions {
+      display: block;
+    }
   }
 
   #instrument-form { 
@@ -711,7 +714,7 @@ input[type="radio"] {
   #historical-periods {
     padding-top: 12px;   
     padding-bottom: 5px; 
-    margin: 0 18% 0 18%;
+    margin: 0 12% 0 12%;
   }
 
   #artist-form {
@@ -735,6 +738,10 @@ input[type="radio"] {
 
 /* Small devices, Tablets */
 @media only screen and (min-width : 768px) {
+
+  #historical-periods {
+    margin: 0 18% 0 18%;
+  }
   section#role-menu {
     // height: 72px;
     p {
