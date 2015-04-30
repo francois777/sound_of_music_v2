@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150428014848) do
+ActiveRecord::Schema.define(version: 20150430075354) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -83,7 +83,10 @@ ActiveRecord::Schema.define(version: 20150428014848) do
     t.integer "classification", default: 11
     t.integer "group_type",     default: 0
     t.integer "voice_type",     default: 1
+    t.string  "name"
   end
+
+  add_index "contribution_types", ["name"], name: "index_contribution_type_by_name", using: :btree
 
   create_table "historical_periods", force: :cascade do |t|
     t.string "name"

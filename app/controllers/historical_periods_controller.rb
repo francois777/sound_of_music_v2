@@ -35,7 +35,7 @@ class HistoricalPeriodsController < ApplicationController
       flash[:notice] = t(:historical_period_updated, scope: [:success])
       redirect_to @historical_period
     else
-      flash[:alert] = t(:historical_update_failed, scope: [:failure])
+      flash[:alert] = t(:historical_period_update_failed, scope: [:failure])
       render :edit
     end
   end

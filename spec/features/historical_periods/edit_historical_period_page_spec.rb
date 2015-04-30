@@ -30,6 +30,16 @@ feature 'Edit HistoricalPeriod page' do
 
     expect(page).to have_link 'Edit'
   end
+
+  scenario 'signed-in owner updates historical period with incorrect details' do    
+    expect(page).to have_title('Update Historical Period')
+    fill_in 'Name', :with => 'Baroque Period extended but the name is too long'
+    click_button 'Save changes'
+
+    expect(page).to have_title('Update Historical Period')
+    expect(page).to have_content 'The Historical Period could not be updated'
+    expect( find(:css, "input#historical_period_name").value ).to eq('Baroque Period extended but the name is too long')
+  end
   
 end    
 
