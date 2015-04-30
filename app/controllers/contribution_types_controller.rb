@@ -12,8 +12,7 @@ class ContributionTypesController < ApplicationController
   end
 
   def index
-    # @contribution_types = ContributionType.all.paginate(page: params[:page])
-    @contribution_types = ContributionType.none.paginate(page: params[:page])
+    @contribution_types = ContributionType.all.paginate(page: params[:page])
   end
 
   def create
