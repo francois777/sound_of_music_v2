@@ -36,7 +36,7 @@ class ContributionTypesController < ApplicationController
       flash[:notice] = t(:contribution_type_updated, scope: [:success])
       redirect_to @contribution_type
     else
-      flash[:alert] = t(:historical_update_failed, scope: [:failure])
+      flash[:alert] = t(:contribution_type_update_failed, scope: [:failure])
       render :edit
     end
   end

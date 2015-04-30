@@ -4,6 +4,10 @@ h1 Contribution type
 section#contribution-type-details
   = form_for(@contribution_type, :html => {class: "form-horizontal", :role => "form"}) do |f|
     .form-group
+      = f.label :name, "Name", class: 'col-sm-2 control-label'
+      .col-sm-4
+        = f.text_field :name, readonly: "", class: 'form-control'
+    .form-group
       = f.label :classification, 'Classification', class: 'col-sm-2 control-label'
       .col-sm-4
         = f.text_field :classification, :readonly => "", value: @contribution_type.classification.humanize, class: 'form-control'

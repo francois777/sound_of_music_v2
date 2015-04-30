@@ -3,8 +3,11 @@ class ContributionType < ActiveRecord::Base
   has_many :artist_contributions
 
   enum classification: [:arranger, :band_leader, :composer, :conductor, :group_of_musicians, :librettist, :lyricist, :playwright, :poet, :screenwriter, :songwriter, :vocalist]
-  enum group_type: [:individual, :a_capella, :band, :orchestra, :choir, :instrumental_group, :vocal_group]
+  enum group_type: [:individual, :a_capella_choir, :band, :orchestra, :choir, :instrumental_group, :vocal_group]
   enum voice_type: [:not_applicable, :alto, :baritone, :bass, :contraldo, :countertenor, :mezzo_soprano, :soprano, :tenor]
+
+  before_validation :set_types
+  before_save :assign_name
 
   validates :definition, presence: true,
                    uniqueness: { case_sensitive: false },
@@ -16,6 +19,30 @@ class ContributionType < ActiveRecord::Base
   validate :voice_type_only_for_vocalist
 
   private
+
+    def assign_name
+      case classification
+      when 'group_of_musicians'
+        self.name = group_type.humanize
+      when 'vocalist'
+        self.name = "#{voice_type.humanize} voice"
+      else
+        self.name = classification.humanize
+      end    
+    end
+
+    def set_types
+      case classification
+      when 'group_of_musicians'
+        self.voice_type = :not_applicable
+      when 'vocalist'
+        self.group_type = :individual
+      else
+        self.voice_type = :not_applicable
+        self.group_type = :individual        
+      end
+    end
+
     def group_type_required
       errors.add(:group_type, 'A group type must be selected') if group_type == 'individual'
     end

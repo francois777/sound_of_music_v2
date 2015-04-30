@@ -27,7 +27,7 @@ div#contribution-types
   .row
     - if @contribution_types.none?
       p No contribution types exist
-    -elsif signed_in? and policy(ContributionType).new? 
+    - if policy(ContributionType).new? 
       .actions.buttons
         .btn
           = link_to 'New contribution type', new_contribution_type_path

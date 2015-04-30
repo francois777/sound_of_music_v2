@@ -1,16 +1,16 @@
 = render 'shared/error_messages', object: f.object
 
 .form-group
-  = f.label :classification, 'Classification', class: "col-sm-2 control-label"
-  .col-sm-4
+  = f.label :classification, 'Classification', class: "col-xs-4 col-sm-2 control-label"
+  .col-xs-8.col-sm-5
     = f.select :classification, options_for_select(ContributionType.classifications.collect { |clf| [clf[0].humanize, clf[1]] }, selected: ContributionType.classifications[@contribution_type.classification.to_s]), {}, { id: 'classification'}
 .form-group id="group_type"
-  = f.label :group_type, 'Group type', class: "col-sm-2 control-label"
-  .col-sm-4
+  = f.label :group_type, 'Group type', class: "col-xs-4 col-sm-2 control-label"
+  .col-xs-8.col-sm-5
     = f.select :group_type, options_for_select(ContributionType.group_types.collect { |clf| [clf[0].humanize, clf[1]] }, selected: ContributionType.group_types[@contribution_type.group_type.to_s]), {}
 .form-group id="voice_type"
-  = f.label :voice_type, 'Voice type', class: "col-sm-2 control-label"
-  .col-sm-4
+  = f.label :voice_type, 'Voice type', class: "col-xs-4 col-sm-2 control-label"
+  .col-xs-8.col-sm-5
     = f.select :voice_type, options_for_select(ContributionType.voice_types.collect { |clf| [clf[0].humanize, clf[1]] }, selected: ContributionType.voice_types[@contribution_type.voice_type.to_s]), {}
 .form-group
   = f.label :definition, class: "col-sm-2 control-label"

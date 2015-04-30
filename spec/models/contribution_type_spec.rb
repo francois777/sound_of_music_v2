@@ -12,6 +12,7 @@ describe ContributionType do
   it { should respond_to(:classification) }
   it { should respond_to(:group_type) }
   it { should respond_to(:voice_type) }
+  it { should respond_to(:name) }
 
   it "must be valid" do
     expect(@contribution_type).to be_valid
@@ -29,15 +30,17 @@ describe ContributionType do
     expect { contribution_type2.save! }.to raise_error
   end
 
-  it "must ensure group type is required for groups" do
-    @contribution_type.group_type = 'a_capella'
-    expect(@contribution_type).not_to be_valid
-  end
-
-  it "must ensure voice type is required for vocalists" do
-    contribution_type = FactoryGirl.create(:composer)
-    contribution_type.voice_type = 'alto'
-    expect(contribution_type).not_to be_valid
+  it "generates the correct voice type" do 
+    ct_params = [ {classification: :conductor, definition: 'Definition of conductor'},
+               {classification: :group_of_musicians, group_type: :orchestra, definition: 'Definition of orchestra'},
+               {classification: :vocalist, voice_type: :countertenor, definition: 'Definition of countertenor'}
+             ]
+    names =  [ 'Conductor', 'Orchestra', 'Countertenor voice']         
+    ct_params.each_with_index do |params, inx|
+      cttype = ContributionType.new(params)
+      cttype.save!
+      expect( cttype.name ).to eq names[inx]
+    end     
   end
 
 end
