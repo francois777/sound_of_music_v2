@@ -9,7 +9,11 @@ class ArtistPolicy < ApplicationPolicy
   end
 
   def new?
-    @current_user 
+    @current_user and @artist.new_record?
+  end
+
+  def create?
+    @current_user and @artist.new_record?
   end
 
   def show?
@@ -24,9 +28,10 @@ class ArtistPolicy < ApplicationPolicy
 
   def edit?
     return false unless @current_user 
-    return false if @artist.approval.submitted? and @author == @current_user
-    return false if @artist.approval.incomplete? and @author != @current_user
-    return true if @author == @current_user
+    if @current_user.user?
+      return false unless @author == @current_user
+      return (@artist.submitted? or @artist.approved? or @artist.rejected?)
+    end
     @current_user.admin? or @current_user.approver? or @current_user.owner?
   end
 

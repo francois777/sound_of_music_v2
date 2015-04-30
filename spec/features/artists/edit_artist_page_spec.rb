@@ -3,7 +3,7 @@ include ApplicationHelper
 
 feature 'Edit Artist page' do
 
-  context 'Incomplete Artists' do
+  context 'Submitted Artists' do
 
     before(:each) do
       @user = FactoryGirl.create(:user)
@@ -15,7 +15,7 @@ feature 'Edit Artist page' do
         artist_names_attributes: [ { name: 'John', name_type: 0}, 
                                    { name: 'Cornelius', name_type: 1},
                                    { name: 'Peterson', name_type: 2}])
-      approval_params = Approval::INCOMPLETE.merge( {approvable: @artist} )
+      approval_params = Approval::SUBMITTED.merge( {approvable: @artist} )
       approval = Approval.create( approval_params )
 
       visit root_path

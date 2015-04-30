@@ -24,8 +24,8 @@ class Artist < ActiveRecord::Base
   scope :submitted, -> { joins(:approval).where('approvals.approval_status = ?', Approval.approval_statuses[:submitted]) }  
   scope :to_be_revised, -> { joins(:approval).where('approvals.approval_status = ?', Approval.approval_statuses[:to_be_revised]) }  
   scope :own_and_other_artists, -> (user_id) { 
-    joins(:approval).
-    where("submitted_by_id = ? OR approvals.approval_status = ?", user_id, Approval.approval_statuses[:approved])
+    joins(:approval)
+    .where("submitted_by_id = ? OR approvals.approval_status = ?", user_id, Approval.approval_statuses[:approved])
   }
    
   self.per_page = 10
@@ -81,6 +81,14 @@ class Artist < ActiveRecord::Base
 
   def approved?
     approval.approved?
+  end
+
+  def submitted?
+    approval.submitted?
+  end
+
+  def rejected?
+    approval.to_be_revised?
   end
 
   private 

@@ -41,6 +41,18 @@ FactoryGirl.define do
                                ]
     after(:create) { |artist| create(:submitted_approval, approvable: artist) }
   end
+
+  factory :rejected_artist, class: Artist do
+    submitted_by { User.user.first || create(:user) }
+    born_on Date.today - 35.years
+    born_country_code 'de'
+    artist_names_attributes  [ { name: 'Hilda',
+                                 name_type: 0}, 
+                               { name: 'Heinz',
+                                 name_type: 2}
+                               ]
+    after(:create) { |artist| create(:rejected_approval, approvable: artist) }
+  end
 end
 
         

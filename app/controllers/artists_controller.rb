@@ -4,11 +4,11 @@ class ArtistsController < ApplicationController
   before_action :set_artist, except: [:new, :create, :index]
 
   def show
+    authorize @artist
     @context = "Articles"
     @submitted_by = @artist.submitted_by.name
     @approval = @artist.approval
     set_articles
-    authorize @artist
   end
 
   def index
@@ -30,16 +30,19 @@ class ArtistsController < ApplicationController
 
   def new
     @artist = Artist.new
+    authorize @artist
     @artist.born_on = Date.today - 50.years
     4.times { @artist.artist_names.build }
   end
 
   def edit
+    authorize @artist
     @artist.artist_names.build
   end
 
   def create
     @artist = Artist.new(artist_params_formatted)
+    authorize @artist
     @artist.submitted_by = current_user
     if @artist.save
       create_approval(@artist.reload)
