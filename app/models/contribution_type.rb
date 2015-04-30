@@ -18,6 +18,10 @@ class ContributionType < ActiveRecord::Base
   validate :group_type_only_for_group
   validate :voice_type_only_for_vocalist
 
+  default_scope -> { order('classification ASC, name ASC') }
+
+  self.per_page = 10
+
   private
 
     def assign_name
