@@ -37,6 +37,10 @@ module ApplicationHelper
     end
   end
 
+  def deceased_date(date, options = {})
+    date.nil? ? 'Still alive!' : display_date(date, options)
+  end
+
   def display_date(date, options = {})
     return "" if date == nil
     return date.strftime("%d %B %Y") unless options[:format]

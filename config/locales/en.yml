@@ -26,6 +26,11 @@ en:
     site_name: "The Sound of Music"
     by: "by"
     author: "Francois van der Hoven"
+    annoucement: |-
+      Learn about musical instruments, artists from various times in history and the
+      contributions they made to our wonderful world of music. You may also contribute 
+      by signing up and provide articles and photos to expand our library of 
+      interesting facts.  
 
   static_pages:
     about:

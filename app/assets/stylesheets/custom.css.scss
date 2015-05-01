@@ -216,11 +216,20 @@ input[type="radio"] {
   /*   Home page   */
 
   #home_page { 
+    section.artist-sample {
+      h2 {
+        color: darkgreen;
+        margin-bottom: 20px;
+      }
+      form input {
+        font-size: 1em;
+      }
+    }
     .page-header {
-      margin-top: 25px;
+      margin-top: 20px;
       border-bottom: 1px solid #F06A39;
       h1 {
-        font-size: 3em;
+        font-size: 3.5em;
         color: white;
         font-family: monospace, courier, arial;
         font-weight: bold;
@@ -232,11 +241,31 @@ input[type="radio"] {
 
     form .form-group {
       margin-bottom: 8px;
+      font-size: 0.9em;
       input {
         background-color: #B6D9CF;
         border: none;
         color: #4A6B54;
       }
+    }
+  }
+
+  section#announcements {
+    margin-left: 10px;
+    margin-top: 60px;
+    color: white;
+    font-family: verdana;
+    h4 {
+      letter-spacing: 2px;
+      color: #F06A39;
+      margin-top: 0;
+    }
+    p {
+      padding-right: 14px;
+      border-right: 1px solid darkgreen;
+      display: block;
+      font-size: 0.9em;
+      font-weight: normal;
     }
   }
 

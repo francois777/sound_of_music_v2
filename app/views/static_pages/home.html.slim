@@ -1,7 +1,7 @@
 = provide(:title, 'Home')
 section#home_page
   .page-header
-    h1 
+    h1
       | The 
       span S
       | ound of 
@@ -14,33 +14,33 @@ section#home_page
         div.item
           = image_tag (photo.image.medium.url), class: 'lazyOwl'
 
+  section#announcements.hidden-xs.col-sm-4.col-md-4
+    .col-sm-10.col-sm-offset-1
+      h4 = 'Announcements'
+      p = t(:annoucement, scope: [:site])
   - if @artist
-    h1 
-      = @artist.assigned_name
-    section#artist-details
+    section.artist-sample.col-xs-12.col-sm-8.col-md-8
+      h2
+        = @artist.assigned_name
       = form_for(@artist, :html => {class: "form-horizontal", :role => "form"}) do |f|
         .form-group
-          = label_tag :assigned_name, 'Name', class: 'col-xs-4 col-sm-4 control-label'
-          .col-xs-8.col-sm-6
-            = text_field_tag :assigned_name, @artist.assigned_name, readonly: true, class: 'form-control'
-        .form-group
           = label_tag :gender, 'Gender', class: 'col-xs-4 col-sm-4 control-label'
-          .col-xs-3.col-sm-2
+          .col-xs-5.col-sm-3
             = text_field_tag :gender, @artist.gender.titleize, readonly: true, class: 'form-control'
         .form-group
           = label_tag :born_on, 'Lived from/to', class: 'hidden-xs col-sm-4 control-label'
           = label_tag :born_on, 'Born', class: 'col-xs-4 hidden-sm hidden-md hidden-lg control-label'
-          .col-xs-5.col-sm-3.col-md-3.col-lg-3
-            = text_field_tag :born_on, display_date(@artist.born_on), readonly: true, class: 'form-control'
-          .hidden-xs.col-sm-3.col-md-3.col-lg-3
-            = text_field_tag :died_on, display_date(@artist.died_on), readonly: true, class: 'form-control'
+          .col-xs-5.col-sm-4
+            = text_field_tag :born_on, display_date(@artist.born_on, {format: :short}), readonly: true, class: 'form-control'
+          .hidden-xs.col-sm-4
+            = text_field_tag :died_on, deceased_date(@artist.died_on, {format: :short}), readonly: true, class: 'form-control'
         .form-group
           = label_tag :died_on, 'Died', class: 'col-xs-4 hidden-sm hidden-md hidden-lg control-label'
           .col-xs-5.hidden-sm.hidden-md.hidden-lg
-            = text_field_tag :died_on, display_date(@artist.died_on), readonly: true, class: 'form-control'
+            = text_field_tag :died_on, deceased_date(@artist.died_on, {format: :short}), readonly: true, class: 'form-control'
         .form-group
           = label_tag :born_country_code, 'Born in country', class: 'col-xs-4 col-sm-4 control-label'
-          .col-xs-8.col-sm-6
+          .col-xs-8.col-sm-8
             = text_field_tag :born_country_code, t("countries.#{@artist.born_country_code}"), readonly: true, class: 'form-control'
 
 javascript:
@@ -48,6 +48,8 @@ javascript:
   $("#photo-show").owlCarousel({
     autoPlay: 4000,
     items: 8,
-    itemsDesktop : [1199, 3],
-    itemsDesktopSmall : [979, 3]
+    itemsDesktop : [992, 5],
+    itemsDesktopSmall : [768, 3],
+    itemTablet : [480,2],
+    itemsMobile : false
   });

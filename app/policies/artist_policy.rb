@@ -9,7 +9,7 @@ class ArtistPolicy < ApplicationPolicy
   end
 
   def new?
-    @current_user and @artist.new_record?
+    @current_user and (@artist.is_a?(Class) or @artist.new_record?)
   end
 
   def create?
