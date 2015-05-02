@@ -100,6 +100,7 @@ class ArtistsController < ApplicationController
 
     def set_artist
       @subject = @artist = Artist.find(params[:id].to_i)
+      @artist.load
     rescue
       flash[:alert] = t(:artist_not_found, scope: [:failure]) 
       redirect_to artists_path

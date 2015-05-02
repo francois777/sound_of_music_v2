@@ -89,44 +89,6 @@ describe Artist do
                                  { name: 'Peterson', name_type: 2}]
       expect { @artist.gender = 2 }.to raise_error
     end
-
-    it "cannot have two first names" do
-      @artist.artist_names_attributes = [ { name: 'John', name_type: 0}, 
-                                 { name: 'Cornelius', name_type: 0},
-                                 { name: 'Peterson', name_type: 2}]
-      expect { @artist.save! }.to raise_error(ActiveRecord::RecordInvalid, "Validation failed: Assigned name Only one name is allowed for first name, last name, public name or maiden name")
-    end  
-
-    it "cannot have two last names" do
-      @artist.artist_names_attributes = [ { name: 'John', name_type: 0}, 
-                                 { name: 'Cornelius', name_type: 2},
-                                 { name: 'Peterson', name_type: 2}]
-      expect { @artist.save! }.to raise_error(ActiveRecord::RecordInvalid, "Validation failed: Assigned name Only one name is allowed for first name, last name, public name or maiden name")
-    end  
-
-    it "cannot have two maiden names" do
-      @artist.artist_names_attributes = [ { name: 'Sally', name_type: 0}, 
-                                 { name: 'Samantha', name_type: 1},
-                                 { name: 'Peterson', name_type: 2},
-                                 { name: 'Sollimon', name_type: 4},
-                                 { name: 'Sanderson', name_type: 4}]
-      expect { @artist.save! }.to raise_error(ActiveRecord::RecordInvalid, "Validation failed: Assigned name Only one name is allowed for first name, last name, public name or maiden name")
-    end  
-
-    it "cannot have two public names" do
-      @artist.artist_names_attributes = [ { name: 'Sally', name_type: 0}, 
-                                 { name: 'Samantha', name_type: 1},
-                                 { name: 'Peterson', name_type: 2},
-                                 { name: 'Sally Sanderson', name_type: 3},
-                                 { name: 'Sally Sonderson', name_type: 3}]
-      expect { @artist.save! }.to raise_error(ActiveRecord::RecordInvalid, "Validation failed: Assigned name Only one name is allowed for first name, last name, public name or maiden name")
-    end  
-
-    it "must have at least a first name and surname" do
-      @artist.artist_names_attributes = [ { name: 'Sally', name_type: 0}, 
-                                          { name: 'Samantha', name_type: 1}]
-      expect { @artist.save! }.to raise_error(ActiveRecord::RecordInvalid, "Validation failed: Assigned name First and last name are required")
-    end
   end
 
   describe "include approval details when creating an artist" do

@@ -29,7 +29,7 @@ section#artist-details
     .form-group
       = label_tag :birth_names, 'Birth names', class: 'col-xs-4 col-sm-4 control-label'
       .col-xs-8.col-sm-6
-        = text_field_tag :birth_names, @artist.birth_names, readonly: true, class: 'form-control'
+        = text_field_tag :birth_names, @artist.name_profile.birth_names, readonly: true, class: 'form-control'
     .form-group
       = label_tag :gender, 'Gender', class: 'col-xs-4 col-sm-4 control-label'
       .col-xs-3.col-sm-2
