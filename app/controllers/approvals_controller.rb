@@ -30,7 +30,6 @@ class ApprovalsController < ApplicationController
       @approval.rejection_reason = :not_rejected
       @approval.approval_status = :submitted
       @approval.save
-      #flash[:notice] = "t(:#{@subject_name}_submitted, scope: [:success])"
       flash[:notice] = "#{@subject_name} has been submitted."
     end
 
@@ -38,7 +37,6 @@ class ApprovalsController < ApplicationController
       @approval.approver = current_user
       @approval.approval_status = :approved
       @approval.save
-      #flash[:notice] = "t(:#{@subject_name}_approved, scope: [:success])"
       flash[:notice] = "#{@subject_name} has been approved."
     end
 

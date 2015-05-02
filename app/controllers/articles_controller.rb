@@ -3,7 +3,6 @@ class ArticlesController < ApplicationController
   before_filter :authenticate_user!, only: [:new, :create, :edit, :update, :submit, :approve]
   before_action :get_publishable
   before_action :set_article, only: [:show, :edit, :update, :submit, :destroy]
-  before_action :set_instrument_themes, only: [:new, :edit]
 
   def show
     if @subject.nil?
@@ -27,7 +26,6 @@ class ArticlesController < ApplicationController
       redirect_to [@subject, @article]
     else
       flash[:error] = t(:article_create_failed, scope: [:failure])
-      set_instrument_themes
       get_publishable
       render :new
     end
@@ -52,7 +50,6 @@ class ArticlesController < ApplicationController
       redirect_to [@subject, @article]
     else
       flash[:error] = t(:article_update_failed, scope: [:failure])
-      set_instrument_themes
       render :edit, subject: @subject, article: @article
     end
   end
@@ -97,10 +94,6 @@ class ArticlesController < ApplicationController
       end
     rescue  
       @article = nil
-    end
-
-    def set_instrument_themes
-      @instrument_themes = Theme.instruments
     end
 
     def set_new_article_defaults

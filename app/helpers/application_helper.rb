@@ -57,4 +57,12 @@ module ApplicationHelper
     return 0 unless HistoricalPeriod.any?
     period ? period.id : HistoricalPeriod.first.id
   end
+
+  def publishable_themes(class_name)
+    if class_name == 'Instrument'
+      Theme.instruments
+    elsif class_name == 'Artist'
+      Theme.artists
+    end
+  end
 end
