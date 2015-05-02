@@ -19,6 +19,10 @@ class Approval < ActiveRecord::Base
     (approval_status == 'incomplete') or (approval_status == 'submitted')
   end
 
+  def rejected?
+    reason_given_for_rejection?
+  end
+
   def reason_given_for_rejection?
     self.not_rejected? ? false : true
   end

@@ -56,6 +56,25 @@ describe ArtistsController do
 
       it { should respond_with 302 }
     end
+
+    describe "Only approved artist approvals are displayed to visitors" do
+      before do
+        @artist = FactoryGirl.create(:approved_artist)
+        @incomplete_artist_article = FactoryGirl.create(:incomplete_artist_article, publishable: @artist)
+        @approved_artist_article1  = FactoryGirl.create(:approved_artist_article, publishable: @artist)
+        @approved_artist_article2  = FactoryGirl.create(:approved_artist_article, publishable: @artist)
+        @submitted_artist_article  = FactoryGirl.create(:submitted_artist_article, publishable: @artist)
+        @rejected_artist_article   = FactoryGirl.create(:rejected_artist_article, publishable: @artist)
+        get :show, id: @artist
+      end
+
+      it "requests approved artist articles" do
+        titles = assigns(:articles).collect { |a| a[:title] }
+        expect( assigns(:articles).count ).to eq(2)
+        expect( titles ).to include(@approved_artist_article1.title)
+        expect( titles ).to include(@approved_artist_article2.title)
+      end
+    end
   end
 
   context "Logged-in users" do

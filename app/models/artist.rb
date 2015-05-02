@@ -4,10 +4,11 @@ class Artist < ActiveRecord::Base
   belongs_to :submitted_by, class_name: 'User'
   belongs_to :historical_period
   has_one :approval, as: :approvable, dependent: :destroy
-  # has_one :name_profile, dependent: :destroy
   has_many :articles, as: :publishable, dependent: :destroy
   has_many :artist_contributions
   has_many :artist_names, dependent: :destroy
+
+  delegate :approved?, :submitted?, :rejected?, to: :approval
 
   accepts_nested_attributes_for :artist_names,
                 reject_if: proc { |attributes| attributes['name'].blank? },
@@ -51,28 +52,12 @@ class Artist < ActiveRecord::Base
     historical_period ? historical_period.name : ""
   end
 
-  def historical_period_id
-    historical_period ? historical_period.id : 1
-  end 
-
   def approval_status_display
-    approval.approval_status.humanize if approval
+    approval ? approval.approval_status.humanize : ""
   end
 
   def rejection_reason_display
-    approval.rejection_reason.humanize if approval
-  end
-
-  def approved?
-    approval.approved?
-  end
-
-  def submitted?
-    approval.submitted?
-  end
-
-  def rejected?
-    approval.to_be_revised?
+    approval ? approval.rejection_reason.humanize : ""
   end
 
   private 

@@ -23,7 +23,7 @@
 .form-group
   = f.label :historical_period_id, 'Historical Period', class: "col-xs-4 col-sm-3 control-label select-label"
   .col-xs-8.col-sm-6
-    = f.select :historical_period_id, options_for_select(HistoricalPeriod.all.collect { |pde| [pde.name, pde.id]}, selected: @artist.historical_period_id.to_s), {}, class: "form-control col-xs-8 col-sm-6"
+    = f.select :historical_period_id, options_for_select(HistoricalPeriod.all.collect { |pde| [pde.name, pde.id]}, selected: historical_period_for(@artist).to_s), {}, class: "form-control col-xs-8 col-sm-6"
 
 javascript:
   $('#born-on').datepicker({format: 'dd-mm-yyyy'});    

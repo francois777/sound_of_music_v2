@@ -5,4 +5,9 @@ FactoryGirl.define do
     name 'History'
   end
 
+  factory :artist_theme, class: Theme do
+    subject :artists
+    name 'History'
+  end
+
 end  

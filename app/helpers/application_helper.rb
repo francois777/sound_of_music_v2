@@ -52,4 +52,9 @@ module ApplicationHelper
     end
   end
 
+  def historical_period_for(artist)
+    period = artist.historical_period
+    return 0 unless HistoricalPeriod.any?
+    period ? period.id : HistoricalPeriod.first.id
+  end
 end
