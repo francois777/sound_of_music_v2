@@ -6,25 +6,24 @@ class ArtistsController < ApplicationController
   def show
     authorize @artist
     @context = "Articles"
-    @submitted_by = @artist.submitted_by.name
-    @approval = @artist.approval
     set_articles
   end
 
   def index
     @context = "Artists"
+    page_number = params[:page]
     case params['filter'] 
     when 'approved'
-      @artists = policy_scope(Artist).approved.paginate(page: params[:page])
+      @artists = policy_scope(Artist).approved.paginate(page: page_number)
     when 'submitted'
-      @artists = policy_scope(Artist).submitted.paginate(page: params[:page])
+      @artists = policy_scope(Artist).submitted.paginate(page: page_number)
     when 'under_revision'
-      @artists = policy_scope(Artist).to_be_revised.paginate(page: params[:page])  
+      @artists = policy_scope(Artist).to_be_revised.paginate(page: page_number)  
     when 'hist_period'
       historical_period = HistoricalPeriod.find_historical_period_by_name(params['name'])
-      @artists = historical_period.artists.paginate(page: params[:page])
+      @artists = historical_period.artists.paginate(page: page_number)
     else 
-      @artists = policy_scope(Artist).paginate(page: params[:page])
+      @artists = policy_scope(Artist).paginate(page: page_number)
     end
   end
 
@@ -45,7 +44,7 @@ class ArtistsController < ApplicationController
     authorize @artist
     @artist.submitted_by = current_user
     if @artist.save
-      create_approval(@artist.reload)
+      create_approval
       flash[:notice] = t(:artist_submitted, scope: [:success])
       redirect_to @artist
     else
@@ -78,7 +77,7 @@ class ArtistsController < ApplicationController
 
   private
 
-    def create_approval(approvable)
+    def create_approval
       approval_params = Approval::SUBMITTED.merge( {approvable: @artist} )
       Approval.create( approval_params )
     end
@@ -99,7 +98,7 @@ class ArtistsController < ApplicationController
     end
 
     def set_artist
-      @subject = @artist = Artist.find(params[:id].to_i)
+      @artist = Artist.find(params[:id].to_i)
       @artist.load
     rescue
       flash[:alert] = t(:artist_not_found, scope: [:failure]) 
