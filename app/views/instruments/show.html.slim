@@ -5,16 +5,7 @@ h2
   = @instrument.category.name
   em = " / #{@instrument.subcategory.name}" if @instrument.subcategory
 
-div#paintings
-  ul.thumb-wrap
-    - for article in @instrument.articles
-      - for photo in article.photos
-        li
-          div
-            = link_to article_photo_path(article,photo) do
-              span.wring
-                span
-                = image_tag photo.image.thumb.url if photo.image?
+= render 'paintings'
 
 section#instrument-details
   = form_for(@instrument, :html => {class: "form-horizontal", :role => "form"}) do |f|

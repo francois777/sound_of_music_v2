@@ -16,12 +16,6 @@ div#paintings
 
 section#artist-details
   = form_for(@artist, :html => {class: "form-horizontal", :role => "form"}) do |f|
-
-    / - @artist.artist_names.each do |nme|
-    /   .form-group
-    /     = label_tag :name, nme.name_type.humanize, readonly: true, class: 'col-xs-4 col-sm-4 control-label'
-    /     .col-xs-8.col-sm-6
-    /       = text_field_tag :name, nme.name, readonly: true, readonly: true, class: 'form-control'
     .form-group
       = label_tag :popular_name, 'Popular name', class: 'col-xs-4 col-sm-4 control-label'
       .col-xs-8.col-sm-6

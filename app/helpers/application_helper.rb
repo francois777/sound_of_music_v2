@@ -65,4 +65,8 @@ module ApplicationHelper
       Theme.artists
     end
   end
+
+  def subcategories_for_category(category_id)
+    Subcategory.where("category_id = ?", category_id)  
+  end
 end

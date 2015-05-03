@@ -3,7 +3,7 @@
 = render 'shared/error_messages', object: @article
 
 h1
-  = "Subject: #{@subject.name}"
+  = "Subject: #{@article.publishable.name}"
 h3
   = @article.title
 
@@ -11,7 +11,7 @@ h3
 
 section#article-details.clearfix
   .row
-    = form_for ([@subject, @article]), :html => {class: "form-horizontal", :role => "form"} do |f|
+    = form_for ([@article.publishable, @article]), :html => {class: "form-horizontal", :role => "form"} do |f|
 
       .form-group
         = f.label :theme, 'Theme', class: 'col-sm-1 control-label'

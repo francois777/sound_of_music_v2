@@ -2,9 +2,9 @@
 
 h1 New article
 h2
-  = "Article on #{@subject.name}"
+  = "Article on #{@article.publishable.name}"
 #article-form.clearfix
-  = form_for ([@subject, @article]), html: {class: "form-horizontal", role: "form"}  do |f|
+  = form_for ([@article.publishable, @article]), html: {class: "form-horizontal", role: "form"}  do |f|
     = render 'fields', f: f
     .col-sm-2.col-sm-offset-5
       = f.submit 'Create article', class: "btn btn-large btn-primary"

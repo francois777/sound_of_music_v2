@@ -1,9 +1,9 @@
 - provide(:title, 'Edit article') 
 
 h1 
-  = "Edit Article on #{@subject.name}"
+  = "Edit Article on #{@article.publishable.name}"
 .row
-  = form_for ([@subject, @article]), html: {class: "form-horizontal", role: "form"}  do |f|
+  = form_for ([@article.publishable, @article]), html: {class: "form-horizontal", role: "form"}  do |f|
     = render 'fields', f: f
     .col-sm-2.col-sm-offset-5.buttons
       = f.submit 'Save changes', class: "btn btn-large btn-primary"

@@ -29,12 +29,10 @@ class InstrumentsController < ApplicationController
   def new
     authorize Instrument
     @instrument = Instrument.new
-    set_instrument_categories
   end
 
   def edit
     authorize @instrument
-    set_instrument_categories
   end
 
   def create
@@ -47,7 +45,6 @@ class InstrumentsController < ApplicationController
       redirect_to @instrument
     else
       flash[:alert] = t(:instrument_create_failed, scope: [:failure])
-      set_instrument_categories
       render :new
     end
   end
@@ -59,7 +56,6 @@ class InstrumentsController < ApplicationController
       redirect_to @instrument
     else
       flash[:alert] = t(:instrument_update_failed, scope: [:failure])
-      set_instrument_categories
       render :edit, instrument: @instrument
     end
   end
@@ -95,11 +91,6 @@ class InstrumentsController < ApplicationController
     rescue
       flash[:alert] = t(:instrument_not_found, scope: [:failure]) 
       redirect_to instruments_path
-    end
-
-    def set_instrument_categories
-      @categories = Category.all
-      @subcategories = Subcategory.where("category_id = ?", @instrument.category_id)
     end
 
     def instrument_params
