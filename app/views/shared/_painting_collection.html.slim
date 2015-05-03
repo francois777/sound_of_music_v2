@@ -1,10 +1,10 @@
 div#paintings
   ul.thumb-wrap
-    - for article in @instrument.articles
+    - for article in resource.articles
       - for photo in article.photos
         li
           div
             = link_to article_photo_path(article,photo) do
               span.wring
                 span
-                = image_tag photo.image.thumb.url if photo.image?
+                  = image_tag photo.image.thumb.url if photo.image?

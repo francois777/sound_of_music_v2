@@ -5,7 +5,7 @@ h2
   = @instrument.category.name
   em = " / #{@instrument.subcategory.name}" if @instrument.subcategory
 
-= render 'paintings'
+= render partial: 'shared/painting_collection', locals: {resource: @instrument}
 
 section#instrument-details
   = form_for(@instrument, :html => {class: "form-horizontal", :role => "form"}) do |f|
@@ -27,22 +27,9 @@ section#instrument-details
       = f.label :created_by_id, 'Created by', class: 'col-xs-5 col-sm-4 control-label'
       .col-xs-7.col-sm-6
         = f.text_field :created_by_id, readonly: "", value: @instrument.created_by.name, class: 'form-control'
-    - if current_user and policy(@instrument).view_approval_info?
-      - if @instrument.approval.approver
-        .form-group
-          = label_tag :approver, 'Approver', class: 'col-xs-5 col-sm-4 control-label'
-          .col-xs-7.col-sm-6
-            = text_field_tag :approver, @instrument.approval.approver.name, readonly: true, class: 'form-control'
-      .form-group
-        = label_tag :approval_status, 'Approval status', class: 'col-xs-5 col-sm-4 control-label'
-        .col-xs-7.col-sm-3
-          = text_field_tag :approval_status, @instrument.approval_status_display, readonly: true, class: 'form-control'
-        .hidden-xs.col-sm-3
-          = text_field_tag :rejection_reason, @instrument.rejection_reason_display, readonly: true, class: 'form-control'  
-      .form-group.hidden-sm.hidden-md.hidden-lg
-        = label_tag :rejection_reason, 'Rejection reason', class: 'col-xs-5 control-label'
-        .col-xs-7
-          = text_field_tag :rejection_reason, @instrument.rejection_reason_display, readonly: true, class: 'form-control'  
+
+    = render partial: 'shared/approval_details', locals: {resource: @instrument}        
+
     - if current_user
       = render 'submit'  
       - if policy(@approval).approve? 

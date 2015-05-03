@@ -2,17 +2,7 @@
 h1 
   = @artist.assigned_name
 
-div#paintings
-  ul.thumb-wrap
-    - for article in @artist.articles
-      - for photo in article.photos
-        li
-          div
-            = link_to article_photo_path(article,photo) do
-              span.wring
-                span
-                = image_tag photo.image.thumb.url if photo.image?
-
+= render partial: 'shared/painting_collection', locals: {resource: @artist}
 
 section#artist-details
   = form_for(@artist, :html => {class: "form-horizontal", :role => "form"}) do |f|
@@ -51,22 +41,8 @@ section#artist-details
       = label_tag :submitted_by_id, 'Submitted by', class: 'col-xs-4 col-sm-4 control-label'
       .col-xs-8.col-sm-6
         = text_field_tag :submitted_by_id, @submitted_by, readonly: true, class: 'form-control'
-    - if current_user and policy(@artist).view_approval_info? 
-      - if @artist.approval.approver
-        .form-group
-          = label_tag :approver, 'Approver', class: 'col-xs-4 control-label'
-          .col-xs-8.col-sm-4.col-md-3
-            = text_field_tag :approver, @artist.approval.approver.name, readonly: true, class: 'form-control'
-      .form-group
-        = label_tag :approval_status, 'Approval status', class: 'col-xs-4 col-sm-4 control-label'
-        .col-xs-7.col-sm-3
-          = text_field_tag :approval_status, @artist.approval_status_display, readonly: true, class: 'form-control'
-        .hidden-xs.col-sm-3
-          = text_field_tag :rejection_reason, @artist.rejection_reason_display, readonly: true, class: 'form-control'
-      .form-group.hidden-sm.hidden-md.hidden-lg
-        = label_tag :rejection_reason, 'Rejection reason', class: 'col-xs-4 hidden-sm control-label'
-        .col-xs-7
-          = text_field_tag :rejection_reason, @artist.rejection_reason_display, readonly: true, class: 'form-control'
+
+    = render partial: 'shared/approval_details', locals: {resource: @artist}        
         
   .row
     - if current_user

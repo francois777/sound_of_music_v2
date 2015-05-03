@@ -1,0 +1,16 @@
+- if current_user and policy(resource).view_approval_info? 
+  - if resource.approval.approver
+    .form-group
+      = label_tag :approver, 'Approver', class: 'col-xs-4 col-sm-4 control-label'
+      .col-xs-7.col-sm-6
+        = text_field_tag :approver, resource.approval.approver.name, readonly: true, class: 'form-control'
+  .form-group
+    = label_tag :approval_status, 'Approval status', class: 'col-xs-5 col-sm-4 control-label'
+    .col-xs-7.col-sm-3
+      = text_field_tag :approval_status, resource.approval_status_display, readonly: true, class: 'form-control'
+    .hidden-xs.col-sm-3
+      = text_field_tag :rejection_reason, resource.rejection_reason_display, readonly: true, class: 'form-control'
+  .form-group.hidden-sm.hidden-md.hidden-lg
+    = label_tag :rejection_reason, 'Rejection reason', class: 'col-xs-5 hidden-sm control-label'
+    .col-xs-7
+      = text_field_tag :rejection_reason, resource.rejection_reason_display, readonly: true, class: 'form-control'
