@@ -1,3 +1,5 @@
+# NameProfile validates the collection of all names provided
+# and provides a suitable assigned name
 class NameProfile
   attr_accessor :assigned_name, :first_name, :middle_names, :last_name,
                 :public_name, :maiden_name, :error
@@ -15,10 +17,9 @@ class NameProfile
   end
 
   def load_names
-    return false unless add_names
-    return false unless sufficient_names?
+    add_names
+    check_sufficient_names
     assign_name
-    @assigned_name.present?
   end
 
   def get_name( name_type )
@@ -39,71 +40,48 @@ class NameProfile
       end  
     end
 
-    def sufficient_names?
-      if @selected_names.empty?
-        @error = "No names have been provided"
-      elsif @public_name.empty? and (@first_name.empty? or @last_name.empty?)
-        @error = "Insufficient names are provided" 
-      end  
-      @error.nil?
+    def check_sufficient_names   
+      raise "No names have been provided" if @selected_names.empty?
+      raise "Insufficient names are provided" if @public_name.empty? and (@first_name.empty? or @last_name.empty?)
     end
 
     def add_names
       @names.each { |name| add_name(name) }
-      @error.nil?
     end
 
     def add_name(name)
-      if name.name.empty?
-        @error = "#{name.name_type.humanize} is missing" 
-      else  
-        send("add_#{name.name_type}", name.name)
-      end
+      raise "#{name.name_type.humanize} is missing" if name.name.empty?
+      send("add_#{name.name_type}", name.name)
     end
 
     def add_first_name(name)
-      if @first_name.empty?
-        @first_name = name
-        @selected_names << @first_name
-      else        
-        @error = "Only one first name is allowed" 
-      end
+      raise "Only one first name is allowed" if @first_name.present?
+      @first_name = name
+      @selected_names << @first_name
     end
 
     def add_last_name(name)
-      if @last_name.empty?
-        @last_name = name
-        @selected_names << @last_name
-      else        
-        @error = "Only one last name is allowed" 
-      end
+      raise "Only one last name is allowed" if @last_name.present?
+      @last_name = name
+      @selected_names << @last_name
     end
 
     def add_public_name(name)
-      if @public_name.empty?
-        @public_name = name
-        @selected_names << @public_name
-      else        
-        @error = "Only one public name is allowed" 
-      end
+      raise "Only one public name is allowed" if @public_name.present?
+      @public_name = name
+      @selected_names << @public_name
     end
 
     def add_maiden_name(name)
-      if @maiden_name.empty?
-        @maiden_name = name
-        @selected_names << @maiden_name
-      else        
-        @error = "Only one maiden name is allowed" 
-      end
+      raise "Only one maiden name is allowed" if @maiden_name.present?
+      @maiden_name = name
+      @selected_names << @maiden_name
     end
 
     def add_middle_name(name)
-      if @middle_names.size > 2
-        @error = "A maximum of 3 middle names are allowed"
-      else
-        @middle_names << name
-        @selected_names << name
-      end
+      raise "A maximum of 3 middle names are allowed" if @middle_names.size > 2
+      @middle_names << name
+      @selected_names << name
     end
 
     def selected_names

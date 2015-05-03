@@ -14,11 +14,13 @@ describe NameProfile do
       end
 
       it "must be valid" do
-        result = @profile.load_names
-        expect( result ).to eq(true)
-        expect( @profile.error ).to eq(nil)
-        expect( @profile.assigned_name ).to eq('Gertruida Goosen')
-        expect( @profile.maiden_name).to eq('Joubert')
+        begin
+          result = @profile.load_names
+          expect( @profile.assigned_name ).to eq('Gertruida Goosen')
+          expect( @profile.maiden_name).to eq('Joubert')
+        rescue Exception => e
+          expect(e.message).to be_nil
+        end  
       end
     end
 
@@ -31,10 +33,12 @@ describe NameProfile do
       end
 
       it "must be valid" do
-        result = @profile.load_names
-        expect( result ).to eq(true)
-        expect( @profile.error ).to eq(nil)
-        expect( @profile.assigned_name ).to eq('Gert Poggies Poggenpoel')
+        begin
+          result = @profile.load_names
+          expect( @profile.assigned_name ).to eq('Gert Poggies Poggenpoel')
+        rescue Exception => e
+          expect(e.message).to be_nil
+        end  
       end
     end
 
@@ -51,14 +55,15 @@ describe NameProfile do
       end
 
       it "must be valid" do
-        result = @profile.load_names
-        expect( result ).to eq(true)
-        expect( @profile.error ).to eq(nil)
-        expect( @profile.first_name ).to eq('Gert')
-        expect( @profile.middle_names ).to eq(['Koos', 'Piet', 'Jan'])
-        expect( @profile.assigned_name ).to eq('GKP Poggies')
-        birth_names = @profile.get_name(:birth_names)
-        puts birth_names
+        begin
+          result = @profile.load_names
+          expect( @profile.first_name ).to eq('Gert')
+          expect( @profile.middle_names ).to eq(['Koos', 'Piet', 'Jan'])
+          expect( @profile.assigned_name ).to eq('GKP Poggies')
+          birth_names = @profile.get_name(:birth_names)
+        rescue Exception => e
+          expect(e.message).to be_nil
+        end  
       end
     end
 
@@ -71,10 +76,12 @@ describe NameProfile do
       end
 
       it "uses public name if first name is missing" do
-        result = @profile.load_names
-        expect( result ).to eq(true)
-        expect( @profile.error ).to eq(nil)
-        expect( @profile.assigned_name ).to eq('Gertjie')
+        begin
+          result = @profile.load_names
+          expect( @profile.assigned_name ).to eq('Gertjie')
+        rescue Exception => e
+          expect(e.message).to be_nil
+        end  
       end
     end    
 
@@ -87,10 +94,12 @@ describe NameProfile do
       end
 
       it "uses public name if first name is missing" do
-        result = @profile.load_names
-        expect( result ).to eq(true)
-        expect( @profile.error ).to eq(nil)
-        expect( @profile.assigned_name ).to eq('Gertjie')
+        begin
+          result = @profile.load_names
+          expect( @profile.assigned_name ).to eq('Gertjie')
+        rescue Exception => e
+          expect(e.message).to be_nil
+        end  
       end
     end
   end
@@ -105,10 +114,12 @@ describe NameProfile do
       end
 
       it "regards 'no names' as an error" do
-        result = @profile.load_names
-        expect( result ).to eq(false)
-        expect( @profile.error ).not_to eq("")
-        expect( @profile.assigned_name ).to eq('')
+        begin
+          result = @profile.load_names
+        rescue Exception => e
+          expect( e.message ).to eq("First name is missing")
+          expect( @profile.assigned_name ).to eq('')
+        end  
       end
     end
 
@@ -121,10 +132,12 @@ describe NameProfile do
       end
 
       it "regards a blank name as an error" do
-        result = @profile.load_names
-        expect( result ).to eq(false)
-        expect( @profile.error ).to eq("Middle name is missing")
-        expect( @profile.assigned_name ).to eq('')
+        begin
+          result = @profile.load_names
+        rescue Exception => e
+          expect( e.message ).to eq("Middle name is missing")
+          expect( @profile.assigned_name ).to eq('')
+        end
       end
     end
 
@@ -136,11 +149,12 @@ describe NameProfile do
       end
 
       it "regards a missing first name as an error" do
-        result = @profile.load_names
-        expect( result ).to eq(false)
-        puts "Error: @profile.error"
-        expect( @profile.error ).to eq("Insufficient names are provided")
-        expect( @profile.assigned_name ).to eq('')
+        begin
+          result = @profile.load_names
+        rescue Exception => e
+          expect( e.message ).to eq("Insufficient names are provided")
+          expect( @profile.assigned_name ).to eq('')
+        end
       end
     end
 
@@ -152,10 +166,12 @@ describe NameProfile do
       end
 
       it "regards a missing last name as an error" do
-        result = @profile.load_names
-        expect( result ).to eq(false)
-        expect( @profile.error ).to eq("Insufficient names are provided")
-        expect( @profile.assigned_name ).to eq('')
+        begin
+          result = @profile.load_names
+        rescue Exception => e
+          expect( e.message ).to eq("Insufficient names are provided")
+          expect( @profile.assigned_name ).to eq('')
+        end
       end
     end
 
@@ -169,10 +185,12 @@ describe NameProfile do
       end
 
       it "cannot have two first names" do
-        result = @profile.load_names
-        expect( result ).to eq(false)
-        expect( @profile.error ).to eq("Only one first name is allowed")
-        expect( @profile.assigned_name ).to eq('')
+        begin 
+          result = @profile.load_names
+        rescue Exception => e
+          expect( e.message ).to eq("Only one first name is allowed")
+          expect( @profile.assigned_name ).to eq('')
+        end
       end
     end
 
@@ -187,10 +205,12 @@ describe NameProfile do
       end
 
       it "cannot have two last names" do
-        result = @profile.load_names
-        expect( result ).to eq(false)
-        expect( @profile.error ).to eq("Only one last name is allowed")
-        expect( @profile.assigned_name ).to eq('')
+        begin
+          result = @profile.load_names
+        rescue Exception => e
+          expect( e.message ).to eq("Only one first name is allowed")
+          expect( @profile.assigned_name ).to eq('')
+        end
       end
     end
 
@@ -205,10 +225,12 @@ describe NameProfile do
       end
 
       it "cannot have two maiden names" do
-        result = @profile.load_names
-        expect( result ).to eq(false)
-        expect( @profile.error ).to eq("Only one maiden name is allowed")
-        expect( @profile.assigned_name ).to eq('')
+        begin
+          result = @profile.load_names
+        rescue Exception => e
+          expect( e.message ).to eq("Only one maiden name is allowed")
+          expect( @profile.assigned_name ).to eq('')
+        end
       end
     end
 
@@ -224,10 +246,12 @@ describe NameProfile do
       end
 
       it "cannot have two public names" do
-        result = @profile.load_names
-        expect( result ).to eq(false)
-        expect( @profile.error ).to eq("Only one public name is allowed")
-        expect( @profile.assigned_name ).to eq('')
+        begin
+          result = @profile.load_names
+        rescue Exception => e
+          expect( e.message ).to eq("Only one public name is allowed")
+          expect( @profile.assigned_name ).to eq('')
+        end
       end
     end
   end

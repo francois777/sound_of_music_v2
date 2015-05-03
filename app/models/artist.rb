@@ -77,10 +77,11 @@ class Artist < ActiveRecord::Base
     def assign_name_from_supplied_names
       names = artist_names.inject([]) { |names, name| names << name }
       @name_profile = NameProfile.new(names)
-      if @name_profile.load_names
+      begin
+        @name_profile.load_names
         self.assigned_name = @name_profile.assigned_name 
-      else  
-        errors.add(:assigned_name, @name_profile.error)
+      rescue Exception => e  
+        errors.add(:assigned_name, e.message)
       end  
     end
 end
