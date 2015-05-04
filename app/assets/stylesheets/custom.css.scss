@@ -163,7 +163,7 @@ input[type="radio"] {
   .actions {
     text-align: center;
     // margin: 0 auto 16px auto;
-    display: inline-block;
+    display: block;
     .btn {
       display: inline-block;
     }
@@ -478,12 +478,12 @@ input[type="radio"] {
     }
   }
 
-  #artist-details {
-    display: block;
-    .actions {
-      display: block;
-    }
-  }
+  // #artist-details {
+  //   display: block;
+  //   .actions {
+  //     display: block;
+  //   }
+  // }
 
   #historical-period-details {
     display: block;

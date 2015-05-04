@@ -104,6 +104,7 @@ class ArtistsController < ApplicationController
     def artist_params_formatted
       new_params = artist_params
       inx = 0
+      new_params['historical_period_id'] = artist_params['historical_period_id'].to_i
       while new_params['artist_names_attributes'][inx.to_s] != nil
         new_params['artist_names_attributes'][inx.to_s]['name_type'] = artist_params['artist_names_attributes'][inx.to_s]['name_type'].to_i
         inx += 1
