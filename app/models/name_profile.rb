@@ -42,7 +42,9 @@ class NameProfile
 
     def check_sufficient_names   
       raise "No names have been provided" if @selected_names.empty?
-      raise "Insufficient names are provided" if @public_name.empty? and (@first_name.empty? or @last_name.empty?)
+      unless @public_name.present?
+        raise "Insufficient names are provided" if @first_name.empty? or @last_name.empty?
+      end
     end
 
     def add_names

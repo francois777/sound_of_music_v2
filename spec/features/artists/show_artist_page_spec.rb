@@ -16,20 +16,6 @@ feature 'Show Artist page' do
       visit root_path
     end
 
-    scenario 'signed-in user may view their own incomplete artist' do    
-      approval_params = Approval::INCOMPLETE.merge( {approvable: @artist} )
-      approval = Approval.create( approval_params )
-
-      signin(@user.email, 'password')
-      visit artist_path(@artist)
-
-      expect(page).to have_title('Artist details')
-      expect(page).to have_content(@artist.assigned_name)
-      expect(page).to have_link('Edit')
-      expect(page).not_to have_link('Approve')
-      expect(page).not_to have_link('Request revision')
-    end
-
     scenario 'non-signed-in user may not view artists with an incomplete status' do
       approval_params = Approval::INCOMPLETE.merge( {approvable: @artist} )
       Approval.create( approval_params )
@@ -47,15 +33,15 @@ feature 'Show Artist page' do
     end
 
     scenario 'signed-in approver may view any submitted artist' do    
-      approval_params = Approval::INCOMPLETE.merge( {approvable: @artist} )
+      approval_params = Approval::SUBMITTED.merge( {approvable: @artist} )
       approval = Approval.create( approval_params )
 
       signin(@approver.email, 'password')
       visit artist_path(@artist)
       expect(page).to have_title('Artist details')
       expect(page).to have_content(@artist.assigned_name)
-      expect(page).not_to have_selector("input[type=submit][value='Approve']")
-      expect(page).not_to have_selector("input[type=submit][value='Request revision']")
+      expect(page).to have_selector("input[type=submit][value='Approve']")
+      expect(page).to have_selector("input[type=submit][value='Request revision']")
     end
   end
 

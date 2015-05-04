@@ -5,27 +5,15 @@ class ArtistsController < ApplicationController
 
   def show
     authorize @artist
-    @context = "Articles"
     set_articles
+    @context = "Articles" if @articles.any?
   end
 
   def index
     @context = "Artists"
-    page_number = params[:page]
-    case params['filter'] 
-    when 'approved'
-      @artists = policy_scope(Artist).approved.paginate(page: page_number)
-    when 'submitted'
-      @artists = policy_scope(Artist).submitted.paginate(page: page_number)
-    when 'under_revision'
-      @artists = policy_scope(Artist).to_be_revised.paginate(page: page_number)  
-    when 'hist_period'
-      historical_period = HistoricalPeriod.find_historical_period_by_name(params['name'])
-      @artists = historical_period.artists.paginate(page: page_number)
-    else 
-      @artists = policy_scope(Artist).paginate(page: page_number)
-    end
-  end
+    filter = params['filter'] || 'all'
+    filter_artists(filter)
+  end  
 
   def new
     @artist = Artist.new
@@ -77,6 +65,37 @@ class ArtistsController < ApplicationController
 
   private
 
+    def filter_artists(filter)
+      if %w(approved submitted under_revision all).include? filter
+        send "show_#{filter}_artists"
+      elsif filter == "hist_period"
+        show_artists_by_hist_period(params['name'])
+      else
+        show_all_artists
+      end
+    end
+
+    def show_all_artists
+      @artists = policy_scope(Artist).paginate(page: params[:page])
+    end
+
+    def show_approved_artists
+      @artists = policy_scope(Artist).approved.paginate(page: params[:page])
+    end
+
+    def show_submitted_artists
+      @artists = policy_scope(Artist).submitted.paginate(page: params[:page])
+    end
+
+    def show_under_revision_artists
+      @artists = policy_scope(Artist).to_be_revised.paginate(page: params[:page]) 
+    end
+  
+    def show_artists_by_hist_period(name)
+      historical_period = HistoricalPeriod.find_historical_period_by_name(name)
+      show_all_artists unless historical_period
+    end
+
     def create_approval
       approval_params = Approval::SUBMITTED.merge( {approvable: @artist} )
       Approval.create( approval_params )
@@ -106,27 +125,38 @@ class ArtistsController < ApplicationController
     end
 
     def set_articles
+      @articles = Article.none
+      return unless @artist.approved?
       scoped_articles = ArticlePolicy::Scope.new(current_user, Article, @artist).resolve
-      if scoped_articles.any?
-        filter = params['filter'] || 'all'
-        if @context == 'Articles'
-          case filter
-          when 'all_for_publishable'
-            articles = scoped_articles(@artist)
-          when 'incomplete'
-            articles = scoped_articles.incomplete(@artist)
-          when 'submitted'
-            articles = scoped_articles.submitted(@artist)
-          when 'under_revision'
-            articles = scoped_articles.to_be_revised(@artist)
-          else
-            articles = scoped_articles
-          end  
-          @articles = articles.collect { |art| { art_id: art.id, title: art.title, author_name: art.author.name, email: art.author.email, approval_status: art.approval_status_display, submitted_on: art.created_at }}
-        end
-      else
-        @articles = []
+      apply_filter_to_articles(scoped_articles) if scoped_articles.any?
+    end
+
+    def apply_filter_to_articles(scoped_articles)
+      filter = params['filter'] || 'all'
+      if %w(all_for_publishable incomplete submitted under_revision all).include? filter
+         articles = send("#{filter}_articles", scoped_articles)
+         @articles = articles.collect { |art| { art_id: art.id, title: art.title, author_name: art.author.name, email: art.author.email, approval_status: art.approval_status_display, submitted_on: art.created_at }}
       end
+    end
+    
+    def all_for_publishable_articles(scoped_articles)
+      scoped_articles(@artist)
+    end
+
+    def incomplete_articles(scoped_articles)
+      scoped_articles.incomplete(@artist)
+    end
+
+    def submitted_articles(scoped_articles)
+      scoped_articles.submitted(@artist)
+    end
+
+    def under_revision_articles(scoped_articles)
+      scoped_articles.to_be_revised(@artist)
+    end
+
+    def all_articles(scoped_articles)
+      scoped_articles
     end
 
 end

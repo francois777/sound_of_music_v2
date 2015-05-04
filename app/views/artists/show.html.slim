@@ -2,7 +2,8 @@
 h1 
   = @artist.assigned_name
 
-= render partial: 'shared/painting_collection', locals: {resource: @artist}
+- if @articles.any?
+  = render partial: 'shared/painting_collection', locals: {resource: @artist}
 
 section#artist-details
   = form_for(@artist, :html => {class: "form-horizontal", :role => "form"}) do |f|
@@ -53,7 +54,7 @@ section#artist-details
     .row
       section#article-collection.clearfix
         h2 Articles
-        - if @articles and @articles.count > 0
+        - if @articles.any? and @articles.count > 0
           = render partial: 'shared/article_collection', locals: {subject: @artist, articles: @articles}          
         - else
           p = "No articles have been written on #{@artist.name}. Please write the first one!"

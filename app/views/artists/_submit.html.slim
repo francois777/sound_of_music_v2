@@ -3,8 +3,8 @@
     .actions.buttons
       .button
         - if policy(@artist).submit?
-          = form_for (@approval), html: {class: "form-horizontal buttons", role: "form"}, method: :post, url: { controller: "approvals", action: "submit" } do |f|
-            = f.hidden_field :approval_id, value: @approval.id
+          = form_for (@artist.approval), html: {class: "form-horizontal buttons", role: "form"}, method: :post, url: { controller: "approvals", action: "submit" } do |f|
+            = f.hidden_field :approval_id, value: @artist.approval.id
             = f.submit 'Submit', class: "btn btn-large btn-success"
         - if policy(@artist).delete?
           = form_for (@artist), html: {method: :delete, class: "form-horizontal", role: "form"}  do |f|
