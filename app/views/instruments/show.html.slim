@@ -13,12 +13,13 @@ h2
   = render 'submit'  
   - if policy(@approval).approve? 
     = render partial: 'shared/approve_decision', locals: {approval: @approval, resource: @instrument}
+
 - if @instrument.approved?
   .row
     section#article-collection.clearfix
       h2 Articles
-      - if @articles
-        = render 'article'
+      - if @articles.any?
+        = render partial: 'shared/article_collection', locals: {subject: @instrument, articles: @articles}          
       - else
         p No articles have been written for this instrument. Please write the first one!
   .row

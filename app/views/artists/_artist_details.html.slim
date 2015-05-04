@@ -38,8 +38,3 @@ section#artist-details
         
     = render partial: 'shared/approval_details', locals: {resource: @artist}        
 
-    .row
-      - if current_user
-        = render 'submit'  
-        = render partial: 'shared/approve_decision', locals: {approval: @artist.approval, resource: @artist}
-

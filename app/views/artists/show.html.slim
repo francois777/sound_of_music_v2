@@ -7,11 +7,16 @@ h1
 
 = render 'artist_details'
 
+- if current_user
+  = render 'submit'  
+  - if policy(@artist.approval).approve?
+    = render partial: 'shared/approve_decision', locals: {approval: @artist.approval, resource: @artist}
+
 - if @artist.approved?
   .row
     section#article-collection.clearfix
       h2 Articles
-      - if @articles.any? #and @articles.count > 0
+      - if @articles.any?
         = render partial: 'shared/article_collection', locals: {subject: @artist, articles: @articles}          
       - else
         p = "No articles have been written on #{@artist.name}. Please write the first one!"
@@ -19,3 +24,4 @@ h1
     .actions
       .btn
         = link_to 'Create new article', new_artist_article_path(@artist)     
+  
