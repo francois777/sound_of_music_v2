@@ -11,9 +11,11 @@ describe Artist do
       @approver = create(:approver)
       @countries = {}
       I18n.t('countries').each.map { |k,v| @countries[k] =  v }
+      historical_period = create(:classical_period)
       @artist = Artist.create(born_on: Date.today - 38.years, 
         born_country_code: 'za',
         submitted_by: @user,
+        historical_period: historical_period,
         artist_names_attributes: [ { name: 'John', name_type: 0}, 
                                    { name: 'Cornelius', name_type: 1},
                                    { name: 'Peterson', name_type: 2}])
@@ -62,8 +64,10 @@ describe Artist do
       @approver = create(:approver)
       @countries = {}
       I18n.t('countries').each.map { |k,v| @countries[k] =  v }
+      historical_period = create(:classical_period)
       @artist = Artist.new(born_on: Date.today - 38.years, 
         born_country_code: 'za',
+        historical_period: historical_period,
         submitted_by: @user)
     end
 
@@ -96,10 +100,12 @@ describe Artist do
       @user = create(:user)
       @approver = create(:approver)
       @countries = {}
+      historical_period = create(:classical_period)
       I18n.t('countries').each.map { |k,v| @countries[k] =  v }
       @artist = Artist.new(born_on: Date.today - 38.years, 
         born_country_code: 'za',
         submitted_by: @user,
+        historical_period: historical_period,
         artist_names_attributes: [ { name: 'John', name_type: 0}, 
                                    { name: 'Cornelius', name_type: 1},
                                    { name: 'Peterson', name_type: 2}])

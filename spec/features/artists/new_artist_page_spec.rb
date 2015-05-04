@@ -4,6 +4,7 @@ feature 'New Artist page' do
 
   before(:each) do
     @user = FactoryGirl.create(:user)
+    @historical_period = create(:classical_period)
     
     visit root_path
     signin(@user.email, 'password')
@@ -22,6 +23,7 @@ feature 'New Artist page' do
       fill_in 'Name', with: 'Ecclesias'
       select 'Last name', from: 'Name type'
     end
+    select 'Classical Period', from: 'Historical Period'
 
     click_button 'Create new artist'
     expect(page).to have_content 'Artist has been submitted'

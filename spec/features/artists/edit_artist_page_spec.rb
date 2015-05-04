@@ -8,10 +8,13 @@ feature 'Edit Artist page' do
     before(:each) do
       @user = FactoryGirl.create(:user)
       @approver = FactoryGirl.create(:approver)
+      @historical_period1 = create(:baroque_period)
+      @historical_period2 = create(:classical_period)
       @artist = Artist.create(born_on: Date.today - 38.years, 
         born_country_code: 'za',
         submitted_by: @user,
         gender: Artist.genders[:male],
+        historical_period: @historical_period1,
         artist_names_attributes: [ { name: 'John', name_type: 0}, 
                                    { name: 'Cornelius', name_type: 1},
                                    { name: 'Peterson', name_type: 2}])
@@ -32,6 +35,7 @@ feature 'Edit Artist page' do
       expect( find(:css, "input#artist_artist_names_attributes_2_name").value ).to eq('Peterson')
       expect( find(:css, "select#artist_artist_names_attributes_2_name_type").value ).to eq('2')
       expect( find(:css, "input#born-on").value ).to eq(display_date(@artist.born_on))
+      expect( find(:css, "select#artist_historical_period_id").value ).to eq(@historical_period1.id.to_s)
 
       within("#names-group .name-1") do
         fill_in 'Name', with: 'Julian'
@@ -45,9 +49,10 @@ feature 'Edit Artist page' do
         fill_in 'Name', with: 'Ecclesias'
         select 'Last name', from: 'Name type'
       end
-      # find(:css, "input#artist_gender_female").set(true)
       fill_in 'born-on', with: '31-12-1999'
       fill_in 'died-on', with: '28-02-2014'
+      select 'Classical Period', from: 'Historical Period'
+      expect( find(:css, "select#artist_historical_period_id").value ).to eq(@historical_period2.id.to_s)
       select 'Spain', from: 'Born in country'
       click_button 'Save changes'
 
@@ -61,6 +66,7 @@ feature 'Edit Artist page' do
       expect(@artist.artist_names[2].name_type).to eq("last_name")
       expect(@artist.born_on).to eq(Date.new(1999, 12, 31))
       expect(@artist.died_on).to eq(Date.new(2014, 02, 28))
+      expect( find(:css, "input#historical_period_id").value ).to eq('Classical Period')
       expect(@artist.born_country_code).to eq('es')
 
     end    

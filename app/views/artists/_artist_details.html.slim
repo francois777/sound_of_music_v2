@@ -30,7 +30,7 @@ section#artist-details
     .form-group
       = label_tag :historical_period_id, 'Historical period', class: 'col-xs-4 col-sm-4 control-label'
       .col-xs-8.col-sm-6
-        = text_field_tag :historical_period_id, @artist.historical_period_name, readonly: true, class: 'form-control'
+        = text_field_tag :historical_period_id, @artist.historical_period.name, readonly: true, class: 'form-control'
     .form-group
       = label_tag :submitted_by_id, 'Submitted by', class: 'col-xs-4 col-sm-4 control-label'
       .col-xs-8.col-sm-6

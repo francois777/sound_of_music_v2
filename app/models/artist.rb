@@ -18,6 +18,7 @@ class Artist < ActiveRecord::Base
 
   before_validation :assign_name_from_supplied_names
   validates :born_on, presence: true
+  validates :historical_period_id, numericality: { greater_than: 0 }
   validate :death_after_birth, unless: "died_on == nil"
   validate :valid_country,     unless: "born_country_code == ''"
 
@@ -46,10 +47,6 @@ class Artist < ActiveRecord::Base
 
   def name_of_type( name_type )
     @names.get_name(name_type)
-  end
-
-  def historical_period_name
-    historical_period ? historical_period.name : ""
   end
 
   def approval_status_display

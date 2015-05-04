@@ -5,7 +5,7 @@ class InstrumentsController < ApplicationController
 
   def show
     authorize @instrument
-    @context = "Articles"
+    @context = "Articles" if @instrument.approved?
     @submitted_by = @instrument.created_by.name
     @approval = @instrument.approval
     set_articles

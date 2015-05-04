@@ -3,6 +3,7 @@ FactoryGirl.define do
     submitted_by { User.user.first || create(:user) }
     born_on Date.today - 32.years
     born_country_code 'za'
+    historical_period { HistoricalPeriod.first || create(:classical_period) }
     artist_names_attributes  [ { name: 'Abraham',
                                  name_type: 0}, 
                                { name: 'Christopholus',
@@ -18,6 +19,7 @@ FactoryGirl.define do
     submitted_by { User.user.first || create(:user) }
     born_on Date.today - 30.years
     born_country_code 'za'
+    historical_period { HistoricalPeriod.first || create(:classical_period) }
     artist_names_attributes  [ { name: 'Abraham',
                                  name_type: 0}, 
                                { name: 'Christopholus',
@@ -34,6 +36,7 @@ FactoryGirl.define do
     submitted_by { User.user.first || create(:user) }
     born_on Date.today - 31.years
     born_country_code 'de'
+    historical_period { HistoricalPeriod.first || create(:classical_period) }
     artist_names_attributes  [ { name: 'Samantha',
                                  name_type: 0}, 
                                { name: 'Solomon',
@@ -46,6 +49,7 @@ FactoryGirl.define do
     submitted_by { User.user.first || create(:user) }
     born_on Date.today - 35.years
     born_country_code 'de'
+    historical_period { HistoricalPeriod.first || create(:classical_period) }
     artist_names_attributes  [ { name: 'Hilda',
                                  name_type: 0}, 
                                { name: 'Heinz',
