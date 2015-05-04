@@ -1,0 +1,22 @@
+section#instrument-details
+  = form_for(@instrument, :html => {class: "form-horizontal", :role => "form"}) do |f|
+    .form-group
+      = f.label :performer, 'Performer title', class: 'col-xs-5 col-sm-4 control-label'
+      .col-xs-7.col-sm-6
+        = f.text_field :performer, :readonly => "", :value => @instrument.performer_title, class: 'form-control'
+    - unless @instrument.origin_period.empty?
+      .form-group
+        = f.label :origin_period, 'Origin period', class: 'col-xs-5 col-sm-4 control-label'
+        .col-xs-4.col-sm-3
+          = f.text_field :origin_period, :readonly => "", :value => @instrument.origin_period, class: 'form-control'
+    - if !@instrument.other_names.empty?
+      .form-group
+        = f.label :other_names, 'Other names', class: 'col-xs-5 col-sm-4 control-label'
+        .col-xs-7.col-sm-6
+          = f.text_field :other_names, :readonly => "", :value => @instrument.other_names, class: 'form-control'
+    .form-group
+      = f.label :created_by_id, 'Created by', class: 'col-xs-5 col-sm-4 control-label'
+      .col-xs-7.col-sm-6
+        = f.text_field :created_by_id, readonly: "", value: @instrument.created_by.name, class: 'form-control'
+
+    = render partial: 'shared/approval_details', locals: {resource: @instrument}        
