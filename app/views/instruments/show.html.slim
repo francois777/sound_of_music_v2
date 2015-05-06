@@ -1,10 +1,9 @@
-- provide(:title, @instrument.name)
+- provide(:title, @display.name)
 h1 
-  = @instrument.name
+  = @display.name
 h2 
-  = @instrument.category.name
-  em = " / #{@instrument.subcategory.name}" if @instrument.subcategory
-
+  = @display.category_name
+  em = @display.subcategory_name
 = render partial: 'shared/painting_collection', locals: {resource: @instrument}
 
 = render 'instrument_details'
@@ -21,7 +20,7 @@ h2
       - if @articles.any?
         = render partial: 'shared/article_collection', locals: {subject: @instrument, articles: @articles}          
       - else
-        p No articles have been written for this instrument. Please write the first one!
+        p = @display.no_articles_message
   .row
     .actions
       .btn

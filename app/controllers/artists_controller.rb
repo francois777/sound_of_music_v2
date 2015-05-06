@@ -6,6 +6,8 @@ class ArtistsController < ApplicationController
   def show
     authorize @artist
     set_articles
+    set_artist_presenter
+    set_approval_presenter
     @context = "Articles" if @articles.any?
   end
 
@@ -130,6 +132,14 @@ class ArtistsController < ApplicationController
       return unless @artist.approved?
       scoped_articles = ArticlePolicy::Scope.new(current_user, Article, @artist).resolve
       apply_filter_to_articles(scoped_articles) if scoped_articles.any?
+    end
+
+    def set_artist_presenter
+      @display = ArtistFormPresenter.new(@artist, @articles)
+    end    
+
+    def set_approval_presenter
+      @approval_display = ApprovalFormPresenter.new(@artist.approval)
     end
 
     def apply_filter_to_articles(scoped_articles)

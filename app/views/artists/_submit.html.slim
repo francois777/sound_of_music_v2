@@ -2,14 +2,14 @@
   section.submit-decision
     .actions.buttons
       .button
-        - if policy(@artist).submit?
-          = form_for (@artist.approval), html: {class: "form-horizontal buttons", role: "form"}, method: :post, url: { controller: "approvals", action: "submit" } do |f|
-            = f.hidden_field :approval_id, value: @artist.approval.id
+        - if policy(@display.artist).submit?
+          = form_for (@display.artist.approval), html: {class: "form-horizontal buttons", role: "form"}, method: :post, url: { controller: "approvals", action: "submit" } do |f|
+            = f.hidden_field :approval_id, value: @display.artist.approval.id
             = f.submit 'Submit', class: "btn btn-large btn-success"
-        - if policy(@artist).delete?
-          = form_for (@artist), html: {method: :delete, class: "form-horizontal", role: "form"}  do |f|
+        - if policy(@display.artist).delete?
+          = form_for (@display.artist), html: {method: :delete, class: "form-horizontal", role: "form"}  do |f|
             = f.submit 'Delete', class: "btn btn-large btn-danger"
-        - if policy(@artist).edit?  
-          = link_to 'Edit', edit_artist_path(@artist) 
+        - if policy(@display.artist).edit?  
+          = link_to 'Edit', edit_artist_path(@display.artist) 
 
          

@@ -6,10 +6,10 @@ class InstrumentsController < ApplicationController
   def show
     authorize @instrument
     @context = "Articles" if @instrument.approved?
-    @submitted_by = @instrument.created_by.name
     @approval = @instrument.approval
     set_articles
-    a = 1
+    set_instrument_presenter
+    set_approval_presenter
   end
 
   def index
@@ -104,6 +104,14 @@ class InstrumentsController < ApplicationController
       new_params["subcategory_id"] = instrument_params["subcategory_id"].to_i
       new_params
     end 
+
+    def set_instrument_presenter
+      @display = InstrumentFormPresenter.new(@instrument, @articles)
+    end    
+
+    def set_approval_presenter
+      @approval_display = ApprovalFormPresenter.new(@instrument.approval)
+    end
 
     def set_articles
       scoped_articles = ArticlePolicy::Scope.new(current_user, Article, @instrument).resolve

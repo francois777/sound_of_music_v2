@@ -1,27 +1,26 @@
 - provide(:title, 'Artist details')
 h1 
-  = @artist.assigned_name
+  = @display.name
 
-- if @articles.any?
-  = render partial: 'shared/painting_collection', locals: {resource: @artist}
+- if @display.articles.any?
+  = render partial: 'shared/painting_collection', locals: {resource: @display.artist}
 
 = render 'artist_details'
 
 - if current_user
   = render 'submit'  
-  - if policy(@artist.approval).approve?
-    = render partial: 'shared/approve_decision', locals: {approval: @artist.approval, resource: @artist}
+  - if policy(@display.artist.approval).approve?
+    = render partial: 'shared/approve_decision', locals: {approval: @artist.approval, resource: @display.artist}
 
-- if @artist.approved?
+- if @display.artist.approved?
   .row
     section#article-collection.clearfix
       h2 Articles
-      - if @articles.any?
-        = render partial: 'shared/article_collection', locals: {subject: @artist, articles: @articles}          
+      - if @display.articles.any?
+        = render partial: 'shared/article_collection', locals: {subject: @display.artist, articles: @display.articles}          
       - else
-        p = "No articles have been written on #{@artist.name}. Please write the first one!"
+        p = @display.no_articles_message
   .row
     .actions
       .btn
-        = link_to 'Create new article', new_artist_article_path(@artist)     
-  
+        = link_to 'Create new article', new_artist_article_path(@display.artist)     

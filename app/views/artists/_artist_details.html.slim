@@ -1,40 +1,45 @@
 section#artist-details
-  = form_for(@artist, :html => {class: "form-horizontal", :role => "form"}) do |f|
-    .form-group
-      = label_tag :popular_name, 'Popular name', class: 'col-xs-4 col-sm-4 control-label'
-      .col-xs-8.col-sm-6
-        = text_field_tag :popular_name, @artist.assigned_name, readonly: true, class: 'form-control'
-    .form-group
-      = label_tag :birth_names, 'Birth names', class: 'col-xs-4 col-sm-4 control-label'
-      .col-xs-8.col-sm-6
-        = text_field_tag :birth_names, @artist.name_profile.birth_names, readonly: true, class: 'form-control'
-    .form-group
-      = label_tag :gender, 'Gender', class: 'col-xs-4 col-sm-4 control-label'
-      .col-xs-3.col-sm-2
-        = text_field_tag :gender, @artist.gender.titleize, readonly: true, class: 'form-control'
-    .form-group
-      = label_tag :born_on, 'Lived from/to', class: 'hidden-xs col-sm-4 control-label'
-      = label_tag :born_on, 'Born', class: 'col-xs-4 hidden-sm hidden-md hidden-lg control-label'
-      .col-xs-5.col-sm-3.col-md-3.col-lg-3
-        = text_field_tag :born_on, display_date(@artist.born_on), readonly: true, class: 'form-control'
-      .hidden-xs.col-sm-3.col-md-3.col-lg-3
-        = text_field_tag :died_on, display_date(@artist.died_on), readonly: true, class: 'form-control'
-    .form-group
-      = label_tag :died_on, 'Died', class: 'col-xs-4 hidden-sm hidden-md hidden-lg control-label'
-      .col-xs-5.hidden-sm.hidden-md.hidden-lg
-        = text_field_tag :died_on, display_date(@artist.died_on), readonly: true, class: 'form-control'
-    .form-group
-      = label_tag :born_country_code, 'Born in country', class: 'col-xs-4 col-sm-4 control-label'
-      .col-xs-8.col-sm-6
-        = text_field_tag :born_country_code, t("countries.#{@artist.born_country_code}"), readonly: true, class: 'form-control'
-    .form-group
-      = label_tag :historical_period_id, 'Historical period', class: 'col-xs-4 col-sm-4 control-label'
-      .col-xs-8.col-sm-6
-        = text_field_tag :historical_period_id, @artist.historical_period.name, readonly: true, class: 'form-control'
-    .form-group
-      = label_tag :submitted_by_id, 'Submitted by', class: 'col-xs-4 col-sm-4 control-label'
-      .col-xs-8.col-sm-6
-        = text_field_tag :submitted_by_id, @artist.submitted_by.name, readonly: true, class: 'form-control'
+  .panel-body
+    dl.dl-horizontal
+      dt
+        = label_tag :popular_name, 'Popular name'
+      dd
+        = text_field_tag :popular_name, @display.name, class: 'form-control', readonly: true
+    dl.dl-horizontal
+      dt
+        = label_tag :birth_names, 'Birth names'
+      dd
+        = text_field_tag :birth_names, @display.birth_names, class: 'form-control', readonly: true
+    dl.dl-horizontal
+      dt
+        = label_tag :gender, 'Gender'
+      dd
+        = text_field_tag :gender, @display.gender, class: 'form-control', readonly: true
+    dl.dl-horizontal
+      dt
+        = label_tag :born_on, 'Birth date'
+      dd
+        = text_field_tag :born_on, @display.born_on, class: 'form-control', readonly: true
+    dl.dl-horizontal
+      dt
+        = label_tag :died_on, 'Deceased date'
+      dd
+        = text_field_tag :died_on, @display.died_on, class: 'form-control', readonly: true
+    dl.dl-horizontal
+      dt
+        = label_tag :born_country_code, 'Born in country'
+      dd
+        = text_field_tag :born_country_code, @display.country_of_birth, class: 'form-control', readonly: true
+    dl.dl-horizontal
+      dt
+        = label_tag :historical_period_id, 'Historical period'
+      dd
+        = text_field_tag :historical_period_id, @display.historical_period_name, class: 'form-control', readonly: true
+    dl.dl-horizontal
+      dt
+        = label_tag :submitted_by_id, 'Submitted by'
+      dd
+        = text_field_tag :submitted_by_id, @display.submitted_by_name, class: 'form-control', readonly: true
         
-    = render partial: 'shared/approval_details', locals: {resource: @artist}        
+    = render partial: 'shared/approval_details', locals: {resource: @display.artist}        
 

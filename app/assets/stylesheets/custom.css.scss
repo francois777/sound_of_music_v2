@@ -130,6 +130,29 @@ input[type="radio"] {
     }
   }
 
+  #artist-details, #instrument-details {
+    display: block;
+    .panel-body {
+      margin: 0 5%;
+      color: #151;
+      dl {
+        margin-bottom: 10px;
+      }
+      .dl-horizontal dt {
+        width:120px;
+        white-space: normal;
+        margin-bottom: 5px;
+        float: left;
+      }
+      .dl-horizontal dd {
+          margin-left:130px;
+      }
+      dd input {
+        background-color: #EDFFF2;
+      }
+    }
+  }
+
   section.approval-decision {
     display: block;
     margin-bottom: 10px;
@@ -478,13 +501,6 @@ input[type="radio"] {
     }
   }
 
-  // #artist-details {
-  //   display: block;
-  //   .actions {
-  //     display: block;
-  //   }
-  // }
-
   #historical-period-details {
     display: block;
     .actions {
@@ -777,6 +793,18 @@ input[type="radio"] {
 /* Extra small devices, Phones */
 @media only screen and (min-width : 480px) {  
 
+  #artist-details, #instrument-details {
+    .panel-body {
+      margin: 0 15%;
+      .dl-horizontal dt {
+        width:120px;
+      }
+      .dl-horizontal dd {
+          margin-left:140px;
+      }
+    }
+  }
+
   #historical-periods {
     padding-top: 12px;   
     padding-bottom: 5px; 
@@ -805,6 +833,18 @@ input[type="radio"] {
 /* Small devices, Tablets */
 @media only screen and (min-width : 768px) {
 
+  #artist-details, #instrument-details {
+    .panel-body {
+      margin: 0 20%;
+      .dl-horizontal dt {
+        width:120px;
+      }
+      .dl-horizontal dd {
+          margin-left:140px;
+      }
+    }
+  }
+
   #historical-periods {
     margin: 0 18% 0 18%;
   }
@@ -830,6 +870,17 @@ input[type="radio"] {
 /* Media Devices, Desktops */
 @media only screen and (min-width : 992px) {
 
+  #artist-details, #instrument-details {
+    .panel-body {
+      margin: 0 24%;
+      .dl-horizontal dt {
+        width:120px;
+      }
+      .dl-horizontal dd {
+          margin-left:140px;
+      }
+    }
+  }
   section.approval-decision form {
 
   }
