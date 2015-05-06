@@ -1,26 +1,23 @@
 section#instrument-details
 
-  .panel-body
-    dl.dl-horizontal
-      dt
-        = label_tag :performer, 'Performer title'
-      dd
-        = text_field_tag :performer, @instrument.performer_title, class: 'form-control', readonly: true
-    dl.dl-horizontal
-      dt
-        = label_tag :origin_period, 'Birth names'
-      dd
-        = text_field_tag :origin_period, @display.origin_period, class: 'form-control', readonly: true
+  = form_for(@instrument, :html => {class: "form-horizontal", :role => "form"}) do |f|
+    .form-group
+      = label_tag :performer, 'Performer title', class: 'col-xs-5 col-sm-4 control-label'
+      .col-xs-7.col-sm-6
+        = text_field_tag :performer, @instrument.performer_title, readonly: true, class: 'form-control'
+    .form-group
+      = label_tag :origin_period, 'Origin period', class: 'col-xs-5 col-sm-4 control-label'
+      .col-xs-4.col-sm-3
+        = text_field_tag :origin_period, @display.origin_period, readonly: true, class: 'form-control'
     - if @instrument.other_names.present?
-      dl.dl-horizontal
-        dt
-          = label_tag :other_names, 'Other names'
-        dd
-          = text_field_tag :other_names, @display.instrument.other_names, class: 'form-control', readonly: true
-    dl.dl-horizontal
-      dt
-        = label_tag :created_by_id, 'Birth names'
-      dd
-        = text_field_tag :created_by_id, @display.created_by_name, class: 'form-control', readonly: true
+      .form-group
+        = label_tag :other_names, 'Other names', class: 'col-xs-5 col-sm-4 control-label'
+        .col-xs-7.col-sm-6
+          = text_field_tag :other_names, @display.instrument.other_names, readonly: true, class: 'form-control'
+    .form-group
+      = label_tag :created_by_id, 'Created by', class: 'col-xs-5 col-sm-4 control-label'
+      .col-xs-7.col-sm-6
+        = text_field_tag :created_by_id, @display.created_by_name, readonly: true, class: 'form-control'
 
     = render partial: 'shared/approval_details', locals: {resource: @display.instrument}        
+

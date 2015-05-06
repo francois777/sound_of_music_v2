@@ -1,11 +1,5 @@
 module ApplicationHelper
 
-  # def present(model, presenter_class)
-  #   klass = presenter_class
-  #   presenter = klass.new(model, self)
-  #   yield(presenter) if block_given?
-  # end
-
   def options_for_instrument_rejection
     display_reasons = {}
     Instrument::REJECTION_REASONS.each_with_index { |k,inx| display_reasons[k.to_s.humanize] = inx }
