@@ -382,6 +382,10 @@ input[type="radio"] {
       margin-top: 2px;
       height: 34px;
     } 
+    input[type='submit'] {
+      margin: 25px auto;
+      display: block;
+    }
   }
 
   select#article_theme_id {
