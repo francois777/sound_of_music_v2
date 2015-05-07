@@ -4,11 +4,13 @@ class ApprovalsController < ApplicationController
   before_action :set_approval
 
   def submit
+    authorize @approval
     process_submittal
     redirect_to [@approval.approvable]
   end
 
   def approve
+    authorize @approval
     params[:commit] == "Approve" ? process_approval : process_rejection
     if @approval.approvable.class.name == 'Photo'
       redirect_to [@approval.approvable.imageable, @approval.approvable]
@@ -17,6 +19,11 @@ class ApprovalsController < ApplicationController
     else  
       redirect_to [@approval.approvable]
     end
+  end
+
+  def user_not_authorized
+    flash[:alert] = "You may not perform this action."
+    redirect_to (request.referrer || root_path)
   end
 
   private
