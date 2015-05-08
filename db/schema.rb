@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150507104308) do
+ActiveRecord::Schema.define(version: 20150427035259) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -42,17 +42,6 @@ ActiveRecord::Schema.define(version: 20150507104308) do
   add_index "articles", ["author_id"], name: "index_article_author", using: :btree
   add_index "articles", ["publishable_id", "publishable_type"], name: "index_articles_on_publishable_id_and_publishable_type", using: :btree
 
-  create_table "artist_contributions", force: :cascade do |t|
-    t.integer  "artist_id",            null: false
-    t.integer  "contribution_type_id", null: false
-    t.text     "comment"
-    t.datetime "created_at",           null: false
-    t.datetime "updated_at",           null: false
-  end
-
-  add_index "artist_contributions", ["artist_id", "contribution_type_id"], name: "index_artist_contribution_pk", using: :btree
-  add_index "artist_contributions", ["artist_id"], name: "index_contribution_by_artist_id", using: :btree
-
   create_table "artist_names", force: :cascade do |t|
     t.integer "artist_id"
     t.string  "name"
@@ -71,22 +60,11 @@ ActiveRecord::Schema.define(version: 20150507104308) do
     t.integer  "submitted_by_id",                   null: false
     t.datetime "created_at",                        null: false
     t.datetime "updated_at",                        null: false
-    t.integer  "person_or_group",      default: 0
   end
 
   create_table "categories", force: :cascade do |t|
     t.string "name"
   end
-
-  create_table "contribution_types", force: :cascade do |t|
-    t.text    "definition"
-    t.integer "classification", default: 11
-    t.integer "group_type",     default: 0
-    t.integer "voice_type",     default: 1
-    t.string  "name"
-  end
-
-  add_index "contribution_types", ["name"], name: "index_contribution_type_by_name", using: :btree
 
   create_table "historical_periods", force: :cascade do |t|
     t.string "name"
