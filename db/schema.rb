@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150430075354) do
+ActiveRecord::Schema.define(version: 20150507104308) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -42,7 +42,7 @@ ActiveRecord::Schema.define(version: 20150430075354) do
   add_index "articles", ["author_id"], name: "index_article_author", using: :btree
   add_index "articles", ["publishable_id", "publishable_type"], name: "index_articles_on_publishable_id_and_publishable_type", using: :btree
 
-  create_table "artist_contribution", force: :cascade do |t|
+  create_table "artist_contributions", force: :cascade do |t|
     t.integer  "artist_id",            null: false
     t.integer  "contribution_type_id", null: false
     t.text     "comment"
@@ -50,8 +50,8 @@ ActiveRecord::Schema.define(version: 20150430075354) do
     t.datetime "updated_at",           null: false
   end
 
-  add_index "artist_contribution", ["artist_id", "contribution_type_id"], name: "index_artist_contribution_pk", using: :btree
-  add_index "artist_contribution", ["artist_id"], name: "index_contribution_by_artist_id", using: :btree
+  add_index "artist_contributions", ["artist_id", "contribution_type_id"], name: "index_artist_contribution_pk", using: :btree
+  add_index "artist_contributions", ["artist_id"], name: "index_contribution_by_artist_id", using: :btree
 
   create_table "artist_names", force: :cascade do |t|
     t.integer "artist_id"
