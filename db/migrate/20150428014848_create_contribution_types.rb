@@ -23,6 +23,6 @@ class CreateContributionTypes < ActiveRecord::Migration
     drop_table :artist_contribution
     drop_table :contribution_types
 
-    remove_column :artists, :person_or_group
+    remove_column :artists, :person_or_group if column_exists?(:artists, :person_or_group)
   end
 end

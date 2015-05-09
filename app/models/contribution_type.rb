@@ -7,11 +7,11 @@ class ContributionType < ActiveRecord::Base
   enum voice_type: [:not_applicable, :alto, :baritone, :bass, :contraldo, :countertenor, :mezzo_soprano, :soprano, :tenor]
 
   before_validation :set_types
-  before_save :assign_name
 
   validates :definition, presence: true,
                    uniqueness: { case_sensitive: false },
                    length: { minimum: 10 }
+  validates :name, presence: true
   validates_uniqueness_of :classification, scope: [:group_type, :voice_type]               
   validate :group_type_required, if: :group_of_musicians?
   validate :voice_type_required, if: :vocalist?
@@ -24,26 +24,18 @@ class ContributionType < ActiveRecord::Base
 
   private
 
-    def assign_name
-      case classification
-      when 'group_of_musicians'
-        self.name = group_type.humanize
-      when 'vocalist'
-        self.name = "#{voice_type.humanize} voice"
-      else
-        self.name = classification.humanize
-      end    
-    end
-
     def set_types
       case classification
       when 'group_of_musicians'
         self.voice_type = :not_applicable
+        self.name = group_type.humanize
       when 'vocalist'
         self.group_type = :individual
+        self.name = "#{voice_type.humanize} voice"
       else
         self.voice_type = :not_applicable
-        self.group_type = :individual        
+        self.group_type = :individual
+        self.name = classification.humanize    
       end
     end
 

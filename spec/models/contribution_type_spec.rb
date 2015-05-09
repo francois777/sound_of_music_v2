@@ -30,6 +30,28 @@ describe ContributionType do
     expect { contribution_type2.save! }.to raise_error
   end
 
+  it "cannot provide a voice type with a group" do
+    @contribution_type.classification = 'group_of_musicians'
+    @contribution_type.voice_type = 'soprano'
+    expect { @contribution_type.save! }.to raise_error(ActiveRecord::RecordInvalid)
+  end
+
+  it "the group type of a vocalist is automatically set to 'individual'" do
+    @contribution_type.classification = 'vocalist'
+    @contribution_type.voice_type = 'bass'
+    @contribution_type.group_type = 'band'
+    @contribution_type.save!
+    expect( @contribution_type.group_type ).to eq('individual')
+  end
+
+  it "the voice_type of a group is automatically set to 'not_applicable'" do
+    @contribution_type.classification = 'group_of_musicians'
+    @contribution_type.voice_type = 'bass'
+    @contribution_type.group_type = 'band'
+    @contribution_type.save!
+    expect( @contribution_type.voice_type ).to eq('not_applicable')
+  end
+
   it "generates the correct voice type" do 
     ct_params = [ {classification: :conductor, definition: 'Definition of conductor'},
                {classification: :group_of_musicians, group_type: :orchestra, definition: 'Definition of orchestra'},

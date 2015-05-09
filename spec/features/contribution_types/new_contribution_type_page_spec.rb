@@ -10,7 +10,7 @@ feature 'New ContributionType page' do
     visit new_contribution_type_path
   end
 
-  scenario 'signed-in user creates a valid historical period' do    
+  scenario 'signed-in user creates a valid contribution type' do    
     expect(page).to have_title('New Contribution Type')
     expect(page).to have_selector('h1', text: "New Contribution Type")
     expect(page).to have_content('Classification')
@@ -28,7 +28,7 @@ feature 'New ContributionType page' do
     expect( find(:css, "textarea#contribution_type_definition").value ).to eq('This is what Alto means')
   end
 
-  scenario 'signed-in user creates an invalid historical period' do
+  scenario 'signed-in user creates an invalid contribution type' do
     expect(page).to have_title('New Contribution Type')
     select 'Composer', from: 'classification'
     click_button 'Create new Contribution Type'

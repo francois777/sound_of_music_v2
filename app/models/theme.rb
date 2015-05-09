@@ -5,5 +5,8 @@ class Theme < ActiveRecord::Base
   scope :instruments, -> { 
     where("subject = ?", Theme.subjects[:instruments])
   } 
+  scope :artists, -> { 
+    where("subject = ?", Theme.subjects[:artists])
+  } 
   
 end

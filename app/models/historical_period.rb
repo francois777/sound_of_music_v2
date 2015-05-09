@@ -9,6 +9,22 @@ class HistoricalPeriod < ActiveRecord::Base
 
   default_scope -> { order('period_from ASC') }
 
+  scope :medieval, -> {
+    where("name = ?", "Medieval Period").first
+  }
+  scope :renaissance, -> {
+    where("name = ?", "Renaissance Period").first
+  }
+  scope :baroque, -> {
+    where("name = ?", "Baroque Period").first
+  }
+  scope :classical, -> { 
+    where("name = ?", 'Classical Period').first
+  }
+  scope :romantic, -> {
+    where("name = ?", 'Romantic Period').first
+  }
+
   def self.find_historical_period_by_name(name)
     period = HistoricalPeriod.where("name LIKE ?", "#{name}%").first
   end
