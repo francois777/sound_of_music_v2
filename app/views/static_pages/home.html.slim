@@ -42,6 +42,14 @@ section#home_page
           = label_tag :born_country_code, 'Born in country', class: 'col-xs-4 col-sm-4 control-label'
           .col-xs-8.col-sm-8
             = text_field_tag :born_country_code, t("countries.#{@artist.born_country_code}"), readonly: true, class: 'form-control'
+        .form-group
+          = label_tag :historical_period_id, 'Historical period', class: 'col-xs-4 col-sm-4 control-label'
+          .col-xs-8.col-sm-6
+            = text_field_tag :historical_period_id, @artist.historical_period.name, readonly: true, class: 'form-control'
+        .form-group
+          = label_tag :submitted_by_id, 'Submitted by', class: 'col-xs-4 col-sm-4 control-label'
+          .col-xs-8.col-sm-6
+            = text_field_tag :submitted_by_id, @artist.submitted_by.name, readonly: true, class: 'form-control'
 
 javascript:
 

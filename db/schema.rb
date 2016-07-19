@@ -32,13 +32,15 @@ ActiveRecord::Schema.define(version: 20150507104308) do
     t.string   "title"
     t.integer  "publishable_id"
     t.string   "publishable_type"
-    t.integer  "author_id",        null: false
-    t.integer  "theme_id",         null: false
+    t.integer  "author_id",                    null: false
+    t.integer  "theme_id",                     null: false
     t.text     "body"
-    t.datetime "created_at",       null: false
-    t.datetime "updated_at",       null: false
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
+    t.integer  "approver_id",      default: 0
   end
 
+  add_index "articles", ["approver_id"], name: "index_article_approver", using: :btree
   add_index "articles", ["author_id"], name: "index_article_author", using: :btree
   add_index "articles", ["publishable_id", "publishable_type"], name: "index_articles_on_publishable_id_and_publishable_type", using: :btree
 

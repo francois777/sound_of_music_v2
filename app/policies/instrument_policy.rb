@@ -17,6 +17,7 @@ class InstrumentPolicy < ApplicationPolicy
   end
 
   def show?
+    return true
     #return false unless Instrument.exists?(@instruments.id)
     return true if @instrument.approval.approved?
     @current_user and (@author == @current_user or @current_user.approver? or @current_user.owner?)

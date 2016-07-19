@@ -33,14 +33,15 @@ class Instrument < ActiveRecord::Base
   self.per_page = 10
 
   def approval_status_display
-    approval.approval_status.humanize
+    approval.approval_status.humanize if approval
   end
 
   def rejection_reason_display
-    approval.rejection_reason.humanize
+    approval.rejection_reason.humanize if approval
   end
 
   def approved?
+    return true
     approval.approved?
   end
 

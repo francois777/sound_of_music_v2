@@ -1,5 +1,5 @@
 class CreateArtists < ActiveRecord::Migration
-  def change
+  def self.up
     create_table :artists do |t|
       t.datetime :born_on
       t.datetime :died_on
@@ -26,6 +26,11 @@ class CreateArtists < ActiveRecord::Migration
       t.timestamps null: false
     end
     add_index :approvals, [:approvable_id, :approvable_type]
+  end
 
+  def self.down
+    drop_table :approvals
+    drop_table :artist_names
+    drop_table :artists
   end
 end

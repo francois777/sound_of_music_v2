@@ -23,7 +23,7 @@ h3
         = render partial: 'shared/approve_decision', locals: {approval: @approval, resource: @photo}
     .actions
       .buttons 
-        .btn.pull-left
+        .btn
           = link_to 'Back to article', instrument_article_path(@subject, @collection) if @subject.is_a? Instrument
         - if current_user and (current_user.approver? or current_user == @photo.submitted_by)
           .btn  

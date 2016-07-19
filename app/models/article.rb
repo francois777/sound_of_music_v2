@@ -14,6 +14,9 @@ class Article < ActiveRecord::Base
   validates :title, :body, :author, :theme, presence: true
   validates :title, length: { minimum: 5, maximum: 50 }
 
+  scope :all_for_publishable_type, -> (publishable_type) {
+    where('publishable_type = ?', publishable_type)
+  }
   scope :all_for_publishable, -> (publishable) {
     where('articles.publishable_type = ? AND articles.publishable_id = ?', 
       publishable.class.name, publishable.id)

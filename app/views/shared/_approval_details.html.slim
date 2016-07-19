@@ -1,5 +1,5 @@
 - if current_user and policy(resource).view_approval_info? 
-  - if resource.approval.approver
+  - if resource.approval and resource.approval.approver
 
     .form-group
       = label_tag :approver, 'Approver', class: 'col-xs-4 col-sm-4 control-label'
